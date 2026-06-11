@@ -1,0 +1,6 @@
+{
+  "name": "NilePixel Technologies",
+  "description": "Production-ready enterprise software agency platform with dynamic public website and CMS admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
