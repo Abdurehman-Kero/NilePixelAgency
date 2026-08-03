@@ -493,12 +493,12 @@ export const getCareers = async (req: Request, res: Response) => {
 };
 
 export const createCareer = async (req: AuthRequest, res: Response) => {
-  const { job_title, department, employment_type, location, description, requirements, responsibilities, salary, expire_date, telegram_username } = req.body;
+  const { job_title, department, employment_type, location, description, requirements, responsibilities, salary, expire_date } = req.body;
   const uuid = 'job-' + Date.now();
   const result = await run(`
-    INSERT INTO careers (uuid, job_title, department, employment_type, location, description, requirements, responsibilities, salary, expire_date, status, telegram_username)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'open', ?)
-  `, [uuid, job_title, department, employment_type || 'Full-time', location || 'Remote', description, requirements, responsibilities, salary, expire_date || null, telegram_username || null]);
+    INSERT INTO careers (uuid, job_title, department, employment_type, location, description, requirements, responsibilities, salary, expire_date, status)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'open')
+  `, [uuid, job_title, department, employment_type || 'Full-time', location || 'Remote', description, requirements, responsibilities, salary, expire_date || null]);
 
   await logActivity(req.user?.id || null, req.user?.email || null, 'CREATE_CAREER', 'careers', `Created job opening: ${job_title}`);
   return sendSuccess(res, 'Job opening created.', { id: result.lastID, uuid }, 201);
@@ -506,12 +506,12 @@ export const createCareer = async (req: AuthRequest, res: Response) => {
 
 export const updateCareer = async (req: AuthRequest, res: Response) => {
   const { id } = req.params;
-  const { job_title, department, employment_type, location, description, requirements, responsibilities, salary, expire_date, status, telegram_username } = req.body;
+  const { job_title, department, employment_type, location, description, requirements, responsibilities, salary, expire_date, status } = req.body;
   
   await run(`
-    UPDATE careers SET job_title = ?, department = ?, employment_type = ?, location = ?, description = ?, requirements = ?, responsibilities = ?, salary = ?, expire_date = ?, status = ?, telegram_username = ?
+    UPDATE careers SET job_title = ?, department = ?, employment_type = ?, location = ?, description = ?, requirements = ?, responsibilities = ?, salary = ?, expire_date = ?, status = ?
     WHERE id = ?
-  `, [job_title, department, employment_type || 'Full-time', location || 'Remote', description, requirements, responsibilities, salary, expire_date || null, status || 'open', telegram_username || null, id]);
+  `, [job_title, department, employment_type || 'Full-time', location || 'Remote', description, requirements, responsibilities, salary, expire_date || null, status || 'open', id]);
 
   await logActivity(req.user?.id || null, req.user?.email || null, 'UPDATE_CAREER', 'careers', `Updated job opening ID: ${id}`);
   return sendSuccess(res, 'Job opening updated successfully.');
@@ -631,8 +631,22 @@ export const getCategories = async (req: Request, res: Response) => {
 export const createCategory = async (req: AuthRequest, res: Response) => {
   const { type, name, slug, description } = req.body;
   const catSlug = slug || name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  const result = await run(`INSERT INTO categories (type, name, slug, description) VALUES (?, ?, ?, ?)`, [type, name, catSlug, description]);
+  const result = await run(`INSERT INTO categories (type, name, slug, description) VALUES (?, ?, ?, ?)`, [type, name, catSlug, description || null]);
   return sendSuccess(res, 'Category created.', { id: result.lastID, slug: catSlug }, 201);
+};
+
+export const updateCategory = async (req: AuthRequest, res: Response) => {
+  const { id } = req.params;
+  const { type, name, slug, description } = req.body;
+  const catSlug = slug || name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  await run(`UPDATE categories SET type = ?, name = ?, slug = ?, description = ? WHERE id = ?`, [type, name, catSlug, description || null, id]);
+  return sendSuccess(res, 'Category updated successfully.');
+};
+
+export const deleteCategory = async (req: AuthRequest, res: Response) => {
+  const { id } = req.params;
+  await run(`DELETE FROM categories WHERE id = ?`, [id]);
+  return sendSuccess(res, 'Category deleted successfully.');
 };
 
 export const getTechnologies = async (req: Request, res: Response) => {

@@ -6,8 +6,8 @@ import { Logo } from '../../components/ui/Logo';
 import { ShieldCheck, Lock, Mail, ArrowRight, AlertCircle } from 'lucide-react';
 
 export const AdminLogin: React.FC = () => {
-  const [email, setEmail] = useState('admin@nilepixel.com');
-  const [password, setPassword] = useState('admin123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
@@ -73,13 +73,6 @@ export const AdminLogin: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-3 bg-[#08111F] rounded-xl border border-[#23344F] text-[11px] text-gray-400">
-            <span className="text-[#00A3FF] font-semibold">Demo Admin Credentials:</span>
-            <br />
-            Email: <code className="text-white font-mono">admin@nilepixel.com</code>
-            <br />
-            Password: <code className="text-white font-mono">admin123</code>
-          </div>
 
           <button
             type="submit"

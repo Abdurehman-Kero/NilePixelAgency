@@ -24,8 +24,7 @@ export const CareersCMS: React.FC = () => {
     responsibilities: '',
     salary: '',
     expire_date: '',
-    status: 'open',
-    telegram_username: ''
+    status: 'open'
   });
 
   const fetchData = async () => {
@@ -57,13 +56,12 @@ export const CareersCMS: React.FC = () => {
         responsibilities: job.responsibilities || '',
         salary: job.salary || '',
         expire_date: job.expire_date ? job.expire_date.split('T')[0] : '',
-        status: job.status || 'open',
-        telegram_username: job.telegram_username || ''
+        status: job.status || 'open'
       });
     } else {
       setFormData({
         job_title: '', department: '', employment_type: 'Full-time', location: 'Remote',
-        description: '', requirements: '', responsibilities: '', salary: '', expire_date: '', status: 'open', telegram_username: ''
+        description: '', requirements: '', responsibilities: '', salary: '', expire_date: '', status: 'open'
       });
     }
     setIsModalOpen(true);
@@ -264,10 +262,6 @@ export const CareersCMS: React.FC = () => {
                     <option value="open">Open</option>
                     <option value="closed">Closed</option>
                   </select>
-                </div>
-                <div>
-                  <label className="block text-[#A9B4C5] mb-1">Telegram Username (Contact)</label>
-                  <input type="text" value={formData.telegram_username} onChange={(e)=>setFormData({...formData, telegram_username: e.target.value})} className="w-full bg-[#101C2F] border border-[#23344F] rounded-xl px-3 py-2 text-white" placeholder="@username"/>
                 </div>
               </div>
 

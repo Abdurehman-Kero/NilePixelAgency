@@ -10,7 +10,7 @@ import {
   submitContactForm, getContactSubmissions, updateContactStatus,
   getCareers, createCareer, updateCareer, deleteCareer, submitJobApplication, getJobApplications, updateJobApplication,
   uploadMediaFile, getMediaFiles, deleteMediaFile,
-  getDashboardStats, getActivityLogs, getCategories, createCategory, getTechnologies
+  getDashboardStats, getActivityLogs, getCategories, createCategory, updateCategory, deleteCategory, getTechnologies
 } from '../controllers/index.js';
 import { authenticateToken, requireAdmin } from '../middleware/auth.js';
 import { upload } from '../middleware/upload.js';
@@ -29,6 +29,8 @@ router.put('/settings', authenticateToken, requireAdmin, updateSiteSettings);
 // --- Categories & Technologies ---
 router.get('/categories', getCategories);
 router.post('/categories', authenticateToken, requireAdmin, createCategory);
+router.put('/categories/:id', authenticateToken, requireAdmin, updateCategory);
+router.delete('/categories/:id', authenticateToken, requireAdmin, deleteCategory);
 router.get('/technologies', getTechnologies);
 
 // --- Services Routes ---

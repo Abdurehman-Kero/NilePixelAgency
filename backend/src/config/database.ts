@@ -295,15 +295,15 @@ export const initDatabase = async () => {
         salary TEXT,
         expire_date DATETIME,
         status TEXT DEFAULT 'open',
-        telegram_username TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )
     `);
 
     // Ensure columns exist if table was created in older version
-    try { await run("ALTER TABLE careers ADD COLUMN expire_date DATETIME"); } catch (e) {}
-    try { await run("ALTER TABLE careers ADD COLUMN status TEXT DEFAULT 'open'"); } catch (e) {}
-    try { await run("ALTER TABLE careers ADD COLUMN telegram_username TEXT"); } catch (e) {}
+    const careersInfo = await query("PRAGMA table_info(careers)");
+    const careersCols = careersInfo.map(c => c.name);
+    if (!careersCols.includes('expire_date')) await run("ALTER TABLE careers ADD COLUMN expire_date DATETIME");
+    if (!careersCols.includes('status')) await run("ALTER TABLE careers ADD COLUMN status TEXT DEFAULT 'open'");
 
     await run(`
       CREATE TABLE IF NOT EXISTS job_applications (
@@ -325,7 +325,9 @@ export const initDatabase = async () => {
       )
     `);
 
-    try { await run("ALTER TABLE job_applications ADD COLUMN telegram_username TEXT"); } catch (e) {}
+    const jobAppsInfo = await query("PRAGMA table_info(job_applications)");
+    const jobAppsCols = jobAppsInfo.map(c => c.name);
+    if (!jobAppsCols.includes('telegram_username')) await run("ALTER TABLE job_applications ADD COLUMN telegram_username TEXT");
 
     await run(`
       CREATE TABLE IF NOT EXISTS media (

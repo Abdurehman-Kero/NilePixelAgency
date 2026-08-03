@@ -30,34 +30,7 @@ export const About: React.FC = () => {
     api.get('/team').then(res => res.success && setTeam(res.data || []));
   }, []);
 
-  const defaultTeam = [
-    {
-      name: 'Kena Girma',
-      position: 'CEO & Founder',
-      photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=100',
-      span: 'col-span-1 row-span-2 h-[550px]'
-    },
-    {
-      name: 'Tesfaye Adugna',
-      position: 'CTO & Engineer @ Google',
-      photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=100',
-      span: 'col-span-2 row-span-1 h-[250px]'
-    },
-    {
-      name: 'Admas Terefe',
-      position: 'COO',
-      photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=100',
-      span: 'col-span-1 row-span-1 h-[280px]'
-    },
-    {
-      name: 'Fita Wegene',
-      position: 'Software Engineer',
-      photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=1200&q=100',
-      span: 'col-span-1 row-span-1 h-[280px]'
-    }
-  ];
-
-  const teamList = team.length > 0 ? team : defaultTeam;
+  const teamList = team;
   const values = ['Innovation', 'Excellence', 'Integrity', 'Collaboration', 'Customer Focus'];
 
   const translatedGoals = (t('about.goals') as unknown as string[]) || [

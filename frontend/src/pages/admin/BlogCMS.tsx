@@ -6,12 +6,14 @@ import { Plus, Edit2, Trash2, X } from 'lucide-react';
 
 export const BlogCMS: React.FC = () => {
   const [posts, setPosts] = useState<any[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editItem, setEditItem] = useState<any>(null);
 
   const [formData, setFormData] = useState({
     title: '',
     slug: '',
+    category_id: '',
     excerpt: '',
     content: '',
     cover_image: '',
@@ -27,11 +29,16 @@ export const BlogCMS: React.FC = () => {
 
   useEffect(() => {
     fetchPosts();
+    api.get('/categories').then(res => {
+      if (res.success && res.data) {
+        setCategories(res.data.filter((c: any) => c.type === 'blog'));
+      }
+    });
   }, []);
 
   const openCreateModal = () => {
     setEditItem(null);
-    setFormData({ title: '', slug: '', excerpt: '', content: '', cover_image: '', author_name: 'Yonas Tadesse', reading_time: '5 min read', published: true });
+    setFormData({ title: '', slug: '', category_id: categories[0]?.id || '', excerpt: '', content: '', cover_image: '', author_name: 'Yonas Tadesse', reading_time: '5 min read', published: true });
     setModalOpen(true);
   };
 
@@ -40,6 +47,7 @@ export const BlogCMS: React.FC = () => {
     setFormData({
       title: item.title,
       slug: item.slug,
+      category_id: item.category_id || '',
       excerpt: item.excerpt || '',
       content: item.content || '',
       cover_image: item.cover_image || '',
@@ -117,7 +125,7 @@ export const BlogCMS: React.FC = () => {
 
       {modalOpen && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#101C2F] border border-[#23344F] rounded-2xl max-w-2xl w-full p-6 space-y-4 text-white relative">
+          <div className="bg-[#101C2F] border border-[#23344F] rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 space-y-4 text-white relative">
             <button onClick={() => setModalOpen(false)} className="absolute top-4 right-4 text-gray-400 hover:text-white">
               <X className="w-5 h-5" />
             </button>
@@ -139,6 +147,21 @@ export const BlogCMS: React.FC = () => {
                     onChange={e => setFormData({ ...formData, slug: e.target.value })}
                     className="w-full bg-[#08111F] border border-[#23344F] rounded-xl px-3 py-2 text-white font-mono"
                   />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[#A9B4C5] mb-1">Category</label>
+                  <select
+                    value={formData.category_id}
+                    onChange={e => setFormData({ ...formData, category_id: e.target.value })}
+                    className="w-full bg-[#08111F] border border-[#23344F] rounded-xl px-3 py-2 text-white outline-none"
+                  >
+                    <option value="">Select Category</option>
+                    {categories.map((c: any) => (
+                      <option key={c.id} value={c.id}>{c.name}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
               <ImageUploader

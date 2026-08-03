@@ -26,7 +26,7 @@ export const CareersPage: React.FC = () => {
         const now = new Date().getTime();
         const validJobs = res.data.filter((j: any) => {
           if (j.status !== 'open') return false;
-          if (j.expire_date && new Date(j.expire_date).getTime() < now) return false;
+          if (j.expire_date && new Date(j.expire_date + 'T23:59:59').getTime() < now) return false;
           return true;
         });
         setCareers(validJobs);
@@ -88,11 +88,6 @@ export const CareersPage: React.FC = () => {
                   <span className="px-2 py-0.5 rounded bg-[#08111F] text-[#00A3FF] border border-[#23344F] text-[10px] font-mono">{job.department}</span>
                 </div>
                 <p className="text-xs text-[#A9B4C5] leading-relaxed">{job.description}</p>
-                {job.telegram_username && (
-                  <p className="text-xs text-[#00E599] font-medium pt-1">
-                    Direct Contact: {job.telegram_username}
-                  </p>
-                )}
               </div>
 
               <button onClick={() => handleApply(job)} className="px-5 py-2.5 rounded-xl bg-[#0F6FFF] hover:bg-[#005FE0] text-xs font-semibold text-white whitespace-nowrap self-start sm:self-center transition-colors">

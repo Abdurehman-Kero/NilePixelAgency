@@ -76,7 +76,7 @@ export const Home: React.FC = () => {
         const now = new Date().getTime();
         const validJobs = res.data.filter((j: any) => {
           if (j.status !== 'open') return false;
-          if (j.expire_date && new Date(j.expire_date).getTime() < now) return false;
+          if (j.expire_date && new Date(j.expire_date + 'T23:59:59').getTime() < now) return false;
           return true;
         });
         setActiveJobs(validJobs);

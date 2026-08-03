@@ -170,7 +170,7 @@ export const ProjectsCMS: React.FC = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-3 gap-4">
                 <div>
                   <label className="block text-[#A9B4C5] mb-1">Client Name</label>
                   <input
@@ -186,6 +186,19 @@ export const ProjectsCMS: React.FC = () => {
                     onChange={e => setFormData({ ...formData, industry: e.target.value })}
                     className="w-full bg-[#08111F] border border-[#23344F] rounded-xl px-3 py-2 text-white"
                   />
+                </div>
+                <div>
+                  <label className="block text-[#A9B4C5] mb-1">Category</label>
+                  <select
+                    value={formData.category_id}
+                    onChange={e => setFormData({ ...formData, category_id: e.target.value })}
+                    className="w-full bg-[#08111F] border border-[#23344F] rounded-xl px-3 py-2 text-white outline-none"
+                  >
+                    <option value="">Select Category</option>
+                    {categories.map((c: any) => (
+                      <option key={c.id} value={c.id}>{c.name}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
 
