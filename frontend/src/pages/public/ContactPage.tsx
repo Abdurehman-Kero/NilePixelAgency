@@ -4,17 +4,18 @@ import { Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
 import { Skeleton } from '../../components/ui/Skeleton';
 
 export const ContactPage: React.FC = () => {
- const [formData, setFormData] = useState({
- name: '',
- email: '',
- phone: '',
- company: '',
- budget: '$10k - $25k',
- service: 'Custom Software',
- message: ''
- });
- const [submitted, setSubmitted] = useState(false);
- const [sending, setSending] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    budget: '$10k - $25k',
+    service: 'Custom Software',
+    message: ''
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [siteEmail, setSiteEmail] = useState('info@nilepixel.com');
   const [sitePhone, setSitePhone] = useState('+251982310974');
   const [loading, setLoading] = useState(true);
@@ -32,16 +33,17 @@ export const ContactPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSending(true);
+    setErrorMsg(null);
     try {
       const res = await api.post('/contact', formData);
       if (res && res.success) {
         setSubmitted(true);
       } else {
-        alert(res?.message || 'Failed to submit inquiry. Please try again.');
+        setErrorMsg(res?.message || 'Failed to submit inquiry. Please try again.');
       }
     } catch (err) {
       console.error(err);
-      alert('Network error. Please try again later.');
+      setErrorMsg('Network error. Please check your connection and try again.');
     } finally {
       setSending(false);
     }
@@ -98,6 +100,11 @@ export const ContactPage: React.FC = () => {
  </div>
  ) : (
  <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+ {errorMsg && (
+   <div className="bg-red-500/10 border border-red-500/50 text-red-400 px-4 py-3 rounded-xl mb-4">
+     {errorMsg}
+   </div>
+ )}
  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
  <div>
  <label className="block text-[#A9B4C5] mb-1">Your Name *</label>
