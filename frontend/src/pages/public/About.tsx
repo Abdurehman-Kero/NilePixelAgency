@@ -136,7 +136,7 @@ export const About: React.FC = () => {
               index === 1 ? 'col-span-1 sm:col-span-2 row-span-1 h-[200px] sm:h-[250px]' : 
               index === 2 || index === 3 ? 'col-span-1 row-span-1 h-[200px] sm:h-[280px]' :
               index === 4 ? 'col-span-1 row-span-1 h-[200px] sm:h-[250px]' :
-              index === 5 ? 'col-span-1 sm:col-span-2 row-span-1 h-[200px] sm:h-[250px]' :
+              index === 5 ? 'col-span-2 sm:col-span-2 row-span-1 h-[200px] sm:h-[250px]' :
               'col-span-1 row-span-1 h-[200px] sm:h-[280px]';
 
             return (
@@ -153,7 +153,7 @@ export const About: React.FC = () => {
     index === 1 ? 'col-span-1 sm:col-span-2 row-span-1 h-[200px] sm:h-[250px]' : 
     index === 2 || index === 3 ? 'col-span-1 row-span-1 h-[200px] sm:h-[280px]' :
     index === 4 ? 'col-span-1 row-span-1 h-[200px] sm:h-[250px]' :
-    index === 5 ? 'col-span-1 sm:col-span-2 row-span-1 h-[200px] sm:h-[250px]' :
+    index === 5 ? 'col-span-2 sm:col-span-2 row-span-1 h-[200px] sm:h-[250px]' :
     'col-span-1 row-span-1 h-[200px] sm:h-[280px]'
   );
 
