@@ -29,15 +29,23 @@ export const ContactPage: React.FC = () => {
     }).finally(() => setLoading(false));
   }, []);
 
- const handleSubmit = async (e: React.FormEvent) => {
- e.preventDefault();
- setSending(true);
- const res = await api.post('/contact', formData);
- if (res.success) {
- setSubmitted(true);
- }
- setSending(false);
- };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSending(true);
+    try {
+      const res = await api.post('/contact', formData);
+      if (res && res.success) {
+        setSubmitted(true);
+      } else {
+        alert(res?.message || 'Failed to submit inquiry. Please try again.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Network error. Please try again later.');
+    } finally {
+      setSending(false);
+    }
+  };
 
  return (
  <div className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-white space-y-12 relative">
