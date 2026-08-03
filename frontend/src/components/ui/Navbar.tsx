@@ -46,7 +46,7 @@ export const Navbar: React.FC = () => {
 
  <Link
  to="/contact"
- className="px-3 py-1.5 sm:px-4 sm:py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-[#0F6FFF] to-[#00A3FF] hover:opacity-90 transition shadow-lg shadow-[#0F6FFF]/25 flex items-center gap-1.5"
+ className="px-3 py-1.5 sm:px-4 sm:py-2.5 rounded-xl text-xs font-semibold text-white bg-[#0F6FFF] hover:bg-[#005FE0] transition shadow-lg shadow-[#0F6FFF]/25 flex items-center gap-1.5"
  >
  Start Project <ArrowRight className="w-3.5 h-3.5" />
  </Link>
@@ -79,7 +79,7 @@ export const Navbar: React.FC = () => {
  <Link
  to="/contact"
  onClick={() => setMobileMenuOpen(false)}
- className="block w-full text-center py-3.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-[#0F6FFF] to-[#00A3FF] shadow-lg shadow-[#0F6FFF]/25 transition hover:opacity-90"
+ className="block w-full text-center py-3.5 rounded-xl text-sm font-bold text-white bg-[#0F6FFF] hover:bg-[#005FE0] shadow-lg shadow-[#0F6FFF]/25 transition"
  >
  Start Project
  </Link>

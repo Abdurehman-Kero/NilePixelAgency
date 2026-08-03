@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from '../../context/ThemeContext';
+
 
 interface SkeletonProps {
   className?: string;
@@ -14,10 +14,8 @@ export const Skeleton: React.FC<SkeletonProps> = ({
   width, 
   height 
 }) => {
-  const { isDarkMode } = useTheme();
-
   const baseClasses = 'animate-pulse bg-opacity-20';
-  const colorClasses = isDarkMode ? 'bg-gray-700' : 'bg-gray-300';
+  const colorClasses = 'bg-gray-700';
   
   let variantClasses = '';
   if (variant === 'circular') {

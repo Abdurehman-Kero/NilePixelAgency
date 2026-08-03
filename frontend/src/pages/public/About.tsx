@@ -12,11 +12,11 @@ export const About: React.FC = () => {
  'about.title': 'About us',
  'about.subtitle': 'Empowering Innovation through unparalleled software development expertise',
  'about.ourStory': 'Our Story',
- 'about.storyBody': 'NilePixel Technologies was founded in 2023 with a vision to bring innovative solutions to the tech industry. What started as a small group of passionate developers has grown into a global company serving thousands of clients worldwide. Our mission is to empower businesses through cutting-edge technology and exceptional customer support.',
+ 'about.storyBody': 'NilePixel Technologies began in 2023 with a simple but powerful goal: to build software that actually solves real-world problems. What started as a tight-knit team of engineers has quickly evolved into a trusted technical partner for businesses across the globe. We aren\'t just writing code; we\'re architecting scalable, resilient platforms that help our clients thrive in a digital-first world.',
  'about.ourVision': 'Our Vision',
- 'about.visionBody': 'To be the leading provider of innovative software solutions, exceeding client expectations through exceptional African talent, while fostering sustainable growth and contributing positively to society and the environment.',
+ 'about.visionBody': 'To become a globally recognized engineering powerhouse, consistently delivering world-class software by elevating and showcasing exceptional African tech talent on the world stage.',
  'about.ourMission': 'Our Mission',
- 'about.missionBody': 'We challenge the status quo by empowering Ethiopian entrepreneurs with simple, human-centered software that helps them work smarter, faster, and at a global standard.',
+ 'about.missionBody': 'We challenge the status quo by delivering robust, human-centric software designed to empower Ethiopian entrepreneurs and global businesses alike. We bridge the gap between complex engineering and intuitive design, helping our partners operate smarter and scale faster.',
  'about.ourValues': 'Our Values',
  'about.meetTeam': 'Meet Our Team',
  'about.ourGoals': 'Our Goals'
@@ -56,8 +56,6 @@ export const About: React.FC = () => {
 
  return (
  <div className="bg-[#04080F] text-white min-h-screen pt-24 sm:pt-28 pb-16 sm:pb-24 relative overflow-hidden">
- {/* Subtle background gradient to match screenshot */}
- <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#00E599]/5 to-transparent pointer-events-none" />
  
  {/* Very faint grid background */}
  <div 
@@ -169,9 +167,9 @@ export const About: React.FC = () => {
  alt={member.name}
  className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.02] transition duration-500"
  />
- <div className="absolute inset-0 bg-gradient-to-t from-[#02050A] via-transparent to-transparent flex flex-col justify-end p-5">
- <h3 className="text-sm font-bold text-white leading-tight">{member.name}</h3>
- <p className="text-[11px] font-medium mt-1" style={{ color: accentHex }}>{member.position}</p>
+ <div className="absolute inset-0 flex flex-col justify-end p-5 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-90 group-hover:opacity-100 transition-opacity">
+ <h3 className="text-sm font-bold text-white leading-tight drop-shadow-md">{member.name}</h3>
+ <p className="text-[11px] font-bold mt-1 drop-shadow-md" style={{ color: accentHex }}>{member.position}</p>
  </div>
  </div>
  );

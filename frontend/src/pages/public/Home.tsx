@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../../services/api';
 import { useTheme } from '../../context/ThemeContext';
-import { ArrowRight, MessageCircle } from 'lucide-react';
+import { ArrowRight, ChevronRight, Code, Cpu, LineChart, Globe, Zap, Users, MessageCircle } from 'lucide-react';
+import { ScrollReveal } from '../../components/ui/ScrollReveal';
 import { Skeleton } from '../../components/ui/Skeleton';
 
 const CountUpNumber: React.FC<{ end: number; duration?: number; suffix?: string; prefix?: string }> = ({
@@ -103,9 +104,9 @@ export const Home: React.FC = () => {
     { title: 'Agency Management ERP', slug: 'agency-management-erp', summary: 'The Agency is an all-in-one platform that helps businesses manage their clients, services, and projects in one place.', cover_image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=100' }
   ];
 
-  const displayServices = services.length > 0 ? services : defaultServices;
-  const displayProjects = projects.length > 0 ? projects : defaultProjectsList;
-  const displayTestimonials = testimonials.length > 0 ? testimonials : defaultTestimonials;
+  const displayServices = services;
+  const displayProjects = projects;
+  const displayTestimonials = testimonials;
 
   return (
  <div className="bg-[#04080F] text-white min-h-screen relative overflow-hidden">
@@ -216,82 +217,84 @@ export const Home: React.FC = () => {
  </div>
  </section>
 
- {/* STATS */}
- <section className="py-10 sm:py-12 border-y border-[#1B2B44]/30 relative z-10 bg-[#060C16]">
- <div className="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-4 sm:gap-8 text-center">
- <div className="space-y-2">
- <div className="text-3xl font-extrabold" style={{ color: accentHex }}><CountUpNumber end={99} suffix="%" /></div>
- <div className="text-[11px] font-bold text-[#A9B4C5] uppercase tracking-wider">Productivity</div>
- </div>
- <div className="space-y-2">
- <div className="text-3xl font-extrabold" style={{ color: accentHex }}><CountUpNumber end={15} suffix="+" /></div>
- <div className="text-[11px] font-bold text-[#A9B4C5] uppercase tracking-wider">Happy Clients</div>
- </div>
- <div className="space-y-2">
- <div className="text-3xl font-extrabold" style={{ color: accentHex }}><CountUpNumber end={20} suffix="+" /></div>
- <div className="text-[11px] font-bold text-[#A9B4C5] uppercase tracking-wider">Completed Projects</div>
- </div>
- <div className="space-y-2">
- <div className="text-3xl font-extrabold" style={{ color: accentHex }}><CountUpNumber end={3} suffix="+" /></div>
- <div className="text-[11px] font-bold text-[#A9B4C5] uppercase tracking-wider">Years Experience</div>
- </div>
- </div>
- </section>
+  {/* STATS */}
+  <section className="py-10 sm:py-12 border-y border-[#1B2B44]/30 relative z-10 bg-[#060C16]">
+    <ScrollReveal className="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-4 sm:gap-8 text-center">
+      <div className="space-y-2">
+        <div className="text-3xl font-extrabold" style={{ color: accentHex }}><CountUpNumber end={99} suffix="%" /></div>
+        <div className="text-[11px] font-bold text-[#A9B4C5] uppercase tracking-wider">Productivity</div>
+      </div>
+      <div className="space-y-2">
+        <div className="text-3xl font-extrabold" style={{ color: accentHex }}><CountUpNumber end={15} suffix="+" /></div>
+        <div className="text-[11px] font-bold text-[#A9B4C5] uppercase tracking-wider">Happy Clients</div>
+      </div>
+      <div className="space-y-2">
+        <div className="text-3xl font-extrabold" style={{ color: accentHex }}><CountUpNumber end={20} suffix="+" /></div>
+        <div className="text-[11px] font-bold text-[#A9B4C5] uppercase tracking-wider">Completed Projects</div>
+      </div>
+      <div className="space-y-2">
+        <div className="text-3xl font-extrabold" style={{ color: accentHex }}><CountUpNumber end={3} suffix="+" /></div>
+        <div className="text-[11px] font-bold text-[#A9B4C5] uppercase tracking-wider">Years Experience</div>
+      </div>
+    </ScrollReveal>
+  </section>
 
- {/* CORE VALUES */}
- <section className="py-16 sm:py-24 relative z-10 max-w-7xl mx-auto px-4 space-y-8 sm:space-y-12 text-center">
- <h2 className="text-3xl sm:text-4xl font-bold">Our Core Values and Principles</h2>
- <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
- <div className="bg-[#0A1220] border border-[#1B2B44]/50 p-8 rounded-2xl space-y-4">
- <div className="w-10 h-10 rounded-xl bg-opacity-20 flex items-center justify-center" style={{ backgroundColor: `${accentHex}20`, color: accentHex }}>
- <span className="font-bold">01</span>
- </div>
- <h3 className="text-lg font-bold">Client-Centric Approach</h3>
- <p className="text-sm text-[#A9B4C5] leading-relaxed">We prioritize client needs, ensuring our solutions deliver real impact.</p>
- </div>
- <div className="bg-[#0A1220] border border-[#1B2B44]/50 p-8 rounded-2xl space-y-4">
- <div className="w-10 h-10 rounded-xl bg-opacity-20 flex items-center justify-center" style={{ backgroundColor: `${accentHex}20`, color: accentHex }}>
- <span className="font-bold">02</span>
- </div>
- <h3 className="text-lg font-bold">Quality Assurance</h3>
- <p className="text-sm text-[#A9B4C5] leading-relaxed">Rigorous testing guarantees the reliability and security of our software.</p>
- </div>
- <div className="bg-[#0A1220] border border-[#1B2B44]/50 p-8 rounded-2xl space-y-4">
- <div className="w-10 h-10 rounded-xl bg-opacity-20 flex items-center justify-center" style={{ backgroundColor: `${accentHex}20`, color: accentHex }}>
- <span className="font-bold">03</span>
- </div>
- <h3 className="text-lg font-bold">Innovation & Excellence</h3>
- <p className="text-sm text-[#A9B4C5] leading-relaxed">Continuous learning pushes us to deliver state-of-the-art tech products.</p>
- </div>
- </div>
- </section>
+  {/* CORE VALUES */}
+  <section className="py-16 sm:py-24 relative z-10 text-center">
+    <ScrollReveal className="max-w-7xl mx-auto px-4 space-y-8 sm:space-y-12">
+      <h2 className="text-3xl sm:text-4xl font-bold">Our Core Values and Principles</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
+        <div className="bg-[#0A1220] border border-[#1B2B44]/50 p-8 rounded-2xl space-y-4">
+          <div className="w-10 h-10 rounded-xl bg-opacity-20 flex items-center justify-center" style={{ backgroundColor: `${accentHex}20`, color: accentHex }}>
+            <span className="font-bold">01</span>
+          </div>
+          <h3 className="text-lg font-bold">Client-Centric Approach</h3>
+          <p className="text-sm text-[#A9B4C5] leading-relaxed">We prioritize client needs, ensuring our solutions deliver real impact.</p>
+        </div>
+        <div className="bg-[#0A1220] border border-[#1B2B44]/50 p-8 rounded-2xl space-y-4">
+          <div className="w-10 h-10 rounded-xl bg-opacity-20 flex items-center justify-center" style={{ backgroundColor: `${accentHex}20`, color: accentHex }}>
+            <span className="font-bold">02</span>
+          </div>
+          <h3 className="text-lg font-bold">Quality Assurance</h3>
+          <p className="text-sm text-[#A9B4C5] leading-relaxed">Rigorous testing guarantees the reliability and security of our software.</p>
+        </div>
+        <div className="bg-[#0A1220] border border-[#1B2B44]/50 p-8 rounded-2xl space-y-4">
+          <div className="w-10 h-10 rounded-xl bg-opacity-20 flex items-center justify-center" style={{ backgroundColor: `${accentHex}20`, color: accentHex }}>
+            <span className="font-bold">03</span>
+          </div>
+          <h3 className="text-lg font-bold">Innovation & Excellence</h3>
+          <p className="text-sm text-[#A9B4C5] leading-relaxed">Continuous learning pushes us to deliver state-of-the-art tech products.</p>
+        </div>
+      </div>
+    </ScrollReveal>
+  </section>
 
- {/* COMMUNITY BANNER */}
- <section className="py-10 sm:py-12 relative z-10 max-w-4xl mx-auto px-4">
- <div className="bg-[#0A1220] border border-[#1B2B44]/50 rounded-3xl p-8 sm:p-12 text-center space-y-8 shadow-2xl relative overflow-hidden">
- 
- <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border bg-[#0E1828]/90 text-xs font-semibold" style={{ borderColor: `${accentHex}50`, color: accentHex }}>
- <MessageCircle className="w-4 h-4" /> Community
- </div>
- <div className="space-y-4 relative z-10">
- <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-6">Join our channel</h2>
- <p className="text-[#A9B4C5] font-medium text-sm max-w-xl mx-auto">
- Network with software engineers, discuss best practices, and collaborate on amazing projects.
- </p>
- </div>
- <div className="relative z-10 flex justify-center">
- <a href="https://t.me/jalos_trip" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-5 py-2 sm:px-8 sm:py-3.5 rounded-full font-bold text-white transition-transform hover:scale-105" style={{ backgroundColor: accentHex }}>
- <MessageCircle className="w-5 h-5" /> Join Telegram Channel
- </a>
- </div>
- </div>
- </section>
+  {/* COMMUNITY BANNER */}
+  <section className="py-10 sm:py-12 relative z-10 max-w-4xl mx-auto px-4">
+    <ScrollReveal className="bg-[#0A1220] border border-[#1B2B44]/50 rounded-3xl p-8 sm:p-12 text-center space-y-8 shadow-2xl relative overflow-hidden">
+      <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border bg-[#0E1828]/90 text-xs font-semibold" style={{ borderColor: `${accentHex}50`, color: accentHex }}>
+        <MessageCircle className="w-4 h-4" /> Community
+      </div>
+      <div className="space-y-4 relative z-10">
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-6">Join our channel</h2>
+        <p className="text-[#A9B4C5] font-medium text-sm max-w-xl mx-auto">
+          Network with software engineers, discuss best practices, and collaborate on amazing projects.
+        </p>
+      </div>
+      <div className="relative z-10 flex justify-center">
+        <a href="https://t.me/jalos_trip" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-5 py-2 sm:px-8 sm:py-3.5 rounded-full font-bold text-white transition-transform hover:scale-105" style={{ backgroundColor: accentHex }}>
+          <MessageCircle className="w-5 h-5" /> Join Telegram Channel
+        </a>
+      </div>
+    </ScrollReveal>
+  </section>
 
- {/* TESTIMONIALS */}
- <section className="py-16 sm:py-24 relative z-10 max-w-7xl mx-auto px-4 space-y-8 sm:space-y-12">
- <h2 className="text-3xl sm:text-4xl font-bold">Testimonials</h2>
- <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
- {loading ? (
+  {/* TESTIMONIALS */}
+  <section className="py-16 sm:py-24 relative z-10 max-w-7xl mx-auto px-4">
+    <ScrollReveal className="space-y-8 sm:space-y-12">
+      <h2 className="text-3xl sm:text-4xl font-bold">Testimonials</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {loading ? (
           [1, 2, 3, 4].map(i => (
             <div key={i} className="bg-[#0A1220] border border-[#1B2B44]/50 p-8 rounded-2xl flex flex-col justify-between space-y-6 relative">
               <Skeleton variant="text" width="100%" height="60px" />
@@ -305,31 +308,32 @@ export const Home: React.FC = () => {
             </div>
           ))
         ) : displayTestimonials.slice(0, 4).map((t: any, idx: number) => (
- <div key={idx} className="bg-[#0A1220] border border-[#1B2B44]/50 p-8 rounded-2xl flex flex-col justify-between space-y-6 relative">
- <p className="text-[#A9B4C5] text-sm leading-relaxed italic z-10 relative">"{t.message || t.text || t.content}"</p>
- <div className="flex items-center gap-4">
- {t.photo && (
- <img src={t.photo} alt={t.client_name || t.name} className="w-12 h-12 rounded-full object-cover border-2" style={{ borderColor: accentHex }} />
- )}
- <div>
- <h4 className="font-bold text-white text-sm">{t.client_name || t.name}</h4>
- <p className="text-[11px] text-[#94A3B8]">{t.position}</p>
- </div>
- </div>
- </div>
- ))}
- </div>
- </section>
+          <div key={idx} className="bg-[#0A1220] border border-[#1B2B44]/50 p-8 rounded-2xl flex flex-col justify-between space-y-6 relative">
+            <p className="text-[#A9B4C5] text-sm leading-relaxed italic z-10 relative">"{t.message || t.text || t.content}"</p>
+            <div className="flex items-center gap-4">
+              {t.photo && (
+                <img src={t.photo} alt={t.client_name || t.name} className="w-12 h-12 rounded-full object-cover border-2" style={{ borderColor: accentHex }} />
+              )}
+              <div>
+                <h4 className="font-bold text-white text-sm">{t.client_name || t.name}</h4>
+                <p className="text-[11px] text-[#94A3B8]">{t.position}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </ScrollReveal>
+  </section>
 
- {/* LATEST WORK */}
- <section className="py-16 sm:py-24 border-t border-[#1B2B44]/30 relative z-10">
- <div className="max-w-7xl mx-auto px-4 space-y-8 sm:space-y-12">
- <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
- <h2 className="text-3xl sm:text-4xl font-bold">Our latest work</h2>
- <Link to="/projects" className="text-sm font-semibold hover:underline" style={{ color: accentHex }}>View All Projects →</Link>
- </div>
- 
- <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+  {/* LATEST WORK */}
+  <section className="py-16 sm:py-24 border-t border-[#1B2B44]/30 relative z-10">
+    <ScrollReveal className="max-w-7xl mx-auto px-4 space-y-8 sm:space-y-12">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+        <h2 className="text-3xl sm:text-4xl font-bold">Our latest work</h2>
+        <Link to="/projects" className="text-sm font-semibold hover:underline" style={{ color: accentHex }}>View All Projects →</Link>
+      </div>
+      
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {loading ? (
           [1, 2, 3].map(i => (
             <div key={i} className="space-y-4">
@@ -342,28 +346,30 @@ export const Home: React.FC = () => {
             </div>
           ))
         ) : displayProjects.slice(0, 3).map((p: any, idx: number) => (
- <Link to={`/projects/${p.slug}`} key={idx} className="group space-y-4 cursor-pointer block">
- <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-[#0A1220] border border-[#1B2B44]/30 shadow-lg relative">
- <img 
- src={p.cover_image || 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=100'} 
- alt={p.title} 
- className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
- />
- <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
- <span className="px-3 py-1.5 sm:px-4 sm:py-2 bg-white/10 backdrop-blur rounded-full text-white font-semibold text-sm">View Details</span>
- </div>
- </div>
- <div className="px-1 space-y-1.5">
- <h3 className="text-lg font-bold text-white leading-snug group-hover:text-[#00A3FF] transition-colors">{p.title}</h3>
- <p className="text-xs sm:text-[13px] text-[#A9B4C5] leading-relaxed line-clamp-2">
- {p.summary || p.description}
- </p>
- </div>
- </Link>
- ))}
- </div>
- </div>
- </section>
+          <Link to={`/projects/${p.slug}`} key={idx} className="group space-y-4 cursor-pointer block">
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-[#0A1220] border border-[#1B2B44]/30 shadow-lg relative">
+              <img 
+                src={p.cover_image || 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=100'} 
+                alt={p.title} 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+              />
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <span className="px-3 py-1.5 sm:px-4 sm:py-2 bg-white/10 backdrop-blur rounded-full text-white font-semibold text-sm">View Details</span>
+              </div>
+            </div>
+            <div className="px-1 space-y-1.5">
+              <h3 className="text-lg font-bold text-white leading-snug group-hover:text-[#00A3FF] transition-colors">{p.title}</h3>
+              <p className="text-xs sm:text-[13px] text-[#A9B4C5] leading-relaxed line-clamp-2">
+                {p.summary || p.description}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </ScrollReveal>
+  </section>
  </div>
  );
 };
+
+export default Home;

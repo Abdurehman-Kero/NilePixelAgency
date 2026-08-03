@@ -81,7 +81,7 @@ export const AdminLogin: React.FC = () => {
  <button
  type="submit"
  disabled={loading}
- className="w-full py-3 rounded-xl bg-gradient-to-r from-[#0F6FFF] to-[#00A3FF] font-bold text-white transition flex items-center justify-center gap-2 shadow-lg"
+ className="w-full py-3 rounded-xl bg-[#0F6FFF] hover:bg-[#005FE0] font-bold text-white transition flex items-center justify-center gap-2 shadow-lg"
  >
  {loading ? 'Authenticating...' : 'Access Admin CMS'} <ArrowRight className="w-4 h-4" />
  </button>
