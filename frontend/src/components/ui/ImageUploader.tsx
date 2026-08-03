@@ -147,7 +147,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
  <div className="relative aspect-video max-h-48 w-full bg-[#101C2F] rounded-lg overflow-hidden flex items-center justify-center border border-[#23344F]">
  {!previewError ? (
  <img
- src={value}
+ src={value.startsWith('/uploads/') ? `${value}?t=${Date.now()}` : value}
  alt="Uploaded preview"
  onError={() => setPreviewError(true)}
  className="w-full h-full object-contain"

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../../services/api';
 import { Briefcase, MapPin, Clock, ArrowRight, X } from 'lucide-react';
+import { Skeleton } from '../../components/ui/Skeleton';
 
 export const CareersPage: React.FC = () => {
  const [careers, setCareers] = useState<any[]>([]);
  const [selectedJob, setSelectedJob] = useState<any | null>(null);
+ const [loading, setLoading] = useState(true);
  
  const [formData, setFormData] = useState({
  applicant_name: '',
@@ -20,19 +22,20 @@ export const CareersPage: React.FC = () => {
  const [submitting, setSubmitting] = useState(false);
  const [success, setSuccess] = useState(false);
 
- useEffect(() => {
- api.get('/careers').then((res) => {
- if (res.success && res.data?.length > 0) {
- const now = new Date().getTime();
- const validJobs = res.data.filter((j: any) => {
- if (j.status !== 'open') return false;
- if (j.expire_date && new Date(j.expire_date + 'T23:59:59').getTime() < now) return false;
- return true;
- });
- setCareers(validJobs);
- }
- });
- }, []);
+  useEffect(() => {
+    setLoading(true);
+    api.get('/careers').then((res) => {
+      if (res.success && res.data?.length > 0) {
+        const now = new Date().getTime();
+        const validJobs = res.data.filter((j: any) => {
+          if (j.status !== 'open') return false;
+          if (j.expire_date && new Date(j.expire_date + 'T23:59:59').getTime() < now) return false;
+          return true;
+        });
+        setCareers(validJobs);
+      }
+    }).finally(() => setLoading(false));
+  }, []);
 
  const handleApply = (job: any) => {
  setSelectedJob(job);
@@ -74,7 +77,21 @@ export const CareersPage: React.FC = () => {
  </div>
 
  <div className="space-y-4">
- {careers.length === 0 ? (
+        {loading ? (
+          [1, 2, 3].map(i => (
+            <div key={i} className="bg-[#101C2F] border border-[#23344F] rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="space-y-3 w-full sm:w-3/4">
+                <Skeleton variant="text" width="40%" height="20px" />
+                <div className="flex gap-4">
+                  <Skeleton variant="text" width="100px" height="16px" />
+                  <Skeleton variant="text" width="100px" height="16px" />
+                </div>
+                <Skeleton variant="text" width="100%" height="16px" />
+              </div>
+              <Skeleton className="w-full sm:w-32 h-10 rounded-xl" />
+            </div>
+          ))
+        ) : careers.length === 0 ? (
  <div className="text-center p-12 bg-[#101C2F] border border-[#23344F] rounded-2xl">
  <h3 className="text-lg font-bold text-white mb-2">No Open Roles Right Now</h3>
  <p className="text-[#A9B4C5] text-sm">Please check back later or follow us on LinkedIn for updates.</p>

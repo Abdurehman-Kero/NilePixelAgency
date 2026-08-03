@@ -19,7 +19,7 @@ async function startServer() {
   // Initialize Database
   await initDatabase();
 
-  // Static uploads directory
+  // Static uploads directory (for legacy SQLite images)
   const uploadsPath = path.resolve(process.cwd(), 'uploads');
   app.use('/uploads', express.static(uploadsPath));
 

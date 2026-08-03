@@ -1,62 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../../services/api';
+import { Skeleton } from '../../components/ui/Skeleton';
 
 export const ProjectsPage: React.FC = () => {
  const [projects, setProjects] = useState<any[]>([]);
+ const [loading, setLoading] = useState(true);
 
  useEffect(() => {
+ setLoading(true);
  api.get('/projects').then((res) => {
  if (res.success && res.data?.length > 0) setProjects(res.data);
- });
+ }).finally(() => setLoading(false));
  }, []);
 
- const defaultProjects = [
- {
- id: 1,
- title: 'Nile Ride',
- slug: 'nile-ride',
- summary: 'A complete ride-sharing platform that includes a Driver App, Customer App, Admin Dashboard, and Marketing Website...',
- cover_image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=100'
- },
- {
- id: 2,
- title: 'ICare MC',
- slug: 'icare-mc',
- summary: 'A complete maternal and child healthcare platform designed to support families from pregnancy through early childhood...',
- cover_image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=100'
- },
- {
- id: 3,
- title: 'Agency Management ERP',
- slug: 'agency-management-erp',
- summary: 'The Agency is an all-in-one platform that helps businesses manage their clients, services, and projects in one place. It...',
- cover_image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=100'
- },
- {
- id: 4,
- title: 'Lend with Aloha',
- slug: 'lend-with-aloha',
- summary: 'Lend with Aloha is a major real estate lending platform. It offers various loan types like Fix and Flip, DSCR Loans, N...',
- cover_image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=100'
- },
- {
- id: 5,
- title: 'Tina Verify',
- slug: 'tina-verify',
- summary: 'Payment verification and document management platform for branches and employees.',
- cover_image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=100'
- },
- {
- id: 6,
- title: 'Zemen Service',
- slug: 'zemen-service',
- summary: 'Marketplace for booking trusted local services quickly and reliably.',
- cover_image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32d7?auto=format&fit=crop&w=1200&q=100'
- }
- ];
 
- const list = projects.length > 0 ? projects : defaultProjects;
 
  return (
  <div className="py-24 px-4 sm:px-6 lg:px-8 min-h-screen bg-[#04080F] relative text-white">
@@ -72,7 +30,18 @@ export const ProjectsPage: React.FC = () => {
  </div>
 
  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
- {list.map((p) => (
+ {loading ? (
+          [1, 2, 3, 4, 5, 6].map(i => (
+            <div key={i} className="space-y-4">
+              <Skeleton className="aspect-[4/3]" />
+              <div className="px-1 space-y-1.5 mt-2">
+                <Skeleton variant="text" width="60%" height="20px" />
+                <Skeleton variant="text" width="100%" height="16px" />
+                <Skeleton variant="text" width="80%" height="16px" />
+              </div>
+            </div>
+          ))
+        ) : projects.map((p) => (
  <Link to={`/projects/${p.slug}`} key={p.id || p.slug} className="group space-y-4 cursor-pointer block">
  <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-[#0A1220] border border-[#1B2B44]/30 shadow-lg relative">
  <img 

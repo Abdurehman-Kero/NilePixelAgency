@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../../services/api';
 import { ArrowRight, Wrench, Shield, Cpu, Code2, Cloud, Sparkles } from 'lucide-react';
+import { Skeleton } from '../../components/ui/Skeleton';
 
 export const ServicesPage: React.FC = () => {
  const [services, setServices] = useState<any[]>([]);
+ const [loading, setLoading] = useState(true);
 
  useEffect(() => {
+ setLoading(true);
  api.get('/services').then((res) => {
  if (res.success && res.data?.length > 0) {
  setServices(res.data);
  }
- });
+ }).finally(() => setLoading(false));
  }, []);
 
  const defaultServices = [
@@ -62,8 +65,22 @@ export const ServicesPage: React.FC = () => {
  </p>
  </div>
 
- <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
- {list.map((s) => (
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {loading ? (
+          [1, 2, 3, 4, 5, 6].map(i => (
+            <div key={i} className="bg-[#101C2F] border border-[#23344F] rounded-2xl overflow-hidden flex flex-col justify-between h-[380px]">
+              <Skeleton className="h-48 w-full rounded-none" />
+              <div className="p-6 space-y-3 flex-1">
+                <Skeleton variant="text" width="70%" height="24px" />
+                <Skeleton variant="text" width="100%" height="16px" />
+                <Skeleton variant="text" width="80%" height="16px" />
+              </div>
+              <div className="p-6 pt-0">
+                <Skeleton variant="text" width="120px" height="20px" />
+              </div>
+            </div>
+          ))
+        ) : services.length > 0 ? services.map((s) => (
  <div key={s.id || s.slug} className="bg-[#101C2F] border border-[#23344F] rounded-2xl overflow-hidden hover:border-[#0F6FFF] transition group flex flex-col justify-between">
  {s.image && (
  <div className="h-48 overflow-hidden bg-[#08111F]">
@@ -80,7 +97,24 @@ export const ServicesPage: React.FC = () => {
  </Link>
  </div>
  </div>
- ))}
+ )) : defaultServices.map((s) => (
+            <div key={s.id || s.slug} className="bg-[#101C2F] border border-[#23344F] rounded-2xl overflow-hidden hover:border-[#0F6FFF] transition group flex flex-col justify-between">
+              {s.image && (
+                <div className="h-48 overflow-hidden bg-[#08111F]">
+                  <img src={s.image} alt={s.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                </div>
+              )}
+              <div className="p-6 space-y-3 flex-1">
+                <h3 className="text-lg font-bold text-white">{s.title}</h3>
+                <p className="text-xs text-[#A9B4C5] leading-relaxed">{s.short_description}</p>
+              </div>
+              <div className="p-6 pt-0">
+                <Link to={`/services/${s.slug}`} className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#00A3FF] hover:underline">
+                  Explore Solutions <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+          ))}
  </div>
  </div>
  );

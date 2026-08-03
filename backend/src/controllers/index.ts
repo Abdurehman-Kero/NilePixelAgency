@@ -448,7 +448,7 @@ export const submitContactForm = async (req: Request, res: Response) => {
       from: '"NilePixel Technologies" <noreply@nilepixel.com>',
       to: 'keroabdurehman@gmail.com', // User requested keroabdurehman@gmail.com
       subject: `New Project Inquiry from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nCompany: ${company}\nService: ${service}\nBudget: ${budget}\n\nMessage:\n${message}`,
+      text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nCompany: ${company}\nService: ${service}\n\nMessage:\n${message}`,
       html: `
         <h3>New Contact Submission - NilePixel</h3>
         <p><strong>Name:</strong> ${name}</p>
@@ -456,7 +456,6 @@ export const submitContactForm = async (req: Request, res: Response) => {
         <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
         <p><strong>Company:</strong> ${company || 'N/A'}</p>
         <p><strong>Service:</strong> ${service || 'N/A'}</p>
-        <p><strong>Budget:</strong> ${budget || 'N/A'}</p>
         <hr/>
         <p><strong>Message:</strong></p>
         <p>${message}</p>
@@ -566,7 +565,8 @@ export const uploadMediaFile = async (req: AuthRequest, res: Response) => {
   if (!req.file) return res.status(400).json({ success: false, message: 'No file uploaded.' });
 
   const uuid = 'med-' + Date.now();
-  const filePath = `/uploads/${req.file.filename}`;
+  // req.file.path contains the full Cloudinary URL
+  const filePath = req.file.path;
 
   const result = await run(`
     INSERT INTO media (uuid, filename, original_name, mime_type, file_size, file_path, alt_text)

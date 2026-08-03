@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../../services/api';
 import { useTheme } from '../../context/ThemeContext';
 import { ArrowRight, MessageCircle } from 'lucide-react';
+import { Skeleton } from '../../components/ui/Skeleton';
 
 const CountUpNumber: React.FC<{ end: number; duration?: number; suffix?: string; prefix?: string }> = ({
  end,
@@ -58,56 +59,55 @@ export const Home: React.FC = () => {
  const { accentColor: accentHex } = useTheme();
  
  const [siteData, setSiteData] = useState<any>(null);
- const [services, setServices] = useState<any[]>([]);
- const [projects, setProjects] = useState<any[]>([]);
- const [testimonials, setTestimonials] = useState<any[]>([]);
- const [activeJobs, setActiveJobs] = useState<any[]>([]);
+  const [services, setServices] = useState<any[]>([]);
+  const [projects, setProjects] = useState<any[]>([]);
+  const [testimonials, setTestimonials] = useState<any[]>([]);
+  const [activeJobs, setActiveJobs] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
- useEffect(() => {
- api.get('/settings').then(res => res.success && setSiteData(res.data));
- api.get('/services').then(res => res.success && setServices(res.data || []));
- api.get('/projects').then(res => {
- if (res.success && res.data) setProjects(res.data);
- });
- api.get('/testimonials').then(res => res.success && setTestimonials(res.data || []));
- api.get('/careers').then(res => {
- if (res.success && res.data) {
- // Only show jobs that are 'open' and haven't expired
- const now = new Date().getTime();
- const validJobs = res.data.filter((j: any) => {
- if (j.status !== 'open') return false;
- if (j.expire_date && new Date(j.expire_date + 'T23:59:59').getTime() < now) return false;
- return true;
- });
- setActiveJobs(validJobs);
- }
- });
- }, []);
+  useEffect(() => {
+    setLoading(true);
+    Promise.all([
+      api.get('/settings').then(res => res.success && setSiteData(res.data)),
+      api.get('/services').then(res => res.success && setServices(res.data || [])),
+      api.get('/projects').then(res => res.success && setProjects(res.data || [])),
+      api.get('/testimonials').then(res => res.success && setTestimonials(res.data || [])),
+      api.get('/careers').then(res => {
+        if (res.success && res.data) {
+          const now = new Date().getTime();
+          setActiveJobs(res.data.filter((j: any) => j.status === 'open' && (!j.expire_date || new Date(j.expire_date + 'T23:59:59').getTime() >= now)));
+        }
+      })
+    ]).finally(() => {
+      setLoading(false);
+    });
+  }, []);
 
- // Hardcoded placeholders if DB is empty
- const defaultServices = [
- { title: 'Custom Web and Mobile Development', short_description: 'We build scalable web and mobile applications tailored to your business needs.', icon: 'Code', cover_image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80' },
- { title: 'Content Management Systems', short_description: 'User-friendly CMS solutions designed to give you complete control over your content.', icon: 'Layers', cover_image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80' },
- { title: 'Telegram Bots & Mini Apps', short_description: 'Helping Businesses Build Telegram Bots, Mini Apps & Automation Systems', icon: 'MessageCircle', cover_image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80' },
- { title: 'API Integrations', short_description: 'Seamless integration of third-party APIs to extend the functionality of your platform.', icon: 'Zap', cover_image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80' }
- ];
 
- const defaultTestimonials = [
- { name: 'Emilia Clarke', position: 'CTO, TechCorp', text: 'NilePixel completely transformed our digital presence. Their attention to detail and robust engineering is unmatched.', photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80' },
- { name: 'James Doe', position: 'Founder, Startup X', text: 'Working with them was the best decision we made. Fast, scalable, and incredibly beautiful interfaces.', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' }
- ];
+  // Hardcoded placeholders if DB is empty
+  const defaultServices = [
+    { title: 'Custom Web and Mobile Development', short_description: 'We build scalable web and mobile applications tailored to your business needs.', icon: 'Code', cover_image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80' },
+    { title: 'Content Management Systems', short_description: 'User-friendly CMS solutions designed to give you complete control over your content.', icon: 'Layers', cover_image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80' },
+    { title: 'Telegram Bots & Mini Apps', short_description: 'Helping Businesses Build Telegram Bots, Mini Apps & Automation Systems', icon: 'MessageCircle', cover_image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80' },
+    { title: 'API Integrations', short_description: 'Seamless integration of third-party APIs to extend the functionality of your platform.', icon: 'Zap', cover_image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80' }
+  ];
 
- const defaultProjectsList = [
- { title: 'Nile Ride', slug: 'nile-ride', summary: 'A complete ride-sharing platform that includes a Driver App, Customer App, Admin Dashboard, and Marketing Website...', cover_image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=100' },
- { title: 'ICare MC', slug: 'icare-mc', summary: 'A complete maternal and child healthcare platform designed to support families from pregnancy through early childhood...', cover_image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=100' },
- { title: 'Agency Management ERP', slug: 'agency-management-erp', summary: 'The Agency is an all-in-one platform that helps businesses manage their clients, services, and projects in one place.', cover_image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=100' }
- ];
+  const defaultTestimonials = [
+    { name: 'Emilia Clarke', position: 'CTO, TechCorp', text: 'NilePixel completely transformed our digital presence. Their attention to detail and robust engineering is unmatched.', photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80' },
+    { name: 'James Doe', position: 'Founder, Startup X', text: 'Working with them was the best decision we made. Fast, scalable, and incredibly beautiful interfaces.', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' }
+  ];
 
- const displayServices = services.length > 0 ? services : defaultServices;
- const displayProjects = projects.length > 0 ? projects : defaultProjectsList;
- const displayTestimonials = testimonials.length > 0 ? testimonials : defaultTestimonials;
+  const defaultProjectsList = [
+    { title: 'Nile Ride', slug: 'nile-ride', summary: 'A complete ride-sharing platform that includes a Driver App, Customer App, Admin Dashboard, and Marketing Website...', cover_image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=100' },
+    { title: 'ICare MC', slug: 'icare-mc', summary: 'A complete maternal and child healthcare platform designed to support families from pregnancy through early childhood...', cover_image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=100' },
+    { title: 'Agency Management ERP', slug: 'agency-management-erp', summary: 'The Agency is an all-in-one platform that helps businesses manage their clients, services, and projects in one place.', cover_image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=100' }
+  ];
 
- return (
+  const displayServices = services.length > 0 ? services : defaultServices;
+  const displayProjects = projects.length > 0 ? projects : defaultProjectsList;
+  const displayTestimonials = testimonials.length > 0 ? testimonials : defaultTestimonials;
+
+  return (
  <div className="bg-[#04080F] text-white min-h-screen relative overflow-hidden">
  {/* Grid Background */}
  <div 
@@ -188,7 +188,18 @@ export const Home: React.FC = () => {
  </div>
  
  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
- {displayServices.slice(0, 4).map((s, idx) => (
+ {loading ? (
+          [1, 2, 3, 4].map(i => (
+            <div key={i} className="group relative rounded-2xl overflow-hidden bg-[#0A1220] border border-[#1B2B44]/50 flex flex-col sm:flex-row text-left">
+              <Skeleton className="w-full sm:w-2/5 aspect-video sm:aspect-auto" />
+              <div className="p-6 sm:w-3/5 flex flex-col justify-center space-y-3">
+                <Skeleton variant="text" width="60%" height="24px" />
+                <Skeleton variant="text" width="100%" />
+                <Skeleton variant="text" width="80%" />
+              </div>
+            </div>
+          ))
+        ) : displayServices.slice(0, 4).map((s: any, idx: number) => (
  <div key={idx} className="group relative rounded-2xl overflow-hidden bg-[#0A1220] border border-[#1B2B44]/50 flex flex-col sm:flex-row text-left">
  {s.cover_image && (
  <div className="w-full sm:w-2/5 aspect-video sm:aspect-auto overflow-hidden bg-[#08111F]">
@@ -281,7 +292,20 @@ export const Home: React.FC = () => {
  <section className="py-16 sm:py-24 relative z-10 max-w-7xl mx-auto px-4 space-y-8 sm:space-y-12">
  <h2 className="text-3xl sm:text-4xl font-bold">Testimonials</h2>
  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
- {displayTestimonials.slice(0, 4).map((t, idx) => (
+ {loading ? (
+          [1, 2, 3, 4].map(i => (
+            <div key={i} className="bg-[#0A1220] border border-[#1B2B44]/50 p-8 rounded-2xl flex flex-col justify-between space-y-6 relative">
+              <Skeleton variant="text" width="100%" height="60px" />
+              <div className="flex items-center gap-4">
+                <Skeleton variant="circular" width="48px" height="48px" />
+                <div className="space-y-2">
+                  <Skeleton variant="text" width="100px" height="16px" />
+                  <Skeleton variant="text" width="80px" height="12px" />
+                </div>
+              </div>
+            </div>
+          ))
+        ) : displayTestimonials.slice(0, 4).map((t: any, idx: number) => (
  <div key={idx} className="bg-[#0A1220] border border-[#1B2B44]/50 p-8 rounded-2xl flex flex-col justify-between space-y-6 relative">
  <p className="text-[#A9B4C5] text-sm leading-relaxed italic z-10 relative">"{t.message || t.text || t.content}"</p>
  <div className="flex items-center gap-4">
@@ -307,7 +331,18 @@ export const Home: React.FC = () => {
  </div>
  
  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
- {displayProjects.slice(0, 3).map((p, idx) => (
+        {loading ? (
+          [1, 2, 3].map(i => (
+            <div key={i} className="space-y-4">
+              <Skeleton className="aspect-[4/3]" />
+              <div className="px-1 space-y-1.5 mt-2">
+                <Skeleton variant="text" width="60%" height="20px" />
+                <Skeleton variant="text" width="100%" height="16px" />
+                <Skeleton variant="text" width="80%" height="16px" />
+              </div>
+            </div>
+          ))
+        ) : displayProjects.slice(0, 3).map((p: any, idx: number) => (
  <Link to={`/projects/${p.slug}`} key={idx} className="group space-y-4 cursor-pointer block">
  <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-[#0A1220] border border-[#1B2B44]/30 shadow-lg relative">
  <img 

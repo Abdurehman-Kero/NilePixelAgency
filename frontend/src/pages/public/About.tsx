@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../../services/api';
 import { useTheme } from '../../context/ThemeContext';
 import { Check } from 'lucide-react';
+import { Skeleton } from '../../components/ui/Skeleton';
 
 export const About: React.FC = () => {
  const { accentColor: accentHex } = useTheme();
@@ -22,13 +23,17 @@ export const About: React.FC = () => {
  };
  return translations[key] || key;
  };
- const [siteData, setSiteData] = useState<any>(null);
- const [team, setTeam] = useState<any[]>([]);
+  const [siteData, setSiteData] = useState<any>(null);
+  const [team, setTeam] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
- useEffect(() => {
- api.get('/settings').then(res => res.success && setSiteData(res.data));
- api.get('/team').then(res => res.success && setTeam(res.data || []));
- }, []);
+  useEffect(() => {
+    setLoading(true);
+    Promise.all([
+      api.get('/settings').then(res => res.success && setSiteData(res.data)),
+      api.get('/team').then(res => res.success && setTeam(res.data || []))
+    ]).finally(() => setLoading(false));
+  }, []);
 
  const teamList = team;
  const values = ['Innovation', 'Excellence', 'Integrity', 'Collaboration', 'Customer Focus'];
@@ -127,7 +132,22 @@ export const About: React.FC = () => {
  <h2 className="text-2xl font-bold text-white">{t('about.meetTeam')}</h2>
 
  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
- {teamList.slice(0, 6).map((member, index) => {
+ {loading ? (
+          [1, 2, 3, 4, 5, 6].map((_, index) => {
+            const spanClass = index === 0 ? 'col-span-1 row-span-2 h-[550px]' : 
+              index === 1 ? 'col-span-2 row-span-1 h-[250px]' : 
+              index === 2 || index === 3 ? 'col-span-1 row-span-1 h-[280px]' :
+              index === 4 ? 'col-span-1 row-span-1 h-[250px]' :
+              index === 5 ? 'col-span-2 row-span-1 h-[250px]' :
+              'col-span-1 row-span-1 h-[280px]';
+
+            return (
+              <div key={index} className={`rounded-2xl overflow-hidden border border-[#1B2B44]/50 bg-[#0A1220] ${spanClass}`}>
+                <Skeleton className="w-full h-full rounded-none" />
+              </div>
+            );
+          })
+        ) : teamList.slice(0, 6).map((member, index) => {
  // Determine span and height based on the screenshot layout logic
  // If the team is dynamic, map to the default spans by index.
  const spanClass = member.span || (

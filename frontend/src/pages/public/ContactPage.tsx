@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../../services/api';
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
+import { Skeleton } from '../../components/ui/Skeleton';
 
 export const ContactPage: React.FC = () => {
  const [formData, setFormData] = useState({
@@ -14,17 +15,19 @@ export const ContactPage: React.FC = () => {
  });
  const [submitted, setSubmitted] = useState(false);
  const [sending, setSending] = useState(false);
- const [siteEmail, setSiteEmail] = useState('info@nilepixel.com');
- const [sitePhone, setSitePhone] = useState('+251982310974');
+  const [siteEmail, setSiteEmail] = useState('info@nilepixel.com');
+  const [sitePhone, setSitePhone] = useState('+251982310974');
+  const [loading, setLoading] = useState(true);
 
- useEffect(() => {
- api.get('/settings').then(res => {
- if (res.success && res.data?.company) {
- if (res.data.company.email) setSiteEmail(res.data.company.email);
- if (res.data.company.phone) setSitePhone(res.data.company.phone);
- }
- });
- }, []);
+  useEffect(() => {
+    setLoading(true);
+    api.get('/settings').then(res => {
+      if (res.success && res.data?.company) {
+        if (res.data.company.email) setSiteEmail(res.data.company.email);
+        if (res.data.company.phone) setSitePhone(res.data.company.phone);
+      }
+    }).finally(() => setLoading(false));
+  }, []);
 
  const handleSubmit = async (e: React.FormEvent) => {
  e.preventDefault();
@@ -64,7 +67,7 @@ export const ContactPage: React.FC = () => {
  <Mail className="w-5 h-5 text-[#00A3FF] shrink-0" />
  <div>
  <p className="font-bold text-white">Email Enquiries</p>
- <p className="text-[#A9B4C5]">{siteEmail}</p>
+ {loading ? <Skeleton variant="text" width="120px" height="16px" /> : <p className="text-[#A9B4C5]">{siteEmail}</p>}
  </div>
  </div>
 
@@ -72,7 +75,7 @@ export const ContactPage: React.FC = () => {
  <Phone className="w-5 h-5 text-[#00A3FF] shrink-0" />
  <div>
  <p className="font-bold text-white">Phone & WhatsApp</p>
- <p className="text-[#A9B4C5]">{sitePhone}</p>
+ {loading ? <Skeleton variant="text" width="120px" height="16px" /> : <p className="text-[#A9B4C5]">{sitePhone}</p>}
  </div>
  </div>
  </div>
