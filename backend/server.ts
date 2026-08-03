@@ -34,14 +34,11 @@ async function startServer() {
   // Global error handler
   app.use(errorHandler);
 
-  // Serve static files in production if needed, or rely on separate frontend hosting
-  if (process.env.NODE_ENV === 'production') {
-    const distPath = path.resolve(process.cwd(), '../frontend/dist');
-    app.use(express.static(distPath));
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
-    });
-  }
+  // In production, the frontend is hosted separately on Vercel.
+  // We only serve the API from this Render instance.
+  app.get('/', (req, res) => {
+    res.json({ message: 'NilePixel Backend API is running' });
+  });
 
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`NilePixel Platform Server running at http://0.0.0.0:${PORT}`);
