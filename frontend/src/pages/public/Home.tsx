@@ -76,7 +76,14 @@ export const Home: React.FC = () => {
       api.get('/careers').then(res => {
         if (res.success && res.data) {
           const now = new Date().getTime();
-          setActiveJobs(res.data.filter((j: any) => j.status === 'open' && (!j.expire_date || new Date(j.expire_date + 'T23:59:59').getTime() >= now)));
+          setActiveJobs(res.data.filter((j: any) => {
+            if (j.status !== 'open') return false;
+            if (!j.expire_date) return true;
+            const expireDate = new Date(j.expire_date);
+            // Set to end of the day to ensure it includes the whole expiration day
+            expireDate.setHours(23, 59, 59, 999);
+            return expireDate.getTime() >= now;
+          }));
         }
       })
     ]).finally(() => {

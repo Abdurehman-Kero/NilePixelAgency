@@ -419,11 +419,8 @@ export const submitContactForm = async (req: Request, res: Response) => {
   `, [uuid, name, email, phone, company, budget, service, message, req.ip]);
 
   try {
-    // Generate an ethereal test account for local testing if SMTP env vars aren't set
-    // In production, user should set SMTP_HOST, SMTP_USER, SMTP_PASS
-    let transporter;
     if (process.env.SMTP_HOST) {
-      transporter = nodemailer.createTransport({
+      const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
         port: parseInt(process.env.SMTP_PORT || '587'),
         auth: {
@@ -431,39 +428,27 @@ export const submitContactForm = async (req: Request, res: Response) => {
           pass: process.env.SMTP_PASS,
         },
       });
-    } else {
-      const testAccount = await nodemailer.createTestAccount();
-      transporter = nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
-        port: 587,
-        secure: false,
-        auth: {
-          user: testAccount.user,
-          pass: testAccount.pass,
-        },
+
+      const info = await transporter.sendMail({
+        from: '"NilePixel Technologies" <noreply@nilepixel.com>',
+        to: 'keroabdurehman@gmail.com', // User requested keroabdurehman@gmail.com
+        subject: `New Project Inquiry from ${name}`,
+        text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nCompany: ${company}\nService: ${service}\n\nMessage:\n${message}`,
+        html: `
+          <h3>New Contact Submission - NilePixel</h3>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
+          <p><strong>Company:</strong> ${company || 'N/A'}</p>
+          <p><strong>Service:</strong> ${service || 'N/A'}</p>
+          <hr/>
+          <p><strong>Message:</strong></p>
+          <p>${message}</p>
+        `
       });
-    }
-
-    const info = await transporter.sendMail({
-      from: '"NilePixel Technologies" <noreply@nilepixel.com>',
-      to: 'keroabdurehman@gmail.com', // User requested keroabdurehman@gmail.com
-      subject: `New Project Inquiry from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nCompany: ${company}\nService: ${service}\n\nMessage:\n${message}`,
-      html: `
-        <h3>New Contact Submission - NilePixel</h3>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
-        <p><strong>Company:</strong> ${company || 'N/A'}</p>
-        <p><strong>Service:</strong> ${service || 'N/A'}</p>
-        <hr/>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
-      `
-    });
-
-    if (!process.env.SMTP_HOST) {
-      console.log('Test email sent: %s', nodemailer.getTestMessageUrl(info));
+      console.log('Email sent: %s', info.messageId);
+    } else {
+      console.log('SMTP_HOST not configured. Skipping email notification for contact submission.');
     }
   } catch (error) {
     console.error('Failed to send email:', error);
