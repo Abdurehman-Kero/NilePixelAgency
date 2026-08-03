@@ -149,7 +149,7 @@ export const ContactPage: React.FC = () => {
  <button
  type="submit"
  disabled={sending}
- className="w-full py-2.5 sm:py-3.5 rounded-xl bg-gradient-to-r from-[#0F6FFF] to-[#00A3FF] font-bold text-white transition flex items-center justify-center gap-2 shadow-lg"
+ className="w-full py-2.5 sm:py-3.5 rounded-xl bg-[#0F6FFF] hover:bg-[#005FE0] font-bold text-white transition flex items-center justify-center gap-2 shadow-lg"
  >
  <Send className="w-4 h-4" /> {sending ? 'Sending...' : 'Submit Inquiry'}
  </button>

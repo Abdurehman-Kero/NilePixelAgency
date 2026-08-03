@@ -180,7 +180,7 @@ export const Home: React.FC = () => {
  </section>
 
  {/* SERVICES */}
- <section className="py-16 sm:py-24 relative z-10 border-t border-[#1B2B44]/30 bg-gradient-to-b from-[#0A1220]/50 to-transparent">
+ <section className="py-16 sm:py-24 relative z-10 border-t border-[#1B2B44]/30 bg-[#0A1220]/30">
  <div className="max-w-7xl mx-auto px-4 text-center space-y-8 sm:space-y-12">
  <div className="space-y-3">
  <h2 className="text-3xl sm:text-4xl font-bold">Customized Services For Your Success</h2>
@@ -269,7 +269,6 @@ export const Home: React.FC = () => {
  {/* COMMUNITY BANNER */}
  <section className="py-10 sm:py-12 relative z-10 max-w-4xl mx-auto px-4">
  <div className="bg-[#0A1220] border border-[#1B2B44]/50 rounded-3xl p-8 sm:p-12 text-center space-y-8 shadow-2xl relative overflow-hidden">
- <div className="absolute top-0 right-0 w-64 h-64 bg-opacity-20 blur-3xl pointer-events-none rounded-full" style={{ backgroundColor: accentHex, transform: 'translate(30%, -30%)' }} />
  
  <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border bg-[#0E1828]/90 text-xs font-semibold" style={{ borderColor: `${accentHex}50`, color: accentHex }}>
  <MessageCircle className="w-4 h-4" /> Community
