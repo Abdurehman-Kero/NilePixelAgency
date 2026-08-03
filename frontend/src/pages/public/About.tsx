@@ -55,7 +55,7 @@ export const About: React.FC = () => {
  ];
 
  return (
- <div className="bg-[#04080F] text-white min-h-screen pt-24 sm:pt-28 pb-16 sm:pb-24 relative overflow-hidden">
+ <div className="bg-[#04080F] text-white min-h-screen pt-16 sm:pt-28 pb-16 sm:pb-24 relative overflow-hidden">
  
  {/* Very faint grid background */}
  <div 
@@ -68,7 +68,7 @@ export const About: React.FC = () => {
  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 relative z-10">
  
  {/* Header Section */}
- <div className="space-y-2">
+ <div className="space-y-2 text-center sm:text-left">
  <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white">
  {t('about.title')}
  </h1>
@@ -81,7 +81,7 @@ export const About: React.FC = () => {
  <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-10 sm:gap-y-16 items-start">
  
  {/* Left Column: Our Story, Vision, Mission, Values */}
- <div className="lg:col-span-5 space-y-8 sm:space-y-10">
+ <div className="lg:col-span-5 space-y-8 sm:space-y-10 text-center sm:text-left">
  
  {/* Our Story */}
  <div className="space-y-4">
@@ -92,7 +92,7 @@ export const About: React.FC = () => {
  </div>
 
  {/* Our Vision */}
- <div className="border-l-[3px] pl-5 py-0.5 space-y-2" style={{ borderColor: accentHex }}>
+ <div className="border-t-[3px] sm:border-t-0 sm:border-l-[3px] pt-4 sm:pt-0 sm:pl-5 py-0.5 space-y-2 mx-auto sm:mx-0 max-w-sm sm:max-w-none" style={{ borderColor: accentHex }}>
  <h3 className="text-xl font-bold text-white">{t('about.ourVision')}</h3>
  <p className="text-xs sm:text-[13px] text-[#A9B4C5] leading-relaxed">
  {t('about.visionBody')}
@@ -100,7 +100,7 @@ export const About: React.FC = () => {
  </div>
 
  {/* Our Mission */}
- <div className="border-l-[3px] pl-5 py-0.5 space-y-2" style={{ borderColor: accentHex }}>
+ <div className="border-t-[3px] sm:border-t-0 sm:border-l-[3px] pt-4 sm:pt-0 sm:pl-5 py-0.5 space-y-2 mx-auto sm:mx-0 max-w-sm sm:max-w-none" style={{ borderColor: accentHex }}>
  <h3 className="text-xl font-bold text-white">{t('about.ourMission')}</h3>
  <p className="text-xs sm:text-[13px] text-[#A9B4C5] leading-relaxed">
  {t('about.missionBody')}
@@ -108,9 +108,9 @@ export const About: React.FC = () => {
  </div>
 
  {/* Our Values */}
- <div className="border-l-[3px] pl-5 py-0.5 space-y-4" style={{ borderColor: accentHex }}>
+ <div className="border-t-[3px] sm:border-t-0 sm:border-l-[3px] pt-4 sm:pt-0 sm:pl-5 py-0.5 space-y-4 mx-auto sm:mx-0 max-w-sm sm:max-w-none" style={{ borderColor: accentHex }}>
  <h3 className="text-xl font-bold text-white">{t('about.ourValues')}</h3>
- <div className="flex flex-wrap gap-2.5">
+ <div className="flex flex-wrap justify-center sm:justify-start gap-2.5">
  {values.map((val) => (
  <div
  key={val}
@@ -127,17 +127,17 @@ export const About: React.FC = () => {
 
  {/* Right Column: Meet Our Team */}
  <div className="lg:col-span-7 space-y-6">
- <h2 className="text-2xl font-bold text-white">{t('about.meetTeam')}</h2>
+ <h2 className="text-2xl font-bold text-white text-center sm:text-left">{t('about.meetTeam')}</h2>
 
- <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+ <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
  {loading ? (
           [1, 2, 3, 4, 5, 6].map((_, index) => {
-            const spanClass = index === 0 ? 'col-span-1 row-span-2 h-[550px]' : 
-              index === 1 ? 'col-span-2 row-span-1 h-[250px]' : 
-              index === 2 || index === 3 ? 'col-span-1 row-span-1 h-[280px]' :
-              index === 4 ? 'col-span-1 row-span-1 h-[250px]' :
-              index === 5 ? 'col-span-2 row-span-1 h-[250px]' :
-              'col-span-1 row-span-1 h-[280px]';
+            const spanClass = index === 0 ? 'col-span-2 sm:col-span-1 sm:row-span-2 h-[350px] sm:h-[550px]' : 
+              index === 1 ? 'col-span-1 sm:col-span-2 row-span-1 h-[200px] sm:h-[250px]' : 
+              index === 2 || index === 3 ? 'col-span-1 row-span-1 h-[200px] sm:h-[280px]' :
+              index === 4 ? 'col-span-1 row-span-1 h-[200px] sm:h-[250px]' :
+              index === 5 ? 'col-span-1 sm:col-span-2 row-span-1 h-[200px] sm:h-[250px]' :
+              'col-span-1 row-span-1 h-[200px] sm:h-[280px]';
 
             return (
               <div key={index} className={`rounded-2xl overflow-hidden border border-[#1B2B44]/50 bg-[#0A1220] ${spanClass}`}>
@@ -146,18 +146,18 @@ export const About: React.FC = () => {
             );
           })
         ) : teamList.slice(0, 6).map((member, index) => {
- // Determine span and height based on the screenshot layout logic
- // If the team is dynamic, map to the default spans by index.
- const spanClass = member.span || (
- index === 0 ? 'col-span-1 row-span-2 h-[550px]' : 
- index === 1 ? 'col-span-2 row-span-1 h-[250px]' : 
- index === 2 || index === 3 ? 'col-span-1 row-span-1 h-[280px]' :
- index === 4 ? 'col-span-1 row-span-1 h-[250px]' :
- index === 5 ? 'col-span-2 row-span-1 h-[250px]' :
- 'col-span-1 row-span-1 h-[280px]'
- );
+  // Determine span and height based on the screenshot layout logic
+  // If the team is dynamic, map to the default spans by index.
+  const spanClass = member.span || (
+    index === 0 ? 'col-span-2 sm:col-span-1 sm:row-span-2 h-[350px] sm:h-[550px]' : 
+    index === 1 ? 'col-span-1 sm:col-span-2 row-span-1 h-[200px] sm:h-[250px]' : 
+    index === 2 || index === 3 ? 'col-span-1 row-span-1 h-[200px] sm:h-[280px]' :
+    index === 4 ? 'col-span-1 row-span-1 h-[200px] sm:h-[250px]' :
+    index === 5 ? 'col-span-1 sm:col-span-2 row-span-1 h-[200px] sm:h-[250px]' :
+    'col-span-1 row-span-1 h-[200px] sm:h-[280px]'
+  );
 
- return (
+  return (
  <div
  key={member.id || member.name || index}
  className={`group relative rounded-2xl overflow-hidden border border-[#1B2B44]/50 bg-[#0A1220] transition duration-300 flex flex-col justify-end ${spanClass}`}
