@@ -11,7 +11,7 @@ export const About: React.FC = () => {
       'about.title': 'About us',
       'about.subtitle': 'Empowering Innovation through unparalleled software development expertise',
       'about.ourStory': 'Our Story',
-      'about.storyBody': 'NilePixel Technologies was founded in 2020 with a vision to bring innovative solutions to the tech industry. What started as a small group of passionate developers has grown into a global company serving thousands of clients worldwide. Our mission is to empower businesses through cutting-edge technology and exceptional customer support.',
+      'about.storyBody': 'NilePixel Technologies was founded in 2023 with a vision to bring innovative solutions to the tech industry. What started as a small group of passionate developers has grown into a global company serving thousands of clients worldwide. Our mission is to empower businesses through cutting-edge technology and exceptional customer support.',
       'about.ourVision': 'Our Vision',
       'about.visionBody': 'To be the leading provider of innovative software solutions, exceeding client expectations through exceptional African talent, while fostering sustainable growth and contributing positively to society and the environment.',
       'about.ourMission': 'Our Mission',
@@ -50,11 +50,11 @@ export const About: React.FC = () => {
   ];
 
   return (
-    <div className="bg-[#04080F] text-white min-h-screen pt-28 pb-24 relative overflow-hidden">
+    <div className="bg-[#04080F] text-white min-h-screen pt-24 sm:pt-28 pb-16 sm:pb-24 relative overflow-hidden">
       {/* Subtle background gradient to match screenshot */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#00E599]/5 to-transparent pointer-events-none" />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 relative z-10">
         
         {/* Header Section */}
         <div className="space-y-2">
@@ -67,10 +67,10 @@ export const About: React.FC = () => {
         </div>
 
         {/* Story, Vision, Mission, Values & Team Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-10 sm:gap-y-16 items-start">
           
           {/* Left Column: Our Story, Vision, Mission, Values */}
-          <div className="lg:col-span-5 space-y-10">
+          <div className="lg:col-span-5 space-y-8 sm:space-y-10">
             
             {/* Our Story */}
             <div className="space-y-4">

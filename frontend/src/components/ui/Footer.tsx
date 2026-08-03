@@ -20,14 +20,14 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="bg-[#050B15] border-t border-[#1B2B44] text-[#A9B4C5] pt-16 pb-12 text-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-center md:text-left">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-4 flex flex-col items-center md:items-start">
             <Logo />
-            <p className="max-w-sm text-xs text-[#A9B4C5] leading-relaxed">
+            <p className="max-w-sm text-xs text-[#A9B4C5] leading-relaxed mx-auto md:mx-0">
               NilePixel Technologies is an enterprise engineering studio delivering scalable cloud software, AI automation, high-performance web systems, and custom digital platforms across East Africa and globally.
             </p>
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex items-center justify-center md:justify-start gap-3 pt-2">
               <a href="https://www.linkedin.com/company/nilepixel-technologies" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-xl bg-[#08111F] border border-[#23344F] flex items-center justify-center text-[#A9B4C5] hover:text-[#00A3FF] hover:border-[#00A3FF] transition">
                 <Linkedin className="w-4 h-4" />
               </a>
@@ -66,15 +66,15 @@ export const Footer: React.FC = () => {
           <div className="space-y-3">
             <h4 className="text-white font-bold text-sm tracking-wide">HQ Contact</h4>
             <div className="space-y-2.5">
-              <p className="flex items-start gap-2.5 text-xs text-[#A9B4C5]">
+              <p className="flex items-start justify-center md:justify-start gap-2.5 text-xs text-[#A9B4C5]">
                 <MapPin className="w-4 h-4 text-[#00A3FF] shrink-0 mt-0.5" />
                 <span>Bole Sub-City, Addis Ababa, Ethiopia</span>
               </p>
-              <p className="flex items-center gap-2.5 text-xs text-[#A9B4C5]">
+              <p className="flex items-center justify-center md:justify-start gap-2.5 text-xs text-[#A9B4C5]">
                 <Mail className="w-4 h-4 text-[#00A3FF] shrink-0" />
                 <span>{email}</span>
               </p>
-              <p className="flex items-center gap-2.5 text-xs text-[#A9B4C5]">
+              <p className="flex items-center justify-center md:justify-start gap-2.5 text-xs text-[#A9B4C5]">
                 <Phone className="w-4 h-4 text-[#00A3FF] shrink-0" />
                 <span>{phone}</span>
               </p>
@@ -87,7 +87,9 @@ export const Footer: React.FC = () => {
           <div className="flex items-center gap-6">
             <Link to="/privacy-policy" className="hover:text-white transition">Privacy Policy</Link>
             <Link to="/terms" className="hover:text-white transition">Terms of Service</Link>
-            <Link to="/admin/login" className="hover:text-white transition flex items-center gap-1">Admin Portal <ArrowUpRight className="w-3 h-3" /></Link>
+            <Link to="/admin/login" className="opacity-10 hover:opacity-100 transition flex items-center gap-1" title="Admin Portal">
+              <ArrowUpRight className="w-3 h-3" />
+            </Link>
           </div>
         </div>
       </div>

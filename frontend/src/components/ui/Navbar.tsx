@@ -62,23 +62,24 @@ export const Navbar: React.FC = () => {
       </div>
 
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b border-[#1B2B44] bg-[#08111F] px-4 pt-2 pb-6 space-y-2">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-2.5 rounded-xl text-xs font-medium text-[#A9B4C5] hover:text-white hover:bg-[#101C2F]"
-            >
-              {link.name}
-            </Link>
-          ))}
-          <div className="pt-4 border-t border-[#1B2B44] space-y-2">
-
+        <div className="lg:hidden absolute top-20 left-0 right-0 border-b border-[#1B2B44]/60 bg-[#08111F]/95 backdrop-blur-xl px-4 pt-4 pb-8 shadow-2xl animate-fade-up-smooth origin-top">
+          <div className="flex flex-col gap-2">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-3 rounded-xl text-sm font-medium text-[#A9B4C5] hover:text-white hover:bg-[#101C2F] transition-all"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+          <div className="pt-6 mt-4 border-t border-[#1B2B44]/50">
             <Link
               to="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-center py-2.5 rounded-xl text-xs font-semibold text-white bg-[#0F6FFF]"
+              className="block w-full text-center py-3.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-[#0F6FFF] to-[#00A3FF] shadow-lg shadow-[#0F6FFF]/25 transition hover:opacity-90"
             >
               Start Project
             </Link>

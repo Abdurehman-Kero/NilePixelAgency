@@ -210,6 +210,27 @@ export const ProjectsCMS: React.FC = () => {
                 placeholder="https://images.unsplash.com/... or /uploads/..."
               />
 
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[#A9B4C5] mb-1">Live Demo URL</label>
+                  <input
+                    type="url" value={formData.live_url}
+                    onChange={e => setFormData({ ...formData, live_url: e.target.value })}
+                    className="w-full bg-[#08111F] border border-[#23344F] rounded-xl px-3 py-2 text-white"
+                    placeholder="https://example.com"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[#A9B4C5] mb-1">GitHub URL (Optional)</label>
+                  <input
+                    type="url" value={formData.github_url}
+                    onChange={e => setFormData({ ...formData, github_url: e.target.value })}
+                    className="w-full bg-[#08111F] border border-[#23344F] rounded-xl px-3 py-2 text-white"
+                    placeholder="https://github.com/..."
+                  />
+                </div>
+              </div>
+
               <div>
                 <label className="block text-[#A9B4C5] mb-1">Short Summary *</label>
                 <textarea

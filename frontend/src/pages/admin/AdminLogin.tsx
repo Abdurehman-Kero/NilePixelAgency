@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../services/api';
 import { Logo } from '../../components/ui/Logo';
-import { ShieldCheck, Lock, Mail, ArrowRight, AlertCircle } from 'lucide-react';
+import { ShieldCheck, Lock, Mail, ArrowRight, AlertCircle, ArrowLeft } from 'lucide-react';
 
 export const AdminLogin: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -30,8 +30,12 @@ export const AdminLogin: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#050B15] flex flex-col justify-center items-center p-4 text-white">
-      <div className="w-full max-w-md bg-[#101C2F] border border-[#23344F] rounded-2xl p-8 space-y-6 shadow-2xl">
-        <div className="flex flex-col items-center text-center space-y-2">
+      <div className="w-full max-w-md space-y-6">
+        <Link to="/" className="inline-flex items-center gap-2 text-sm text-[#A9B4C5] hover:text-white transition w-fit group">
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Home
+        </Link>
+        <div className="w-full bg-[#101C2F] border border-[#23344F] rounded-2xl p-8 space-y-6 shadow-2xl">
+          <div className="flex flex-col items-center text-center space-y-2">
           <Logo size="lg" />
           <h2 className="text-xl font-extrabold pt-2">Admin CMS Portal</h2>
           <p className="text-xs text-[#A9B4C5]">Sign in to manage company website content, projects, & team.</p>
@@ -82,6 +86,7 @@ export const AdminLogin: React.FC = () => {
             {loading ? 'Authenticating...' : 'Access Admin CMS'} <ArrowRight className="w-4 h-4" />
           </button>
         </form>
+        </div>
       </div>
     </div>
   );

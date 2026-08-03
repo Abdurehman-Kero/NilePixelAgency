@@ -125,17 +125,24 @@ export const Home: React.FC = () => {
       )}
 
       {/* HERO SECTION */}
-      <section className="relative pt-32 pb-16 text-center max-w-5xl mx-auto px-4 z-10 space-y-10">
+      <section className="relative pt-24 sm:pt-32 pb-12 sm:pb-16 text-center max-w-5xl mx-auto px-4 z-10 space-y-8 sm:space-y-10">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border bg-[#0E1828]/90 text-xs font-semibold shadow-sm" style={{ borderColor: `${accentHex}50`, color: accentHex }}>
           <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: accentHex }} />
           LEADERSHIP IN SOFTWARE ENGINEERING
         </div>
         
         <div className="space-y-6">
-          <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight leading-tight">
-            TURNING VISION <br/> INTO <span style={{ color: accentHex }}>REALITY</span>
+          <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight leading-tight flex flex-col items-center justify-center">
+            <span className="animate-fade-up-smooth inline-block">
+              <span className="animate-float-continuous inline-block">ENGINEERING DIGITAL</span>
+            </span>
+            <span className="animate-fade-up-smooth animation-delay-200 inline-block">
+              <span className="animate-float-continuous inline-block animation-delay-200">
+                <span style={{ color: accentHex }}>EXCELLENCE</span>
+              </span>
+            </span>
           </h1>
-          <p className="text-base sm:text-lg text-[#94A3B8] max-w-2xl mx-auto font-medium">
+          <p className="text-base sm:text-lg text-[#94A3B8] max-w-2xl mx-auto font-medium animate-fade-up-smooth animation-delay-400">
             Empowering your digital journey with scalable, high fidelity solutions. We design, build, and deploy resilient web platforms and mobile apps.
           </p>
         </div>
@@ -150,12 +157,12 @@ export const Home: React.FC = () => {
         </div>
 
         {/* Video Embed */}
-        <div className="pt-16 max-w-4xl mx-auto">
+        <div className="pt-10 sm:pt-16 max-w-4xl mx-auto">
           <div className="aspect-video bg-[#0A1220] rounded-2xl overflow-hidden border border-[#1B2B44]/50 shadow-2xl relative">
             <iframe 
               width="100%" 
               height="100%" 
-              src="https://www.youtube.com/embed/QyhwSYhX09s?si=bMpOEvRxHugl_6TJ" 
+              src="https://www.youtube.com/embed/QyhwSYhX09s?si=bMpOEvRxHugl_6TJ&end=60&controls=0" 
               title="YouTube video player" 
               frameBorder="0" 
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -168,8 +175,8 @@ export const Home: React.FC = () => {
       </section>
 
       {/* SERVICES */}
-      <section className="py-24 relative z-10 border-t border-[#1B2B44]/30 bg-gradient-to-b from-[#0A1220]/50 to-transparent">
-        <div className="max-w-7xl mx-auto px-4 text-center space-y-12">
+      <section className="py-16 sm:py-24 relative z-10 border-t border-[#1B2B44]/30 bg-gradient-to-b from-[#0A1220]/50 to-transparent">
+        <div className="max-w-7xl mx-auto px-4 text-center space-y-8 sm:space-y-12">
           <div className="space-y-3">
             <h2 className="text-3xl sm:text-4xl font-bold">Customized Services For Your Success</h2>
             <p className="text-[#A9B4C5] font-medium text-sm">Empowering Innovation through unparalleled software development expertise</p>
@@ -194,29 +201,29 @@ export const Home: React.FC = () => {
       </section>
 
       {/* STATS */}
-      <section className="py-12 border-y border-[#1B2B44]/30 relative z-10 bg-[#060C16]">
-        <div className="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-[#1B2B44]/50 text-center">
+      <section className="py-10 sm:py-12 border-y border-[#1B2B44]/30 relative z-10 bg-[#060C16]">
+        <div className="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-4 sm:gap-8 text-center">
           <div className="space-y-2">
             <div className="text-3xl font-extrabold" style={{ color: accentHex }}><CountUpNumber end={99} suffix="%" /></div>
             <div className="text-[11px] font-bold text-[#A9B4C5] uppercase tracking-wider">Productivity</div>
           </div>
           <div className="space-y-2">
-            <div className="text-3xl font-extrabold" style={{ color: accentHex }}><CountUpNumber end={24} suffix="+" /></div>
+            <div className="text-3xl font-extrabold" style={{ color: accentHex }}><CountUpNumber end={15} suffix="+" /></div>
             <div className="text-[11px] font-bold text-[#A9B4C5] uppercase tracking-wider">Happy Clients</div>
           </div>
           <div className="space-y-2">
-            <div className="text-3xl font-extrabold" style={{ color: accentHex }}><CountUpNumber end={48} suffix="+" /></div>
+            <div className="text-3xl font-extrabold" style={{ color: accentHex }}><CountUpNumber end={20} suffix="+" /></div>
             <div className="text-[11px] font-bold text-[#A9B4C5] uppercase tracking-wider">Completed Projects</div>
           </div>
           <div className="space-y-2">
-            <div className="text-3xl font-extrabold" style={{ color: accentHex }}><CountUpNumber end={6} suffix="+" /></div>
+            <div className="text-3xl font-extrabold" style={{ color: accentHex }}><CountUpNumber end={3} suffix="+" /></div>
             <div className="text-[11px] font-bold text-[#A9B4C5] uppercase tracking-wider">Years Experience</div>
           </div>
         </div>
       </section>
 
       {/* CORE VALUES */}
-      <section className="py-24 relative z-10 max-w-7xl mx-auto px-4 space-y-12 text-center">
+      <section className="py-16 sm:py-24 relative z-10 max-w-7xl mx-auto px-4 space-y-8 sm:space-y-12 text-center">
         <h2 className="text-3xl sm:text-4xl font-bold">Our Core Values and Principles</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
           <div className="bg-[#0A1220] border border-[#1B2B44]/50 p-8 rounded-2xl space-y-4">
@@ -244,7 +251,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* COMMUNITY BANNER */}
-      <section className="py-12 relative z-10 max-w-4xl mx-auto px-4">
+      <section className="py-10 sm:py-12 relative z-10 max-w-4xl mx-auto px-4">
         <div className="bg-[#0A1220] border border-[#1B2B44]/50 rounded-3xl p-8 sm:p-12 text-center space-y-8 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-opacity-20 blur-3xl pointer-events-none rounded-full" style={{ backgroundColor: accentHex, transform: 'translate(30%, -30%)' }} />
           
@@ -266,7 +273,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="py-24 relative z-10 max-w-7xl mx-auto px-4 space-y-12">
+      <section className="py-16 sm:py-24 relative z-10 max-w-7xl mx-auto px-4 space-y-8 sm:space-y-12">
         <h2 className="text-3xl sm:text-4xl font-bold">Testimonials</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {displayTestimonials.slice(0, 4).map((t, idx) => (
@@ -287,8 +294,8 @@ export const Home: React.FC = () => {
       </section>
 
       {/* LATEST WORK */}
-      <section className="py-24 border-t border-[#1B2B44]/30 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 space-y-12">
+      <section className="py-16 sm:py-24 border-t border-[#1B2B44]/30 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 space-y-8 sm:space-y-12">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
             <h2 className="text-3xl sm:text-4xl font-bold">Our latest work</h2>
             <Link to="/projects" className="text-sm font-semibold hover:underline" style={{ color: accentHex }}>View All Projects →</Link>
