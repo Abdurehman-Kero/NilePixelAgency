@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api/v1';
+const API_BASE_URL = 'https://nilepixel-backend.onrender.com/api/v1';
 
 export async function apiRequest(endpoint: string, options: RequestInit = {}) {
   const token = localStorage.getItem('admin_token');

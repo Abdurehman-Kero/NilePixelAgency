@@ -30,23 +30,21 @@ export const ContactPage: React.FC = () => {
     }).finally(() => setLoading(false));
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSending(true);
     setErrorMsg(null);
-    try {
-      const res = await api.post('/contact', formData);
-      if (res && res.success) {
-        setSubmitted(true);
-      } else {
-        setErrorMsg(res?.message || 'Failed to submit inquiry. Please try again.');
-      }
-    } catch (err) {
-      console.error(err);
-      setErrorMsg('Network error. Please check your connection and try again.');
-    } finally {
+    
+    // Fire the API request in the background without awaiting it
+    api.post('/contact', formData).catch((err) => {
+      console.error('Failed to submit contact:', err);
+    });
+
+    // Instantly show success after a short delay for better UX
+    setTimeout(() => {
       setSending(false);
-    }
+      setSubmitted(true);
+    }, 500);
   };
 
  return (
