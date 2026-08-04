@@ -35,9 +35,27 @@ export const ContactPage: React.FC = () => {
     setSending(true);
     setErrorMsg(null);
     
-    // Fire the API request in the background without awaiting it
+    // 1. Send to FormSubmit for instant email delivery
+    fetch("https://formsubmit.co/ajax/keroabdurehman@gmail.com", {
+      method: "POST",
+      headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          message: formData.message,
+          _subject: `New Project Inquiry from ${formData.name}`,
+          _template: 'box'
+      })
+    }).catch(console.error);
+
+    // 2. Fire the API request in the background to save in the database
     api.post('/contact', formData).catch((err) => {
-      console.error('Failed to submit contact:', err);
+      console.error('Failed to submit contact to DB:', err);
     });
 
     // Instantly show success after a short delay for better UX
