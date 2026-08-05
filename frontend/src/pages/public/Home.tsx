@@ -175,7 +175,7 @@ export const Home: React.FC = () => {
  <iframe 
  width="100%" 
  height="100%" 
- src="https://www.youtube.com/embed/QyhwSYhX09s?si=bMpOEvRxHugl_6TJ&end=60&controls=0" 
+ src="https://www.youtube.com/embed/wC5aH36w-TI" 
  title="YouTube video player" 
  frameBorder="0" 
  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
