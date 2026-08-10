@@ -36,12 +36,6 @@ const HARDCODED_TEAM = [
     position: 'Head of Mobile & DevOps',
     photo: `${BACKEND_URL}/uploads/file-1785704270317-126974139.jpg`,
   },
-  {
-    id: 5,
-    name: 'Abdushakur',
-    position: 'AI & Data Engineering Lead',
-    photo: `${BACKEND_URL}/uploads/file-1785704667487-910634181.jpg`,
-  },
 ];
 
 export const About: React.FC = () => {
