@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import { Check } from 'lucide-react';
+import { HARUN_PHOTO, FUAD_PHOTO } from '../../assets/teamPhotos';
 
 const BACKEND_URL = 'https://nilepixel-backend.onrender.com';
 
@@ -28,13 +29,13 @@ const HARDCODED_TEAM = [
     id: 6,
     name: 'Harun',
     position: 'Senior Software Engineer',
-    photo: `${BACKEND_URL}/uploads/harun-1786351909814.jpg`,
+    photo: HARUN_PHOTO,
   },
   {
     id: 4,
     name: 'Fuad',
     position: 'Head of Mobile & DevOps',
-    photo: `${BACKEND_URL}/uploads/fuad-1786351909814.jpg`,
+    photo: FUAD_PHOTO,
   },
 ];
 
