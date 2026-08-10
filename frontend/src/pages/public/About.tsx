@@ -28,13 +28,13 @@ const HARDCODED_TEAM = [
     id: 6,
     name: 'Harun',
     position: 'Senior Software Engineer',
-    photo: `${BACKEND_URL}/uploads/file-1785704517116-892906150.jpg`,
+    photo: `${BACKEND_URL}/uploads/harun-1786351909814.jpg`,
   },
   {
     id: 4,
     name: 'Fuad',
     position: 'Head of Mobile & DevOps',
-    photo: `${BACKEND_URL}/uploads/file-1785704270317-126974139.jpg`,
+    photo: `${BACKEND_URL}/uploads/fuad-1786351909814.jpg`,
   },
 ];
 
