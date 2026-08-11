@@ -11,19 +11,19 @@ const HARDCODED_TEAM = [
     id: 3,
     name: 'Abdurehman',
     position: 'Co-founder & Chief Software Architect',
-    photo: `${BACKEND_URL}/uploads/file-1785663407417-978299282.JPG`,
+    photo: '/team/abdurehman.jpg',
   },
   {
     id: 2,
     name: 'Mifta',
     position: 'Co-Founder & CTO',
-    photo: `${BACKEND_URL}/uploads/file-1785663361515-574881770.jpg`,
+    photo: '/team/mifta.jpg',
   },
   {
     id: 1,
     name: 'Anwar',
     position: 'Co-Founder and UI/UX Architect',
-    photo: `${BACKEND_URL}/uploads/file-1785663330833-268431322.JPG`,
+    photo: '/team/anwar.jpg',
   },
   {
     id: 6,
