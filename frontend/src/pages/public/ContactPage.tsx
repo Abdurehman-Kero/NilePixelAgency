@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../../services/api';
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
+import { SEO } from '../../components/ui/SEO';
 import { Skeleton } from '../../components/ui/Skeleton';
 
 export const ContactPage: React.FC = () => {
@@ -65,8 +66,14 @@ export const ContactPage: React.FC = () => {
     }, 500);
   };
 
- return (
- <div className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-white space-y-12 relative">
+  return (
+    <>
+      <SEO 
+        title="Contact Us | NilePixel Technologies"
+        description="Get in touch with NilePixel Technologies for your next software development, AI, or Telegram bot project in Ethiopia."
+        url="https://nilepixel.et/contact"
+      />
+    <div className="py-24 px-4 sm:px-6 lg:px-8 bg-[#04080F] min-h-screen text-white relative">
  {/* Subtle grid background */}
  <div className="absolute inset-0 bg-[linear-gradient(to_right,#00E59915_1px,transparent_1px),linear-gradient(to_bottom,#00E59915_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_50%_60%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none" />
  <div className="relative z-10 text-center max-w-3xl mx-auto space-y-4">
@@ -76,7 +83,7 @@ export const ContactPage: React.FC = () => {
  </p>
  </div>
 
- <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+ <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mt-12">
  <div className="lg:col-span-2 space-y-6 bg-[#101C2F] border border-[#23344F] rounded-2xl p-8">
  <h3 className="text-lg font-bold text-white">Contact HQ</h3>
 
@@ -188,6 +195,7 @@ export const ContactPage: React.FC = () => {
  )}
  </div>
  </div>
- </div>
- );
+    </div>
+    </>
+  );
 };

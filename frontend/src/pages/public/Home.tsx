@@ -6,6 +6,7 @@ import { useTheme } from '../../context/ThemeContext';
 import { MessageCircle } from 'lucide-react';
 import { ScrollReveal } from '../../components/ui/ScrollReveal';
 import { Skeleton } from '../../components/ui/Skeleton';
+import { SEO } from '../../components/ui/SEO';
 
 const BACKEND_URL = 'https://nilepixel-backend.onrender.com';
 
@@ -166,6 +167,12 @@ export const Home: React.FC = () => {
   const displayTestimonials = testimonials;
 
   return (
+    <>
+      <SEO 
+        title="NilePixel Technologies | Software Development & AI Solutions"
+        description="NilePixel Technologies is a leading software development agency in Ethiopia specializing in enterprise web applications, AI solutions, Telegram bots, and mobile engineering."
+        url="https://nilepixel.et"
+      />
     <div className="bg-transparent text-white min-h-screen relative overflow-hidden">
       {/* Grid Background */}
       <div
@@ -494,6 +501,7 @@ export const Home: React.FC = () => {
         </ScrollReveal>
       </section>
     </div>
+    </>
   );
 };
 

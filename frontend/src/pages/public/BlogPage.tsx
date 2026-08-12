@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../../services/api';
 import { Calendar, User, ArrowRight, FileText } from 'lucide-react';
 import { Skeleton } from '../../components/ui/Skeleton';
+import { SEO } from '../../components/ui/SEO';
 
 export const BlogPage: React.FC = () => {
  const [posts, setPosts] = useState<any[]>([]);
@@ -30,6 +31,12 @@ export const BlogPage: React.FC = () => {
  const list = posts.length > 0 ? posts : defaultPosts;
 
  return (
+ <>
+ <SEO 
+   title="Tech Insights & Blog | NilePixel Technologies"
+   description="Read the latest tech insights, software development trends, and engineering stories from the NilePixel Technologies team."
+   url="https://nilepixel.et/blog"
+ />
  <div className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12 text-white relative">
  {/* Subtle grid background */}
  <div className="absolute inset-0 bg-[linear-gradient(to_right,#00E59915_1px,transparent_1px),linear-gradient(to_bottom,#00E59915_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_50%_60%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none" />
@@ -95,5 +102,6 @@ export const BlogPage: React.FC = () => {
           ))}
  </div>
  </div>
+ </>
  );
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../../services/api';
 import { Skeleton } from '../../components/ui/Skeleton';
+import { SEO } from '../../components/ui/SEO';
 
 export const ProjectsPage: React.FC = () => {
  const [projects, setProjects] = useState<any[]>([]);
@@ -17,6 +18,12 @@ export const ProjectsPage: React.FC = () => {
 
 
  return (
+ <>
+ <SEO 
+   title="Our Projects | NilePixel Technologies"
+   description="Discover NilePixel Technologies' portfolio of successful enterprise web applications, mobile apps, and AI solutions."
+   url="https://nilepixel.et/projects"
+ />
  <div className="py-24 px-4 sm:px-6 lg:px-8 min-h-screen bg-[#04080F] relative text-white">
  {/* Subtle grid background */}
  <div className="absolute inset-0 bg-[linear-gradient(to_right,#00E59915_1px,transparent_1px),linear-gradient(to_bottom,#00E59915_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_50%_60%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none" />
@@ -64,5 +71,6 @@ export const ProjectsPage: React.FC = () => {
  </div>
  </div>
  </div>
+ </>
  );
 };

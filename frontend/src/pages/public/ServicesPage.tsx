@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../../services/api';
+import { useTheme } from '../../context/ThemeContext';
+import { SEO } from '../../components/ui/SEO';
 import { ArrowRight, Wrench, Shield, Cpu, Code2, Cloud, Sparkles } from 'lucide-react';
 
 export const ServicesPage: React.FC = () => {
@@ -86,6 +88,12 @@ export const ServicesPage: React.FC = () => {
   ];
 
   return (
+    <>
+      <SEO 
+        title="Our Services | NilePixel Technologies"
+        description="Explore NilePixel Technologies' comprehensive suite of services including enterprise web apps, mobile engineering, AI solutions, and Telegram bots."
+        url="https://nilepixel.et/services"
+      />
     <div className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12 text-white relative">
       {/* Subtle grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#00E59915_1px,transparent_1px),linear-gradient(to_bottom,#00E59915_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_50%_60%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none" />
@@ -122,5 +130,6 @@ export const ServicesPage: React.FC = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };

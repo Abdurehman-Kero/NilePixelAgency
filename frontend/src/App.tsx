@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'motion/react';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -91,6 +92,7 @@ const PublicLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
 export function App() {
  return (
+ <HelmetProvider>
  <ThemeProvider>
  <AuthProvider>
  <BrowserRouter>
@@ -133,6 +135,7 @@ export function App() {
  </BrowserRouter>
  </AuthProvider>
  </ThemeProvider>
+ </HelmetProvider>
  );
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import { Check } from 'lucide-react';
 import { HARUN_PHOTO, FUAD_PHOTO } from '../../assets/teamPhotos';
+import { SEO } from '../../components/ui/SEO';
 
 const BACKEND_URL = 'https://nilepixel-backend.onrender.com';
 
@@ -73,7 +74,13 @@ export const About: React.FC = () => {
   ];
 
   return (
-    <div className="bg-[#04080F] text-white min-h-screen pt-16 sm:pt-28 pb-16 sm:pb-24 relative overflow-hidden">
+    <>
+      <SEO 
+        title="About Us | NilePixel Technologies"
+        description="Learn about NilePixel Technologies' story, vision, and the core team behind our enterprise software engineering and AI solutions."
+        url="https://nilepixel.et/about"
+      />
+      <div className="bg-[#04080F] text-white min-h-screen pt-16 sm:pt-28 pb-16 sm:pb-24 relative overflow-hidden">
       {/* Very faint grid background */}
       <div
         className="absolute inset-0 bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_50%_60%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none"
@@ -198,5 +205,6 @@ export const About: React.FC = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../../services/api';
 import { Briefcase, MapPin, Clock, ArrowRight, X } from 'lucide-react';
 import { Skeleton } from '../../components/ui/Skeleton';
+import { SEO } from '../../components/ui/SEO';
 
 export const CareersPage: React.FC = () => {
  const [careers, setCareers] = useState<any[]>([]);
@@ -66,6 +67,12 @@ export const CareersPage: React.FC = () => {
  };
 
  return (
+ <>
+ <SEO 
+   title="Careers | NilePixel Technologies"
+   description="Join the NilePixel Technologies team. We are hiring top software engineering and design talent to build the future of tech in Africa."
+   url="https://nilepixel.et/careers"
+ />
  <div className="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-12 text-white relative">
  {/* Subtle grid background */}
  <div className="absolute inset-0 bg-[linear-gradient(to_right,#00E59915_1px,transparent_1px),linear-gradient(to_bottom,#00E59915_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_50%_60%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none" />
@@ -193,5 +200,6 @@ export const CareersPage: React.FC = () => {
  </div>
  )}
  </div>
+ </>
  );
 };
