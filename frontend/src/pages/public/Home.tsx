@@ -11,36 +11,72 @@ const BACKEND_URL = 'https://nilepixel-backend.onrender.com';
 
 // Hard-coded services (live data from DB — avoids a /services network fetch on load)
 const HARDCODED_SERVICES = [
-  {
-    title: 'Enterprise Web Application Engineering',
-    short_description:
-      'Custom, high-throughput web systems built with React, TypeScript, Node.js, and resilient databases.',
-    cover_image:
-      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1000&q=80',
-    slug: 'enterprise-web-development',
-  },
+  // ROW 1: 2 Cards
   {
     title: 'Cross-Platform Mobile Engineering',
-    short_description:
-      'Native-quality iOS and Android mobile applications crafted using React Native and Flutter with real-time sync.',
-    cover_image:
-      'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1000&q=80',
+    short_description: 'Native-quality iOS and Android mobile applications crafted using React Native and Flutter with real-time sync.',
+    cover_image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1000&q=80',
     slug: 'mobile-app-development',
+    span: 'md:col-span-3 min-h-[200px]',
+  },
+  {
+    title: 'Enterprise Web Application Engineering',
+    short_description: 'Custom, high-throughput web systems built with React, TypeScript, Node.js, and resilient databases.',
+    cover_image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1000&q=80',
+    slug: 'enterprise-web-development',
+    span: 'md:col-span-3 min-h-[200px]',
+  },
+  // ROW 2: 3 Cards
+  {
+    title: 'Content Management Systems',
+    short_description: 'Powerful and flexible content management systems designed to give you full control over your website\'s content.',
+    cover_image: 'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1000&q=80',
+    slug: 'content-management-systems',
+    span: 'md:col-span-2 min-h-[200px]',
+  },
+  {
+    title: 'Consultancy Services',
+    short_description: 'Expert advice and strategic guidance to help you navigate the complexities of digital transformation.',
+    cover_image: 'https://i.imgur.com/SqzLNSQ.png',
+    slug: 'consultancy-services',
+    span: 'md:col-span-2 min-h-[200px]',
   },
   {
     title: 'Telegram Bots & Mini Apps',
-    short_description:
-      'We build Telegram Bots & Mini Apps — automation systems that streamline business workflows.',
-    cover_image: `${BACKEND_URL}/uploads/file-1785705463592-11182047.png`,
+    short_description: 'We gave Telegram Bots & Mini Apps services',
+    cover_image: 'https://i.imgur.com/uAHNFV2.png',
     slug: 'telegram-bots-mini-apps',
+    span: 'md:col-span-2 min-h-[200px]',
+  },
+  // ROW 3: 2 Cards
+  {
+    title: 'E-Commerce Solutions',
+    short_description: 'Custom e-commerce platforms designed to deliver a seamless shopping experience, driving business growth.',
+    cover_image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1000&q=80',
+    slug: 'ecommerce-solutions',
+    span: 'md:col-span-3 min-h-[200px]',
+  },
+  {
+    title: 'Maintenance & Support',
+    short_description: 'Reliable and proactive maintenance to keep your systems running securely and smoothly.',
+    cover_image: 'https://i.imgur.com/9LVjrM7.png',
+    slug: 'maintenance-support',
+    span: 'md:col-span-3 min-h-[200px]',
+  },
+  // ROW 4: 2 Cards
+  {
+    title: 'Artificial Intelligence & GenAI Solutions',
+    short_description: 'Custom LLM integrations, automated intelligent workflows, semantic search engines, and predictive analytics.',
+    cover_image: 'https://i.imgur.com/3UBIFjj.png',
+    slug: 'ai-genai-solutions',
+    span: 'md:col-span-3 min-h-[200px]',
   },
   {
     title: 'Cloud Infrastructure & DevOps Automation',
-    short_description:
-      'Automated CI/CD pipelines, Docker container orchestration, Kubernetes clusters, and AWS cloud architectures.',
-    cover_image:
-      'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1000&q=80',
+    short_description: 'Automated CI/CD pipelines, Docker container orchestration, Kubernetes clusters, and AWS cloud architectures.',
+    cover_image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1000&q=80',
     slug: 'cloud-devops-infrastructure',
+    span: 'md:col-span-3 min-h-[200px]',
   },
 ];
 
@@ -130,7 +166,7 @@ export const Home: React.FC = () => {
   const displayTestimonials = testimonials;
 
   return (
-    <div className="bg-[#04080F] text-white min-h-screen relative overflow-hidden">
+    <div className="bg-transparent text-white min-h-screen relative overflow-hidden">
       {/* Grid Background */}
       <div
         className="absolute inset-0 bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_70%_80%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"
@@ -197,7 +233,7 @@ export const Home: React.FC = () => {
 
         {/* Video Embed */}
         <div className="pt-10 sm:pt-16 max-w-4xl mx-auto">
-          <div className="aspect-video bg-[#0A1220] rounded-2xl overflow-hidden border border-[#1B2B44]/50 shadow-2xl relative">
+          <div className="aspect-video bg-transparent backdrop-blur-sm rounded-2xl overflow-hidden border border-[#1B2B44]/50 shadow-2xl relative">
             <iframe
               width="100%"
               height="100%"
@@ -214,7 +250,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* SERVICES — hard-coded from live DB data, no fetch needed */}
-      <section className="py-16 sm:py-24 relative z-10 border-t border-[#1B2B44]/30 bg-[#0A1220]/30">
+      <section className="py-16 sm:py-24 relative z-10 border-t border-[#1B2B44]/30 bg-transparent">
         <div className="max-w-7xl mx-auto px-4 text-center space-y-8 sm:space-y-12">
           <div className="space-y-3">
             <h2 className="text-3xl sm:text-4xl font-bold">Customized Services For Your Success</h2>
@@ -223,26 +259,28 @@ export const Home: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-4 md:gap-6 auto-rows-[minmax(0,1fr)]">
             {HARDCODED_SERVICES.map((s, idx) => (
               <div
                 key={idx}
-                className="group relative rounded-2xl overflow-hidden bg-[#0A1220] border border-[#1B2B44]/50 flex flex-col sm:flex-row text-left"
+                className={`group relative rounded-3xl overflow-hidden bg-[#00E599]/5 border border-[#00E599]/20 flex flex-col text-left shadow-lg hover:shadow-[0_0_30px_rgba(0,229,153,0.15)] hover:border-[#00E599]/50 transition-all duration-300 ${s.span}`}
               >
-                {s.cover_image && (
-                  <div className="w-full sm:w-2/5 aspect-video sm:aspect-auto overflow-hidden bg-[#08111F]">
+                {/* Background Image */}
+                <div className="relative w-full h-40 sm:h-48 overflow-hidden flex-shrink-0 border-b border-[#00E599]/20">
+                  {s.cover_image && (
                     <img
                       src={s.cover_image}
                       alt={s.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
-                  </div>
-                )}
-                <div className="p-6 sm:w-3/5 flex flex-col justify-center">
-                  <h3 className="text-lg font-bold mb-2" style={{ color: accentHex }}>
+                  )}
+                </div>
+                
+                {/* Content block aligned below */}
+                <div className="p-6 flex flex-col justify-center flex-grow">
+                  <h3 className="text-lg sm:text-xl font-bold" style={{ color: accentHex }}>
                     {s.title}
                   </h3>
-                  <p className="text-[#A9B4C5] text-sm leading-relaxed line-clamp-3">{s.short_description}</p>
                 </div>
               </div>
             ))}
@@ -251,7 +289,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* STATS */}
-      <section className="py-10 sm:py-12 border-y border-[#1B2B44]/30 relative z-10 bg-[#060C16]">
+      <section className="py-10 sm:py-12 border-y border-[#1B2B44]/30 relative z-10 bg-transparent">
         <ScrollReveal className="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-4 sm:gap-8 text-center">
           <div className="space-y-2">
             <div className="text-3xl font-extrabold" style={{ color: accentHex }}>
@@ -285,7 +323,7 @@ export const Home: React.FC = () => {
         <ScrollReveal className="max-w-7xl mx-auto px-4 space-y-8 sm:space-y-12">
           <h2 className="text-3xl sm:text-4xl font-bold">Our Core Values and Principles</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
-            <div className="bg-[#0A1220] border border-[#1B2B44]/50 p-8 rounded-2xl space-y-4">
+            <div className="bg-transparent backdrop-blur-sm border border-[#1B2B44]/50 p-8 rounded-2xl space-y-4">
               <div
                 className="w-10 h-10 rounded-xl bg-opacity-20 flex items-center justify-center"
                 style={{ backgroundColor: `${accentHex}20`, color: accentHex }}
@@ -297,7 +335,7 @@ export const Home: React.FC = () => {
                 We prioritize client needs, ensuring our solutions deliver real impact.
               </p>
             </div>
-            <div className="bg-[#0A1220] border border-[#1B2B44]/50 p-8 rounded-2xl space-y-4">
+            <div className="bg-transparent backdrop-blur-sm border border-[#1B2B44]/50 p-8 rounded-2xl space-y-4">
               <div
                 className="w-10 h-10 rounded-xl bg-opacity-20 flex items-center justify-center"
                 style={{ backgroundColor: `${accentHex}20`, color: accentHex }}
@@ -309,7 +347,7 @@ export const Home: React.FC = () => {
                 Rigorous testing guarantees the reliability and security of our software.
               </p>
             </div>
-            <div className="bg-[#0A1220] border border-[#1B2B44]/50 p-8 rounded-2xl space-y-4">
+            <div className="bg-transparent backdrop-blur-sm border border-[#1B2B44]/50 p-8 rounded-2xl space-y-4">
               <div
                 className="w-10 h-10 rounded-xl bg-opacity-20 flex items-center justify-center"
                 style={{ backgroundColor: `${accentHex}20`, color: accentHex }}
@@ -327,7 +365,7 @@ export const Home: React.FC = () => {
 
       {/* COMMUNITY BANNER */}
       <section className="py-10 sm:py-12 relative z-10 max-w-4xl mx-auto px-4">
-        <ScrollReveal className="bg-[#0A1220] border border-[#1B2B44]/50 rounded-3xl p-8 sm:p-12 text-center space-y-8 shadow-2xl relative overflow-hidden">
+        <ScrollReveal className="bg-transparent backdrop-blur-sm border border-[#1B2B44]/50 rounded-3xl p-8 sm:p-12 text-center space-y-8 shadow-2xl relative overflow-hidden">
           <div
             className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border bg-[#0E1828]/90 text-xs font-semibold"
             style={{ borderColor: `${accentHex}50`, color: accentHex }}
@@ -363,7 +401,7 @@ export const Home: React.FC = () => {
               [1, 2, 3, 4].map(i => (
                 <div
                   key={i}
-                  className="bg-[#0A1220] border border-[#1B2B44]/50 p-8 rounded-2xl flex flex-col justify-between space-y-6 relative"
+                  className="bg-transparent backdrop-blur-sm border border-[#1B2B44]/50 p-8 rounded-2xl flex flex-col justify-between space-y-6 relative"
                 >
                   <Skeleton variant="text" width="100%" height="60px" />
                   <div className="flex items-center gap-4">
@@ -378,7 +416,7 @@ export const Home: React.FC = () => {
             ) : displayTestimonials.slice(0, 4).map((t: any, idx: number) => (
               <div
                 key={idx}
-                className="bg-[#0A1220] border border-[#1B2B44]/50 p-8 rounded-2xl flex flex-col justify-between space-y-6 relative"
+                className="bg-transparent backdrop-blur-sm border border-[#1B2B44]/50 p-8 rounded-2xl flex flex-col justify-between space-y-6 relative"
               >
                 <p className="text-[#A9B4C5] text-sm leading-relaxed italic z-10 relative">
                   "{t.message || t.text || t.content}"
@@ -427,7 +465,7 @@ export const Home: React.FC = () => {
               ))
             ) : displayProjects.slice(0, 3).map((p: any, idx: number) => (
               <Link to={`/projects/${p.slug}`} key={idx} className="group space-y-4 cursor-pointer block">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-[#0A1220] border border-[#1B2B44]/30 shadow-lg relative">
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-transparent backdrop-blur-sm border border-[#1B2B44]/30 shadow-lg relative">
                   <img
                     src={
                       p.cover_image ||

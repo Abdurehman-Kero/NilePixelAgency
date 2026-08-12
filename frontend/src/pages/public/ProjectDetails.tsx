@@ -52,7 +52,6 @@ export const ProjectDetails: React.FC = () => {
  {p.cover_image && (
  <div className="w-full aspect-[21/9] rounded-3xl overflow-hidden border border-[#1B2B44]/50 shadow-2xl relative">
  <img src={p.cover_image} alt={p.title} className="w-full h-full object-cover" />
- <div className="absolute inset-0 bg-[#04080F]/80" />
  </div>
  )}
 

@@ -70,7 +70,7 @@ import { ActivityLogsCMS } from './pages/admin/ActivityLogsCMS';
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
  const { user, token, loading } = useAuth();
  if (loading) {
- return <div className="bg-[#08111F] text-white min-h-screen flex items-center justify-center text-xs">Authenticating user...</div>;
+ return <div className="bg-[#04080F] text-white min-h-screen flex items-center justify-center text-xs">Authenticating user...</div>;
  }
  if (!token || !user) {
  return <Navigate to="/admin/login" replace />;
@@ -80,7 +80,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
 // Layout for Public Site
 const PublicLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
- <div className="flex flex-col min-h-screen bg-[#08111F]">
+ <div className="flex flex-col min-h-screen bg-[#04080F]">
  <Navbar />
  <main className="flex-1 flex flex-col">
  <PageTransition>{children}</PageTransition>
