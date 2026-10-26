@@ -1,205 +1,271 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { api } from '../../services/api';
-import { Briefcase, MapPin, Clock, ArrowRight, X } from 'lucide-react';
+import { useApiData } from '../../hooks/useApiData';
+import { MapPin, Clock, X, CheckCircle2, Rocket, Users, MessageSquare, GraduationCap, Layers, Heart, ArrowRight } from 'lucide-react';
 import { Skeleton } from '../../components/ui/Skeleton';
 import { SEO } from '../../components/ui/SEO';
+import { PageHeader } from '../../components/ui/PageHeader';
+import { SectionTitle } from '../../components/ui/SectionTitle';
+import { ScrollReveal } from '../../components/ui/ScrollReveal';
+
+const EMPTY_FORM = {
+  applicant_name: '',
+  email: '',
+  phone: '',
+  telegram_username: '',
+  resume_url: '',
+  portfolio_url: '',
+  linkedin_url: '',
+  github_url: '',
+  cover_letter: '',
+};
+
+const PERKS = [
+  { icon: Rocket, title: 'Work that ships', body: 'Small teams, short cycles and real users. What you build goes live, not into a drawer.' },
+  { icon: Users, title: 'A small, senior team', body: 'Learn next to experienced engineers and designers who care about the craft.' },
+  { icon: Layers, title: 'Real ownership', body: 'You own features end to end, from the first idea through to production.' },
+  { icon: GraduationCap, title: 'Room to grow', body: 'We make time for learning, and we back people moving into bigger responsibilities.' },
+  { icon: MessageSquare, title: 'Straight feedback', body: 'Honest, kind and regular. You always know where you stand and how to improve.' },
+  { icon: Heart, title: 'Respect for people', body: 'We work hard, we are decent to each other, and we treat clients the same way.' },
+];
+
+const HIRING = [
+  { title: 'Apply', body: 'Send your CV and a few lines about what you have built. Links beat long letters.' },
+  { title: 'Intro chat', body: 'A relaxed conversation about your work, what you enjoy and what you want next.' },
+  { title: 'Practical task', body: 'A small, paid-for-your-time style exercise close to real work. No whiteboard riddles.' },
+  { title: 'Meet the team', body: 'Talk with the people you would work with, then we decide quickly and tell you either way.' },
+];
 
 export const CareersPage: React.FC = () => {
- const [careers, setCareers] = useState<any[]>([]);
- const [selectedJob, setSelectedJob] = useState<any | null>(null);
- const [loading, setLoading] = useState(true);
- 
- const [formData, setFormData] = useState({
- applicant_name: '',
- email: '',
- phone: '',
- telegram_username: '',
- resume_url: '',
- portfolio_url: '',
- linkedin_url: '',
- github_url: '',
- cover_letter: ''
- });
- const [submitting, setSubmitting] = useState(false);
- const [success, setSuccess] = useState(false);
+  const { data: allCareers = [], loading } = useApiData<any[]>('/careers');
+  const [selectedJob, setSelectedJob] = useState<any | null>(null);
+  const [formData, setFormData] = useState(EMPTY_FORM);
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    api.get('/careers').then((res) => {
-      if (res.success && res.data?.length > 0) {
-        const now = new Date().getTime();
-        const validJobs = res.data.filter((j: any) => {
-          if (j.status !== 'open') return false;
-          if (j.expire_date && new Date(j.expire_date + 'T23:59:59').getTime() < now) return false;
-          return true;
-        });
-        setCareers(validJobs);
-      }
-    }).finally(() => setLoading(false));
-  }, []);
+  const careers = useMemo(() => {
+    const now = Date.now();
+    return allCareers.filter((j: any) => {
+      if (j.status !== 'open') return false;
+      if (j.expire_date && new Date(j.expire_date + 'T23:59:59').getTime() < now) return false;
+      return true;
+    });
+  }, [allCareers]);
 
- const handleApply = (job: any) => {
- setSelectedJob(job);
- setSuccess(false);
- setFormData({
- applicant_name: '', email: '', phone: '', telegram_username: '', resume_url: '',
- portfolio_url: '', linkedin_url: '', github_url: '', cover_letter: ''
- });
- };
+  const handleApply = (job: any) => {
+    setSelectedJob(job);
+    setSuccess(false);
+    setFormData(EMPTY_FORM);
+  };
 
- const handleSubmit = async (e: React.FormEvent) => {
- e.preventDefault();
- setSubmitting(true);
- try {
- const res = await api.post('/applications', {
- ...formData,
- career_id: selectedJob.id
- });
- if (res.success) {
- setSuccess(true);
- }
- } catch (err) {
- console.error(err);
- alert('Failed to submit application.');
- } finally {
- setSubmitting(false);
- }
- };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      const res = await api.post('/applications', { ...formData, career_id: selectedJob.id });
+      if (res.success) setSuccess(true);
+    } catch (err) {
+      console.error(err);
+      alert('Failed to submit application.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
- return (
- <>
- <SEO 
-   title="Careers | NilePixel Technologies"
-   description="Join the NilePixel Technologies team. We are hiring top software engineering and design talent to build the future of tech in Africa."
-   url="https://nilepixel.et/careers"
- />
- <div className="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-12 text-white relative">
- {/* Subtle grid background */}
- <div className="absolute inset-0 bg-[linear-gradient(to_right,#00E59915_1px,transparent_1px),linear-gradient(to_bottom,#00E59915_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_50%_60%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none" />
- <div className="relative z-10 text-center max-w-3xl mx-auto space-y-4">
- <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Join NilePixel Technologies</h1>
- <p className="text-sm text-[#A9B4C5] leading-relaxed">
- We are building the next generation of cloud software and AI intelligence across Africa.
- </p>
- </div>
+  const setField = (key: keyof typeof EMPTY_FORM) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setFormData({ ...formData, [key]: e.target.value });
 
- <div className="space-y-4">
-        {loading ? (
-          [1, 2, 3].map(i => (
-            <div key={i} className="bg-[#101C2F] border border-[#23344F] rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="space-y-3 w-full sm:w-3/4">
-                <Skeleton variant="text" width="40%" height="20px" />
-                <div className="flex gap-4">
-                  <Skeleton variant="text" width="100px" height="16px" />
-                  <Skeleton variant="text" width="100px" height="16px" />
+  return (
+    <>
+      <SEO
+        title="Careers | NilePixel Technologies"
+        description="Join the NilePixel Technologies team. We are hiring top software engineering and design talent to build the future of tech in Africa."
+        url="https://nilepixel.et/careers"
+      />
+
+      <PageHeader
+        eyebrow="Careers"
+        title="Join NilePixel Technologies"
+        description="We're building the next generation of cloud software and AI across Africa. Come build it with us."
+      />
+
+      <section className="section">
+        <div className="container-page max-w-4xl space-y-4">
+          {loading ? (
+            [1, 2, 3].map((i) => (
+              <div key={i} className="card flex flex-col justify-between gap-4 p-6 sm:flex-row sm:items-center">
+                <div className="w-full space-y-3 sm:w-3/4">
+                  <Skeleton variant="text" width="40%" height="20px" />
+                  <Skeleton variant="text" width="60%" height="14px" />
+                  <Skeleton variant="text" height="14px" />
                 </div>
-                <Skeleton variant="text" width="100%" height="16px" />
+                <Skeleton className="h-11 w-full sm:w-32" />
               </div>
-              <Skeleton className="w-full sm:w-32 h-10 rounded-xl" />
+            ))
+          ) : careers.length === 0 ? (
+            <div className="card p-12 text-center">
+              <h2 className="text-lg font-semibold text-ink">No open roles right now</h2>
+              <p className="mt-2 text-sm text-body">Please check back later or follow us on LinkedIn for updates.</p>
             </div>
-          ))
-        ) : careers.length === 0 ? (
- <div className="text-center p-12 bg-[#101C2F] border border-[#23344F] rounded-2xl">
- <h3 className="text-lg font-bold text-white mb-2">No Open Roles Right Now</h3>
- <p className="text-[#A9B4C5] text-sm">Please check back later or follow us on LinkedIn for updates.</p>
- </div>
- ) : (
- careers.map((job) => (
- <div key={job.id} className="bg-[#101C2F] border border-[#23344F] rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-[#0F6FFF] transition">
- <div className="space-y-2">
- <h3 className="text-base font-bold text-white">{job.job_title}</h3>
- <div className="flex flex-wrap items-center gap-4 text-xs text-[#A9B4C5]">
- <span className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5 text-[#00A3FF]" /> {job.location}</span>
- <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-[#00A3FF]" /> {job.employment_type}</span>
- <span className="px-2 py-0.5 rounded bg-[#08111F] text-[#00A3FF] border border-[#23344F] text-[10px] font-mono">{job.department}</span>
- </div>
- <p className="text-xs text-[#A9B4C5] leading-relaxed">{job.description}</p>
- </div>
+          ) : (
+            careers.map((job) => (
+              <div
+                key={job.id}
+                className="card card-hover flex flex-col justify-between gap-5 p-6 sm:flex-row sm:items-center sm:p-7"
+              >
+                <div className="space-y-3">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <h2 className="text-lg font-semibold text-ink">{job.job_title}</h2>
+                    <span className="tag !border-accent/30 !bg-accent-soft !text-accent">{job.department}</span>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-[13px] text-muted">
+                    <span className="flex items-center gap-1.5"><MapPin className="h-4 w-4" /> {job.location}</span>
+                    <span className="flex items-center gap-1.5"><Clock className="h-4 w-4" /> {job.employment_type}</span>
+                  </div>
+                  <p className="text-sm leading-relaxed text-body">{job.description}</p>
+                </div>
+                <button onClick={() => handleApply(job)} className="btn-primary shrink-0 self-start sm:self-center">
+                  Apply now
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+      </section>
 
- <button onClick={() => handleApply(job)} className="px-3 py-1.5 sm:px-5 sm:py-2.5 rounded-xl bg-[#0F6FFF] hover:bg-[#005FE0] text-xs font-semibold text-white whitespace-nowrap self-start sm:self-center transition-colors">
- Apply Position
- </button>
- </div>
- ))
- )}
- </div>
+      <section className="section bg-surface">
+        <ScrollReveal className="container-page space-y-12">
+          <SectionTitle eyebrow="Life at NilePixel" title="Why people like working here" />
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {PERKS.map(({ icon: Icon, title, body }) => (
+              <div key={title} className="card card-hover group bg-white p-6 sm:p-7">
+                <span className="icon-badge group-hover:scale-110">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <h3 className="mt-5 text-lg font-semibold text-ink">{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-body">{body}</p>
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
+      </section>
 
- {/* Application Modal */}
- {selectedJob && (
- <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
- <div className="bg-[#0A1220] border border-[#1B2B44] rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 space-y-6 shadow-2xl relative">
- <button onClick={() => setSelectedJob(null)} className="absolute top-6 right-6 text-[#A9B4C5] hover:text-white transition-colors">
- <X className="w-6 h-6" />
- </button>
- 
- <div>
- <h2 className="text-2xl font-bold text-white mb-1">Apply for {selectedJob.job_title}</h2>
- <p className="text-sm text-[#00A3FF]">{selectedJob.location} • {selectedJob.employment_type}</p>
- </div>
+      <section className="section">
+        <ScrollReveal className="container-page space-y-12">
+          <SectionTitle eyebrow="How we hire" title="Four steps, no surprises" />
+          <ol className="grid gap-5 md:grid-cols-4">
+            {HIRING.map((h, i) => (
+              <li key={h.title} className="group rounded-2xl border border-line p-6 transition duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-card">
+                <p className="text-4xl font-extrabold leading-none text-rust-gradient">0{i + 1}</p>
+                <h3 className="mt-4 text-base font-semibold text-ink">{h.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-body">{h.body}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="rounded-2xl bg-night p-7 text-center text-white sm:p-10">
+            <p className="text-xl font-semibold">Don't see the right role?</p>
+            <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-white/70">
+              We are always glad to hear from talented engineers and designers. Tell us what you do best.
+            </p>
+            <a href="mailto:info@nilepixel.com?subject=Open%20application" className="btn-primary mt-6 !rounded-full">
+              Send an open application <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+        </ScrollReveal>
+      </section>
 
- {success ? (
- <div className="bg-[#00E599]/10 border border-[#00E599]/20 p-6 rounded-xl text-center space-y-3">
- <div className="w-12 h-12 bg-[#00E599] rounded-full flex items-center justify-center mx-auto mb-4">
- <Briefcase className="w-6 h-6 text-[#0A1220]" />
- </div>
- <h3 className="text-xl font-bold text-white">Application Received!</h3>
- <p className="text-[#A9B4C5] text-sm">Thank you for applying. Our talent team will review your application and be in touch soon.</p>
- <button onClick={() => setSelectedJob(null)} className="mt-4 px-3 py-1 sm:px-4 sm:py-1.5 sm:px-6 sm:py-2 bg-[#1B2B44] hover:bg-[#23344F] text-white rounded-lg font-semibold transition-colors">
- Close
- </button>
- </div>
- ) : (
- <form onSubmit={handleSubmit} className="space-y-4 text-sm">
- <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
- <div>
- <label className="block text-[#A9B4C5] mb-1.5 font-medium">Full Name *</label>
- <input required type="text" value={formData.applicant_name} onChange={e=>setFormData({...formData, applicant_name: e.target.value})} className="w-full bg-[#101C2F] border border-[#23344F] rounded-xl px-3 py-1.5 sm:px-4 sm:py-2.5 text-white" />
- </div>
- <div>
- <label className="block text-[#A9B4C5] mb-1.5 font-medium">Email Address *</label>
- <input required type="email" value={formData.email} onChange={e=>setFormData({...formData, email: e.target.value})} className="w-full bg-[#101C2F] border border-[#23344F] rounded-xl px-3 py-1.5 sm:px-4 sm:py-2.5 text-white" />
- </div>
- <div>
- <label className="block text-[#A9B4C5] mb-1.5 font-medium">Phone Number</label>
- <input type="tel" value={formData.phone} onChange={e=>setFormData({...formData, phone: e.target.value})} className="w-full bg-[#101C2F] border border-[#23344F] rounded-xl px-3 py-1.5 sm:px-4 sm:py-2.5 text-white" />
- </div>
- <div>
- <label className="block text-[#A9B4C5] mb-1.5 font-medium">Telegram Username</label>
- <input type="text" placeholder="@username" value={formData.telegram_username} onChange={e=>setFormData({...formData, telegram_username: e.target.value})} className="w-full bg-[#101C2F] border border-[#23344F] rounded-xl px-3 py-1.5 sm:px-4 sm:py-2.5 text-white" />
- </div>
- <div>
- <label className="block text-[#A9B4C5] mb-1.5 font-medium">Resume/CV URL *</label>
- <input required type="url" placeholder="Link to Google Drive, Dropbox, etc." value={formData.resume_url} onChange={e=>setFormData({...formData, resume_url: e.target.value})} className="w-full bg-[#101C2F] border border-[#23344F] rounded-xl px-3 py-1.5 sm:px-4 sm:py-2.5 text-white" />
- </div>
- <div>
- <label className="block text-[#A9B4C5] mb-1.5 font-medium">Portfolio URL</label>
- <input type="url" value={formData.portfolio_url} onChange={e=>setFormData({...formData, portfolio_url: e.target.value})} className="w-full bg-[#101C2F] border border-[#23344F] rounded-xl px-3 py-1.5 sm:px-4 sm:py-2.5 text-white" />
- </div>
- <div>
- <label className="block text-[#A9B4C5] mb-1.5 font-medium">LinkedIn Profile</label>
- <input type="url" value={formData.linkedin_url} onChange={e=>setFormData({...formData, linkedin_url: e.target.value})} className="w-full bg-[#101C2F] border border-[#23344F] rounded-xl px-3 py-1.5 sm:px-4 sm:py-2.5 text-white" />
- </div>
- </div>
+      {/* Application modal */}
+      {selectedJob && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-night/60 p-4 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Apply for ${selectedJob.job_title}`}
+        >
+          <div className="relative max-h-[90vh] w-full max-w-2xl space-y-6 overflow-y-auto rounded-2xl bg-white p-6 shadow-lift sm:p-8">
+            <button
+              onClick={() => setSelectedJob(null)}
+              className="absolute right-5 top-5 rounded-lg p-1.5 text-muted hover:bg-surface hover:text-ink"
+              aria-label="Close"
+            >
+              <X className="h-5 w-5" />
+            </button>
 
- <div>
- <label className="block text-[#A9B4C5] mb-1.5 font-medium">Cover Letter / Notes</label>
- <textarea rows={4} value={formData.cover_letter} onChange={e=>setFormData({...formData, cover_letter: e.target.value})} className="w-full bg-[#101C2F] border border-[#23344F] rounded-xl px-4 py-3 text-white placeholder-[#A9B4C5]/50" placeholder="Tell us why you're a great fit..."></textarea>
- </div>
+            <div className="pr-8">
+              <h2 className="text-2xl font-semibold text-ink">Apply for {selectedJob.job_title}</h2>
+              <p className="mt-1 text-sm text-accent">
+                {selectedJob.location} • {selectedJob.employment_type}
+              </p>
+            </div>
 
- <div className="pt-4 flex justify-end gap-3">
- <button type="button" onClick={() => setSelectedJob(null)} className="px-4 py-2 sm:px-6 sm:py-3 rounded-xl font-bold text-white hover:bg-[#1B2B44] transition-colors">
- Cancel
- </button>
- <button type="submit" disabled={submitting} className="px-4 py-2 sm:px-6 sm:py-3 rounded-xl font-bold bg-[#00E599] text-[#0A1220] hover:bg-[#00E599]/90 transition-colors disabled:opacity-50">
- {submitting ? 'Submitting...' : 'Submit Application'}
- </button>
- </div>
- </form>
- )}
- </div>
- </div>
- )}
- </div>
- </>
- );
+            {success ? (
+              <div className="space-y-3 rounded-xl border border-accent/25 bg-accent-soft/60 p-8 text-center">
+                <CheckCircle2 className="mx-auto h-12 w-12 text-accent" />
+                <h3 className="text-xl font-semibold text-ink">Application received!</h3>
+                <p className="text-sm text-body">
+                  Thank you for applying. Our talent team will review your application and be in touch soon.
+                </p>
+                <button onClick={() => setSelectedJob(null)} className="btn-secondary mt-3">
+                  Close
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid gap-5 md:grid-cols-2">
+                  <div>
+                    <label className="field-label">Full name *</label>
+                    <input required type="text" value={formData.applicant_name} onChange={setField('applicant_name')} className="field" />
+                  </div>
+                  <div>
+                    <label className="field-label">Email address *</label>
+                    <input required type="email" value={formData.email} onChange={setField('email')} className="field" />
+                  </div>
+                  <div>
+                    <label className="field-label">Phone number</label>
+                    <input type="tel" value={formData.phone} onChange={setField('phone')} className="field" />
+                  </div>
+                  <div>
+                    <label className="field-label">Telegram username</label>
+                    <input type="text" placeholder="@username" value={formData.telegram_username} onChange={setField('telegram_username')} className="field" />
+                  </div>
+                  <div>
+                    <label className="field-label">Resume / CV URL *</label>
+                    <input required type="url" placeholder="Google Drive, Dropbox, etc." value={formData.resume_url} onChange={setField('resume_url')} className="field" />
+                  </div>
+                  <div>
+                    <label className="field-label">Portfolio URL</label>
+                    <input type="url" value={formData.portfolio_url} onChange={setField('portfolio_url')} className="field" />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="field-label">LinkedIn profile</label>
+                    <input type="url" value={formData.linkedin_url} onChange={setField('linkedin_url')} className="field" />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="field-label">Cover letter / notes</label>
+                  <textarea
+                    rows={4}
+                    value={formData.cover_letter}
+                    onChange={setField('cover_letter')}
+                    placeholder="Tell us why you're a great fit…"
+                    className="field resize-y"
+                  />
+                </div>
+
+                <div className="flex justify-end gap-3 pt-2">
+                  <button type="button" onClick={() => setSelectedJob(null)} className="btn-secondary">
+                    Cancel
+                  </button>
+                  <button type="submit" disabled={submitting} className="btn-primary">
+                    {submitting ? 'Submitting…' : 'Submit application'}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
 };

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "snapshot": "node scripts/snapshot.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.14",

@@ -47,7 +47,7 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({ isOpen = false, onCl
  >
  <div className="p-5 border-b border-[#23344F] flex justify-between items-center">
  <div>
- <Logo size="sm" />
+ <Logo size="sm" inverted />
  <span className="block mt-2 text-[10px] font-mono text-[#00A3FF] uppercase tracking-wider">
  Enterprise CMS v2.0
  </span>

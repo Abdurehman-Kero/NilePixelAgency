@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'motion/react';
@@ -7,15 +7,36 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { Navbar } from './components/ui/Navbar';
 import { Footer } from './components/ui/Footer';
 
-// Helper component to scroll instantly to top on route change
+// Scroll to the top on route change, or to the "#hash" target when the link has one.
+// The page content mounts after the exit transition, so the target is retried briefly.
 const ScrollToTop = () => {
- const { pathname } = useLocation();
+ const { pathname, hash, key } = useLocation();
+ const previousPath = useRef(pathname);
 
  useEffect(() => {
+ // Glide only when the link targets the page we are already on; jump when arriving from elsewhere.
+ const samePage = previousPath.current === pathname;
+ previousPath.current = pathname;
+
+ if (!hash) {
  window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
- document.documentElement.scrollTop = 0;
- document.body.scrollTop = 0;
- }, [pathname]);
+ return;
+ }
+
+ const id = decodeURIComponent(hash.slice(1));
+ let tries = 0;
+ let timer: ReturnType<typeof setTimeout>;
+ const seek = () => {
+ const el = document.getElementById(id);
+ if (el) {
+ el.scrollIntoView({ behavior: (samePage ? 'smooth' : 'instant') as ScrollBehavior, block: 'start' });
+ } else if (tries++ < 20) {
+ timer = setTimeout(seek, 50);
+ }
+ };
+ seek();
+ return () => clearTimeout(timer);
+ }, [pathname, hash, key]);
 
  return null;
 };
@@ -81,7 +102,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
 // Layout for Public Site
 const PublicLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
- <div className="flex flex-col min-h-screen bg-[#04080F]">
+ <div className="flex flex-col min-h-screen bg-canvas">
  <Navbar />
  <main className="flex-1 flex flex-col">
  <PageTransition>{children}</PageTransition>

@@ -1,8 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { api } from '../../services/api';
+import { useCompany } from '../../hooks/useApiData';
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
 import { SEO } from '../../components/ui/SEO';
-import { Skeleton } from '../../components/ui/Skeleton';
+import { PageHeader } from '../../components/ui/PageHeader';
+import { Faq } from '../../components/home/Faq';
+
+const NEXT_STEPS = [
+  { title: 'We review your message', body: 'A solution architect reads your brief and prepares thoughtful questions, usually within 24 hours.' },
+  { title: 'A short discovery call', body: 'We talk through goals, users and constraints so we understand what success looks like for you.' },
+  { title: 'You get a clear proposal', body: 'Scope, timeline and cost laid out plainly, with a first milestone you can start on right away.' },
+];
 
 export const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -12,46 +20,34 @@ export const ContactPage: React.FC = () => {
     company: '',
     budget: '$10k - $25k',
     service: 'Custom Software',
-    message: ''
+    message: '',
   });
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [siteEmail, setSiteEmail] = useState('info@nilepixel.com');
-  const [sitePhone, setSitePhone] = useState('+251982310974');
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(true);
-    api.get('/settings').then(res => {
-      if (res.success && res.data?.company) {
-        if (res.data.company.email) setSiteEmail(res.data.company.email);
-        if (res.data.company.phone) setSitePhone(res.data.company.phone);
-      }
-    }).finally(() => setLoading(false));
-  }, []);
+  const { email: siteEmail, phone: sitePhone } = useCompany();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSending(true);
     setErrorMsg(null);
-    
+
     // 1. Send to FormSubmit for instant email delivery
-    fetch("https://formsubmit.co/ajax/keroabdurehman@gmail.com", {
-      method: "POST",
-      headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+    fetch('https://formsubmit.co/ajax/keroabdurehman@gmail.com', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
       body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          company: formData.company,
-          message: formData.message,
-          _subject: `New Project Inquiry from ${formData.name}`,
-          _template: 'box'
-      })
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        company: formData.company,
+        message: formData.message,
+        _subject: `New Project Inquiry from ${formData.name}`,
+        _template: 'box',
+      }),
     }).catch(console.error);
 
     // 2. Fire the API request in the background to save in the database
@@ -66,136 +62,136 @@ export const ContactPage: React.FC = () => {
     }, 500);
   };
 
+  const setField = (key: keyof typeof formData) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setFormData({ ...formData, [key]: e.target.value });
+
+  const contactRows = [
+    { icon: Mail, label: 'Email us', value: siteEmail, href: `mailto:${siteEmail}` },
+    { icon: Phone, label: 'Phone & WhatsApp', value: sitePhone, href: `tel:${sitePhone}` },
+    { icon: MapPin, label: 'Headquarters', value: 'Bole Sub-City, Next to Millennium Hall, Addis Ababa, Ethiopia' },
+  ];
+
   return (
     <>
-      <SEO 
+      <SEO
         title="Contact Us | NilePixel Technologies"
         description="Get in touch with NilePixel Technologies for your next software development, AI, or Telegram bot project in Ethiopia."
         url="https://nilepixel.et/contact"
       />
-    <div className="py-24 px-4 sm:px-6 lg:px-8 bg-[#04080F] min-h-screen text-white relative">
- {/* Subtle grid background */}
- <div className="absolute inset-0 bg-[linear-gradient(to_right,#00E59915_1px,transparent_1px),linear-gradient(to_bottom,#00E59915_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_50%_60%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none" />
- <div className="relative z-10 text-center max-w-3xl mx-auto space-y-4">
- <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Let's Engineer Something Exceptional</h1>
- <p className="text-sm text-[#A9B4C5] leading-relaxed">
- Have an enterprise software requirement or AI project? Send us a message and our lead solution architects will reach out within 24 hours.
- </p>
- </div>
 
- <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mt-12">
- <div className="lg:col-span-2 space-y-6 bg-[#101C2F] border border-[#23344F] rounded-2xl p-8">
- <h3 className="text-lg font-bold text-white">Contact HQ</h3>
+      <PageHeader
+        eyebrow="Contact"
+        title="Let's build something exceptional"
+        description="Have an enterprise software requirement or AI project? Send us a message and our lead solution architects will reach out within 24 hours."
+      />
 
- <div className="space-y-4 text-xs">
- <div className="flex items-start gap-3">
- <MapPin className="w-5 h-5 text-[#00A3FF] shrink-0 mt-0.5" />
- <div>
- <p className="font-bold text-white">Addis Ababa HQ</p>
- <p className="text-[#A9B4C5]">Bole Sub-City, Next to Millennium Hall, Addis Ababa, Ethiopia</p>
- </div>
- </div>
+      <section className="section pt-2 sm:pt-6">
+        <div className="container-page space-y-14 sm:space-y-20">
+          {/* Contact cards with floating icon circles */}
+          <ul className="grid gap-x-5 gap-y-12 pt-6 md:grid-cols-3">
+            {contactRows.map(({ icon: Icon, label, value, href }) => (
+              <li key={label} className="group relative">
+                <span className="absolute left-1/2 top-0 z-10 flex h-[4.5rem] w-[4.5rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-accent shadow-card transition duration-300 group-hover:scale-110 group-hover:bg-accent group-hover:text-white">
+                  <Icon className="h-7 w-7" />
+                </span>
+                <div className="flex h-full flex-col items-center rounded-2xl bg-accent-soft px-6 pb-9 pt-14 text-center transition duration-300 group-hover:-translate-y-1 group-hover:shadow-lift">
+                  <h2 className="text-lg font-bold text-ink">{label}</h2>
+                  {href ? (
+                    <a href={href} className="link-underline mt-2 break-all text-[15px] text-ink hover:text-accent">
+                      {value}
+                    </a>
+                  ) : (
+                    <p className="mt-2 text-[15px] leading-relaxed text-ink">{value}</p>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
 
- <div className="flex items-center gap-3">
- <Mail className="w-5 h-5 text-[#00A3FF] shrink-0" />
- <div>
- <p className="font-bold text-white">Email Enquiries</p>
- {loading ? <Skeleton variant="text" width="120px" height="16px" /> : <p className="text-[#A9B4C5]">{siteEmail}</p>}
- </div>
- </div>
+          <div id="contact-form" className="grid scroll-mt-24 gap-8 lg:grid-cols-5 lg:gap-10">
+            <div className="space-y-8 lg:col-span-2">
+              <div>
+                <p className="eyebrow mb-3">What happens next</p>
+                <h2 className="heading-lg">Tell us about your project</h2>
+                <p className="lead mt-4">
+                  Share a few details and we'll come back with a clear plan. No obligation, no jargon.
+                </p>
+              </div>
+              <ol className="space-y-5">
+                {NEXT_STEPS.map((s, i) => (
+                  <li key={s.title} className="flex gap-4">
+                    <span className="icon-badge !h-10 !w-10 text-sm font-semibold">{i + 1}</span>
+                    <div>
+                      <h3 className="text-[15px] font-semibold text-ink">{s.title}</h3>
+                      <p className="mt-1 text-sm leading-relaxed text-body">{s.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
 
- <div className="flex items-center gap-3">
- <Phone className="w-5 h-5 text-[#00A3FF] shrink-0" />
- <div>
- <p className="font-bold text-white">Phone & WhatsApp</p>
- {loading ? <Skeleton variant="text" width="120px" height="16px" /> : <p className="text-[#A9B4C5]">{sitePhone}</p>}
- </div>
- </div>
- </div>
- </div>
+          <div className="rounded-2xl border border-line bg-white p-6 shadow-card sm:p-10 lg:col-span-3">
+            {submitted ? (
+              <div className="space-y-4 py-12 text-center">
+                <CheckCircle2 className="mx-auto h-14 w-14 text-accent" />
+                <h2 className="text-2xl font-semibold text-ink">Thank you!</h2>
+                <p className="mx-auto max-w-sm text-sm leading-relaxed text-body">
+                  Your inquiry has been submitted successfully. Our engineering team will contact you shortly.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5">
+                {errorMsg && (
+                  <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{errorMsg}</div>
+                )}
 
- <div className="lg:col-span-3 bg-[#101C2F] border border-[#23344F] rounded-2xl p-8">
- {submitted ? (
- <div className="py-12 text-center space-y-4">
- <CheckCircle2 className="w-12 h-12 text-green-400 mx-auto animate-bounce" />
- <h3 className="text-xl font-bold">Thank You!</h3>
- <p className="text-xs text-[#A9B4C5]">Your inquiry has been submitted successfully. Our engineering team will contact you shortly.</p>
- </div>
- ) : (
- <form onSubmit={handleSubmit} className="space-y-4 text-xs">
- {errorMsg && (
-   <div className="bg-red-500/10 border border-red-500/50 text-red-400 px-4 py-3 rounded-xl mb-4">
-     {errorMsg}
-   </div>
- )}
- <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
- <div>
- <label className="block text-[#A9B4C5] mb-1">Your Name *</label>
- <input
- type="text"
- required
- value={formData.name}
- onChange={(e) => setFormData({ ...formData, name: e.target.value })}
- className="w-full bg-[#08111F] border border-[#23344F] rounded-xl px-3 py-2.5 text-white"
- />
- </div>
- <div>
- <label className="block text-[#A9B4C5] mb-1">Email Address *</label>
- <input
- type="email"
- required
- value={formData.email}
- onChange={(e) => setFormData({ ...formData, email: e.target.value })}
- className="w-full bg-[#08111F] border border-[#23344F] rounded-xl px-3 py-2.5 text-white"
- />
- </div>
- </div>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label className="field-label" htmlFor="name">Your name *</label>
+                    <input id="name" type="text" required value={formData.name} onChange={setField('name')} className="field" />
+                  </div>
+                  <div>
+                    <label className="field-label" htmlFor="email">Email address *</label>
+                    <input id="email" type="email" required value={formData.email} onChange={setField('email')} className="field" />
+                  </div>
+                </div>
 
- <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
- <div>
- <label className="block text-[#A9B4C5] mb-1">Phone Number</label>
- <input
- type="text"
- value={formData.phone}
- onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
- className="w-full bg-[#08111F] border border-[#23344F] rounded-xl px-3 py-2.5 text-white"
- />
- </div>
- <div>
- <label className="block text-[#A9B4C5] mb-1">Company / Organization</label>
- <input
- type="text"
- value={formData.company}
- onChange={(e) => setFormData({ ...formData, company: e.target.value })}
- className="w-full bg-[#08111F] border border-[#23344F] rounded-xl px-3 py-2.5 text-white"
- />
- </div>
- </div>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label className="field-label" htmlFor="phone">Phone number</label>
+                    <input id="phone" type="text" value={formData.phone} onChange={setField('phone')} className="field" />
+                  </div>
+                  <div>
+                    <label className="field-label" htmlFor="company">Company / organization</label>
+                    <input id="company" type="text" value={formData.company} onChange={setField('company')} className="field" />
+                  </div>
+                </div>
 
- <div>
- <label className="block text-[#A9B4C5] mb-1">Project Details *</label>
- <textarea
- rows={4}
- required
- value={formData.message}
- onChange={(e) => setFormData({ ...formData, message: e.target.value })}
- placeholder="Describe your functional goals, technical requirements, or timeline..."
- className="w-full bg-[#08111F] border border-[#23344F] rounded-xl p-3 text-white"
- />
- </div>
+                <div>
+                  <label className="field-label" htmlFor="message">Project details *</label>
+                  <textarea
+                    id="message"
+                    rows={5}
+                    required
+                    value={formData.message}
+                    onChange={setField('message')}
+                    placeholder="Describe your goals, technical requirements, or timeline…"
+                    className="field resize-y"
+                  />
+                </div>
 
- <button
- type="submit"
- disabled={sending}
- className="w-full py-2.5 sm:py-3.5 rounded-xl bg-[#0F6FFF] hover:bg-[#005FE0] font-bold text-white transition flex items-center justify-center gap-2 shadow-lg"
- >
- <Send className="w-4 h-4" /> {sending ? 'Sending...' : 'Submit Inquiry'}
- </button>
- </form>
- )}
- </div>
- </div>
-    </div>
+                <button type="submit" disabled={sending} className="btn-primary w-full">
+                  <Send className="h-4 w-4" /> {sending ? 'Sending…' : 'Submit inquiry'}
+                </button>
+              </form>
+            )}
+          </div>
+          </div>
+        </div>
+      </section>
+
+      <Faq />
+      <div className="h-16 sm:h-24" />
     </>
   );
 };

@@ -1,135 +1,109 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { api } from '../../services/api';
-import { useTheme } from '../../context/ThemeContext';
+import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
+import { SERVICES, type ServiceItem } from '../../data/services';
 import { SEO } from '../../components/ui/SEO';
-import { ArrowRight, Wrench, Shield, Cpu, Code2, Cloud, Sparkles } from 'lucide-react';
+import { PageHeader } from '../../components/ui/PageHeader';
+import { ScrollReveal } from '../../components/ui/ScrollReveal';
+import { Process } from '../../components/home/Process';
+import { Engagement } from '../../components/home/Engagement';
+import { Faq } from '../../components/home/Faq';
+import { CtaBanner } from '../../components/home/CtaBanner';
 
-export const ServicesPage: React.FC = () => {
-  const BACKEND_URL = 'https://nilepixel-backend.onrender.com';
-  
-  const list = [
-    // ROW 1: 2 Cards
-    {
-      id: 2,
-      title: 'Cross-Platform Mobile Engineering',
-      slug: 'mobile-app-development',
-      short_description: 'Native-quality iOS and Android mobile applications crafted using React Native and Flutter with real-time sync.',
-      image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1000&q=80',
-      span: 'md:col-span-3 min-h-[200px]',
-    },
-    {
-      id: 1,
-      title: 'Enterprise Web Application Engineering',
-      slug: 'enterprise-web-development',
-      short_description: 'Custom, high-throughput web systems built with React, TypeScript, Node.js, and resilient databases.',
-      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1000&q=80',
-      span: 'md:col-span-3 min-h-[200px]',
-    },
-    // ROW 2: 3 Cards
-    {
-      id: 6,
-      title: 'Content Management Systems',
-      slug: 'content-management-systems',
-      short_description: 'Powerful and flexible content management systems designed to give you full control over your website\'s content.',
-      image: 'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1000&q=80',
-      span: 'md:col-span-2 min-h-[200px]',
-    },
-    {
-      id: 7,
-      title: 'Consultancy Services',
-      slug: 'consultancy-services',
-      short_description: 'Expert advice and strategic guidance to help you navigate the complexities of digital transformation.',
-      image: 'https://i.imgur.com/SqzLNSQ.png',
-      span: 'md:col-span-2 min-h-[200px]',
-    },
-    {
-      id: 5,
-      title: 'Telegram Bots & Mini Apps',
-      slug: 'telegram-bots-mini-apps',
-      short_description: 'We gave Telegram Bots & Mini Apps services',
-      image: 'https://i.imgur.com/uAHNFV2.png',
-      span: 'md:col-span-2 min-h-[200px]',
-    },
-    // ROW 3: 2 Cards
-    {
-      id: 8,
-      title: 'E-Commerce Solutions',
-      slug: 'ecommerce-solutions',
-      short_description: 'Custom e-commerce platforms designed to deliver a seamless shopping experience, driving business growth.',
-      image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1000&q=80',
-      span: 'md:col-span-3 min-h-[200px]',
-    },
-    {
-      id: 9,
-      title: 'Maintenance & Support',
-      slug: 'maintenance-support',
-      short_description: 'Reliable and proactive maintenance to keep your systems running securely and smoothly.',
-      image: 'https://i.imgur.com/9LVjrM7.png',
-      span: 'md:col-span-3 min-h-[200px]',
-    },
-    // ROW 4: 2 Cards
-    {
-      id: 4,
-      title: 'Artificial Intelligence & GenAI Solutions',
-      slug: 'ai-genai-solutions',
-      short_description: 'Custom LLM integrations, automated intelligent workflows, semantic search engines, and predictive analytics.',
-      image: 'https://i.imgur.com/3UBIFjj.png',
-      span: 'md:col-span-3 min-h-[200px]',
-    },
-    {
-      id: 3,
-      title: 'Cloud Infrastructure & DevOps Automation',
-      slug: 'cloud-devops-infrastructure',
-      short_description: 'Automated CI/CD pipelines, Docker container orchestration, Kubernetes clusters, and AWS cloud architectures.',
-      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1000&q=80',
-      span: 'md:col-span-3 min-h-[200px]',
-    }
-  ];
+const ServiceRow: React.FC<{ service: ServiceItem; index: number }> = ({ service: s, index }) => {
+  const flipped = index % 2 === 1;
 
   return (
-    <>
-      <SEO 
-        title="Our Services | NilePixel Technologies"
-        description="Explore NilePixel Technologies' comprehensive suite of services including enterprise web apps, mobile engineering, AI solutions, and Telegram bots."
-        url="https://nilepixel.et/services"
-      />
-    <div className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12 text-white relative">
-      {/* Subtle grid background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00E59915_1px,transparent_1px),linear-gradient(to_bottom,#00E59915_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_50%_60%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none" />
-      <div className="relative z-10 text-center max-w-3xl mx-auto space-y-4">
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Enterprise Engineering Capabilities</h1>
-        <p className="text-sm text-[#A9B4C5] leading-relaxed">
-          Full-stack software engineering, AI systems integration, and cloud infrastructure tailored for ambitious organizations.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-6 gap-4 md:gap-6 auto-rows-[minmax(0,1fr)] relative z-10">
-        {list.map((s) => (
-          <div key={s.id || s.slug} className={`group relative rounded-3xl overflow-hidden bg-[#00E599]/5 border border-[#00E599]/20 flex flex-col text-left shadow-lg hover:shadow-[0_0_30px_rgba(0,229,153,0.15)] hover:border-[#00E599]/50 transition-all duration-300 ${s.span}`}>
-            {/* Background Image */}
-            <div className="relative w-full h-40 sm:h-48 overflow-hidden flex-shrink-0 border-b border-[#00E599]/20">
-              {s.image && (
-                <img
-                  src={s.image}
-                  alt={s.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-              )}
-            </div>
-            
-            {/* Content block aligned below */}
-            <div className="p-6 flex flex-col flex-grow">
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-4">{s.title}</h3>
-              
-              <Link to={`/services/${s.slug}`} className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#00E599] hover:underline mt-auto">
-                Explore Solutions <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
+    <ScrollReveal>
+      <article className="group grid items-center gap-8 lg:grid-cols-12 lg:gap-14">
+        {/* Thumbnail */}
+        <Link
+          to={`/services/${s.slug}`}
+          className={`relative block lg:col-span-6 ${flipped ? 'lg:order-2' : ''}`}
+          aria-label={s.title}
+        >
+          <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-surface shadow-card transition duration-500 group-hover:shadow-lift">
+            <img
+              src={s.image}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            />
           </div>
-        ))}
-      </div>
-    </div>
-    </>
+          <span className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white text-ink shadow-card transition duration-300 sm:translate-y-1 sm:opacity-0 sm:group-hover:translate-y-0 sm:group-hover:opacity-100">
+            <ArrowUpRight className="h-4 w-4" />
+          </span>
+        </Link>
+
+        {/* Description */}
+        <div className={`lg:col-span-6 ${flipped ? 'lg:order-1' : ''}`}>
+          <div className="flex items-center gap-3">
+            <span className="text-2xl font-extrabold leading-none text-rust-gradient">{String(index + 1).padStart(2, '0')}</span>
+            <span className="h-px w-10 bg-accent/60" />
+            <span className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">Service</span>
+          </div>
+
+          <h2 className="mt-4 text-2xl font-semibold leading-tight tracking-tight text-ink sm:text-3xl">
+            <Link to={`/services/${s.slug}`} className="transition-colors hover:text-accent">
+              {s.title}
+            </Link>
+          </h2>
+
+          <p className="mt-4 text-[15px] leading-relaxed text-body sm:text-base sm:leading-7">{s.overview}</p>
+
+          <ul className="mt-5 space-y-2.5">
+            {s.deliverables.slice(0, 3).map((d) => (
+              <li key={d} className="flex items-start gap-3 text-sm leading-relaxed text-ink">
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent text-white">
+                  <Check className="h-3 w-3" strokeWidth={3.5} />
+                </span>
+                {d}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-5 flex flex-wrap gap-2">
+            {s.stack.slice(0, 5).map((t) => (
+              <span key={t} className="tag">{t}</span>
+            ))}
+          </div>
+
+          <Link to={`/services/${s.slug}`} className="btn-primary mt-6 !rounded-full sm:mt-7 sm:!px-6">
+            Explore this service <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </article>
+    </ScrollReveal>
   );
 };
+
+export const ServicesPage: React.FC = () => (
+  <>
+    <SEO
+      title="Our Services | NilePixel Technologies"
+      description="Explore NilePixel Technologies' comprehensive suite of services including enterprise web apps, mobile engineering, AI solutions, and Telegram bots."
+      url="https://nilepixel.et/services"
+    />
+
+    <PageHeader
+      eyebrow="Services"
+      title="Engineering capabilities for ambitious teams"
+      description="Full-stack software engineering, AI systems integration, and cloud infrastructure tailored to your organization."
+    />
+
+    <section className="section pt-2 sm:pt-6">
+      <div className="container-page space-y-16 sm:space-y-24">
+        {SERVICES.map((s, i) => (
+          <ServiceRow key={s.slug} service={s} index={i} />
+        ))}
+      </div>
+    </section>
+
+    <Process />
+    <Engagement />
+    <Faq className="bg-surface" />
+    <CtaBanner />
+    <div className="h-16 sm:h-24" />
+  </>
+);

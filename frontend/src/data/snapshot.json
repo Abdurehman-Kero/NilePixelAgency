@@ -1,0 +1,407 @@
+{
+  "/settings": {
+    "settings": {
+      "tagline": "Building Digital Products That Solve Real Problems.",
+      "about_summary": "NilePixel Technologies is a full-service software development agency operating at the intersection of enterprise engineering, AI, and cloud technology.",
+      "mission": "To empower global businesses by engineering intuitive, high-performance software systems that solve complex real-world challenges.",
+      "vision": "To be a globally recognized technology partner known for engineering excellence and digital transformation impact.",
+      "history": "Founded to bridge modern architecture with deep business domain expertise, NilePixel has grown into an international engineering agency.",
+      "phone": "+251 911 234 567",
+      "email": "contact@nilepixel.com",
+      "address": "Bole Sub-City, Addis Ababa, Ethiopia",
+      "working_hours": "Mon - Fri: 8:30 AM - 6:00 PM (EAT)",
+      "maps_url": "https://maps.google.com/?q=Addis+Ababa",
+      "hero_title": "Engineering Digital Systems That Drive Enterprise Scale",
+      "hero_subtitle": "We design, build, and deploy resilient web platforms, mobile apps, and cloud AI infrastructure for ambitious organizations.",
+      "hero_badge": "LEADERSHIP IN SOFTWARE ENGINEERING",
+      "hero_primary_btn": "Explore Case Studies",
+      "hero_secondary_btn": "Schedule Engineering Consultation",
+      "primary_color": "#0F6FFF",
+      "secondary_color": "#22C7FF",
+      "theme_mode": "dark",
+      "company_name": "NilePixel Technologies"
+    },
+    "company": {
+      "id": 1,
+      "about_summary": "NilePixel Technologies is a full-service software development agency operating at the intersection of enterprise engineering, AI, and cloud technology.",
+      "mission": "To empower global businesses by engineering intuitive, high-performance software systems that solve complex real-world challenges.",
+      "vision": "To be a globally recognized technology partner known for engineering excellence and digital transformation impact.",
+      "history": "Founded to bridge modern architecture with deep business domain expertise, NilePixel has grown into an international engineering agency.",
+      "phone": "+251 982310974",
+      "email": "nilepixeltechnologies@gmail.com",
+      "address": "Bole Sub-City, Addis Ababa, Ethiopia",
+      "working_hours": "Mon - Fri: 8:30 AM - 6:00 PM (EAT)",
+      "maps_url": "https://maps.google.com/?q=Addis+Ababa"
+    }
+  },
+  "/projects": [
+    {
+      "id": 7,
+      "uuid": "prj-1793018269700-rihla",
+      "title": "Rihla Tour & Travels – Tour Packages & Booking Enquiries",
+      "slug": "rihla-tour-and-travels",
+      "client_name": "Rihla Tour & Travels",
+      "industry": "Travel & Tourism",
+      "category_id": 6,
+      "short_description": "A polished travel website for Rihla Tour & Travels, presenting tour packages and letting travellers send booking enquiries online.",
+      "full_description": "",
+      "challenge": "Rihla needed a professional online presence to showcase its tour packages and turn browsing travellers into booking enquiries, instead of depending on social media messages.",
+      "solution": "We designed and built a fast, mobile-friendly website with a package catalogue, destination pages and a simple enquiry flow, plus an admin panel for the team to publish and update tours.",
+      "result": "Travellers can browse packages and request a booking from any device, and Rihla's team can keep its offers up to date without technical help.",
+      "cover_image": "https://res.cloudinary.com/dmxyu3uie/image/upload/v1792993026/nilepixel/project-rihla-tour-and-travels.jpg",
+      "github_url": null,
+      "live_url": null,
+      "featured": 1,
+      "status": "published",
+      "published_at": "2026-10-26T05:37:06.816Z",
+      "created_at": "2026-10-26T05:37:06.816Z",
+      "category_name": "Enterprise Systems",
+      "technologies": [
+        {
+          "id": 1,
+          "name": "React",
+          "slug": "react",
+          "category": "Frontend",
+          "icon_url": null,
+          "description": "High performance UI library"
+        },
+        {
+          "id": 2,
+          "name": "TypeScript",
+          "slug": "typescript",
+          "category": "Languages",
+          "icon_url": null,
+          "description": "Strongly typed JS"
+        },
+        {
+          "id": 3,
+          "name": "Node.js",
+          "slug": "nodejs",
+          "category": "Backend",
+          "icon_url": null,
+          "description": "Asynchronous JS runtime"
+        },
+        {
+          "id": 5,
+          "name": "MySQL",
+          "slug": "mysql",
+          "category": "Database",
+          "icon_url": null,
+          "description": "Relational database management"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "uuid": "prj-1793018268073-natik",
+      "title": "Natik Language Centre – Course Catalogue & Enrollment Platform",
+      "slug": "natik-language-centre",
+      "client_name": "Natik Language Centre",
+      "industry": "Education",
+      "category_id": 6,
+      "short_description": "A modern website and enrollment platform for Natik Language Centre, helping learners explore language courses and register online.",
+      "full_description": "",
+      "challenge": "Natik teaches languages to a diverse community of learners, but course details, schedules and registrations were handled manually through calls and messages. That was slow for the centre's staff and confusing for prospective students.",
+      "solution": "We built a clean, multi-language website with a clear course catalogue, class schedules and online enrollment, plus an admin panel so the centre's team can manage courses, intakes and registrations without needing a developer.",
+      "result": "Prospective students can explore courses and register in minutes from any device, and the centre's team spends less time answering repeat enquiries and more time teaching.",
+      "cover_image": "https://res.cloudinary.com/dmxyu3uie/image/upload/v1792993024/nilepixel/project-natik-language-centre.jpg",
+      "github_url": null,
+      "live_url": null,
+      "featured": 1,
+      "status": "published",
+      "published_at": "2026-10-26T05:37:06.816Z",
+      "created_at": "2026-10-26T05:37:06.816Z",
+      "category_name": "Enterprise Systems",
+      "technologies": [
+        {
+          "id": 1,
+          "name": "React",
+          "slug": "react",
+          "category": "Frontend",
+          "icon_url": null,
+          "description": "High performance UI library"
+        },
+        {
+          "id": 2,
+          "name": "TypeScript",
+          "slug": "typescript",
+          "category": "Languages",
+          "icon_url": null,
+          "description": "Strongly typed JS"
+        },
+        {
+          "id": 3,
+          "name": "Node.js",
+          "slug": "nodejs",
+          "category": "Backend",
+          "icon_url": null,
+          "description": "Asynchronous JS runtime"
+        },
+        {
+          "id": 4,
+          "name": "Express.js",
+          "slug": "express",
+          "category": "Backend",
+          "icon_url": null,
+          "description": "Web framework for Node"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "uuid": "prj-1786040691626",
+      "title": "HT Travel Agency – Travel Booking & Visa Assistance Platform",
+      "slug": "ht-travel-agency",
+      "client_name": "HT Travel Agency",
+      "industry": "Travel & Tourism",
+      "category_id": 6,
+      "short_description": "A modern travel agency platform designed to help travelers from Addis Ababa discover destinations and arrange flights, hotels, visa assistance, and complete travel plans through a simple digital experience.",
+      "full_description": "",
+      "challenge": "Traditional travel booking can be time-consuming, especially when customers need to manage flights, hotels, visas, and trip planning separately. HT Travel needed a modern online presence that could make its services easier to discover while building trust with travelers.",
+      "solution": "We developed a modern and responsive travel agency website that brings destinations, travel services, trip planning, visa assistance, and customer communication into one simple experience. The platform presents HT Travel as a trusted travel partner while making it easy for visitors to explore destinations and start planning their trip.",
+      "result": "Delivered a professional digital platform that strengthens HT Travel Agency's online presence, clearly communicates its services, showcases destinations, and gives travelers a simple way to begin planning their next trip.",
+      "cover_image": "https://res.cloudinary.com/dmxyu3uie/image/upload/v1786040651/nilepixel/file-1786040650397-365412768.png",
+      "github_url": "https://www.httravelagency.com/",
+      "live_url": "https://www.httravelagency.com/",
+      "featured": 0,
+      "status": "published",
+      "published_at": "2026-08-06T18:24:51.721Z",
+      "created_at": "2026-08-06T18:24:51.721Z",
+      "category_name": "Enterprise Systems",
+      "technologies": []
+    },
+    {
+      "id": 4,
+      "uuid": "prj-004",
+      "title": "StudentBridge Donation Platform",
+      "slug": "studentbridge-donation-platform",
+      "client_name": "Education Foundation",
+      "industry": "Social Impact & EdTech",
+      "category_id": 6,
+      "short_description": "Donation and campaign management platform with modern UI/UX workflows for supporting student financial needs.",
+      "full_description": "Developed a donation and campaign management platform with modern UI/UX workflows, donor management, and campaign analytics.",
+      "challenge": "Empowering direct transparency and simple digital donation channels for student financial aid.",
+      "solution": "Designed an accessible visual donation platform with secure payment integrations and live campaign progress metrics.",
+      "result": "Connected hundreds of students with essential educational funding through streamlined visual donation workflows.",
+      "cover_image": "https://res.cloudinary.com/dmxyu3uie/image/upload/v1785756096/nilepixel/file-1785756096192-946211998.png",
+      "github_url": "https://www.bridge4students.org/",
+      "live_url": "https://www.bridge4students.org/",
+      "featured": 1,
+      "status": "published",
+      "published_at": "2026-08-02T08:49:38.000Z",
+      "created_at": "2026-08-02T08:49:38.000Z",
+      "category_name": "Enterprise Systems",
+      "technologies": []
+    },
+    {
+      "id": 2,
+      "uuid": "prj-002",
+      "title": "Chala Mobile – E-Commerce Repair Management System",
+      "slug": "chala-mobile-system",
+      "client_name": "Chala Mobile Retail",
+      "industry": "Retail & Repair Systems",
+      "category_id": 6,
+      "short_description": "Business management platform for a real mobile retail client with inventory management, repair tracking, dashboards, and PDF receipt generation.",
+      "full_description": "Developed a business management platform for a real mobile retail client. Implemented inventory management, repair tracking, dashboards, and PDF receipt generation. Integrated authentication, payment systems, and customer management workflows.",
+      "challenge": "Manual repair tracking led to customer status miscommunication and inventory discrepancies.",
+      "solution": "Built an integrated POS and repair lifecycle management portal featuring automated SMS updates and live PDF receipt rendering.",
+      "result": "Streamlined mobile repair turnover by 45% and established real-time inventory tracking for multiple retail branches.",
+      "cover_image": "https://res.cloudinary.com/dmxyu3uie/image/upload/v1792993816/nilepixel/project-chala-mobile.jpg",
+      "github_url": "https://github.com",
+      "live_url": "https://chalamobile.vercel.app/",
+      "featured": 1,
+      "status": "published",
+      "published_at": "2026-08-02T08:49:38.000Z",
+      "created_at": "2026-08-02T08:49:38.000Z",
+      "category_name": "Enterprise Systems",
+      "technologies": [
+        {
+          "id": 1,
+          "name": "React",
+          "slug": "react",
+          "category": "Frontend",
+          "icon_url": null,
+          "description": "High performance UI library"
+        },
+        {
+          "id": 2,
+          "name": "TypeScript",
+          "slug": "typescript",
+          "category": "Languages",
+          "icon_url": null,
+          "description": "Strongly typed JS"
+        },
+        {
+          "id": 4,
+          "name": "Express.js",
+          "slug": "express",
+          "category": "Backend",
+          "icon_url": null,
+          "description": "Web framework for Node"
+        },
+        {
+          "id": 8,
+          "name": "Python",
+          "slug": "python",
+          "category": "AI & Data",
+          "icon_url": null,
+          "description": "AI and data engineering"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "uuid": "prj-001",
+      "title": "ShegerEvent – Event Management Platform",
+      "slug": "shegerevent-platform",
+      "client_name": "Sheger Event Ecosystem",
+      "industry": "EventTech & Full-Stack",
+      "category_id": 5,
+      "short_description": "Full-stack event ecosystem supporting organizers, attendees, admins, and security staff with QR ticket validation and Chapa payments.",
+      "full_description": "Integrated QR-based ticket validation, analytics dashboards, and payment workflows. Built using React, Node.js, Express, PostgreSQL, and Chapa payment integration.",
+      "challenge": "Managing high-throughput ticket sales and instant QR gate verification during major live events.",
+      "solution": "Engineered a full-stack event infrastructure with real-time QR scanner endpoints, admin telemetry dashboards, and automated payment callbacks.",
+      "result": "Successfully validated tens of thousands of event tickets with sub-second gate scanning latency and 100% payment reconciliation.",
+      "cover_image": "https://res.cloudinary.com/dmxyu3uie/image/upload/v1785756159/nilepixel/file-1785756158333-928137932.png",
+      "github_url": "https://github.com",
+      "live_url": "https://shegerevent.abdurehman.com",
+      "featured": 1,
+      "status": "published",
+      "published_at": "2026-08-02T08:49:38.000Z",
+      "created_at": "2026-08-02T08:49:38.000Z",
+      "category_name": "FinTech",
+      "technologies": [
+        {
+          "id": 1,
+          "name": "React",
+          "slug": "react",
+          "category": "Frontend",
+          "icon_url": null,
+          "description": "High performance UI library"
+        },
+        {
+          "id": 2,
+          "name": "TypeScript",
+          "slug": "typescript",
+          "category": "Languages",
+          "icon_url": null,
+          "description": "Strongly typed JS"
+        },
+        {
+          "id": 3,
+          "name": "Node.js",
+          "slug": "nodejs",
+          "category": "Backend",
+          "icon_url": null,
+          "description": "Asynchronous JS runtime"
+        },
+        {
+          "id": 5,
+          "name": "MySQL",
+          "slug": "mysql",
+          "category": "Database",
+          "icon_url": null,
+          "description": "Relational database management"
+        }
+      ]
+    }
+  ],
+  "/testimonials": [
+    {
+      "id": 3,
+      "client_name": "Chala Bushura",
+      "position": "",
+      "company": "Chala Mobile Solution",
+      "photo": "https://res.cloudinary.com/dmxyu3uie/image/upload/v1786004788/nilepixel/file-1786004788716-491897379.jpg",
+      "message": "NilePixel delivered our core settlement platform ahead of schedule with zero production defects. Their engineering discipline and code clarity are unmatched",
+      "rating": 5,
+      "featured": 1,
+      "display_order": 0,
+      "status": "active",
+      "created_at": "2026-08-06T08:26:42.285Z"
+    },
+    {
+      "id": 2,
+      "client_name": "Olga Liberzon",
+      "position": "Chief Medical Officer",
+      "company": "Management Consulting and Advisory",
+      "photo": "https://res.cloudinary.com/dmxyu3uie/image/upload/v1786006192/nilepixel/file-1786006191802-453355324.png",
+      "message": "NilePixel Technologies turned our vision for Bridge4Students into a simple, effective platform that makes it easier to connect students with the support they need. They understood our goals, listened to our needs, and delivered a solution we’re proud of.",
+      "rating": 5,
+      "featured": 1,
+      "display_order": 0,
+      "status": "active",
+      "created_at": "2026-08-02T08:49:38.000Z"
+    }
+  ],
+  "/careers": [
+    {
+      "id": 4,
+      "uuid": "job-1785756868465",
+      "job_title": "Digital market specialist",
+      "department": "BA in marketing",
+      "employment_type": "Full-time",
+      "location": "on-site",
+      "description": "Digital market specialist",
+      "requirements": "BA in marketing",
+      "responsibilities": "",
+      "salary": "",
+      "expire_date": "2026-08-05T00:00:00.000Z",
+      "status": "open",
+      "created_at": "2026-08-03T11:34:28.564Z"
+    },
+    {
+      "id": 3,
+      "uuid": "job-1785758731245",
+      "job_title": "full stack dev intern",
+      "department": "enginnering",
+      "employment_type": "Part-time",
+      "location": "hybrid",
+      "description": "looking full stack dev intern",
+      "requirements": "self thought",
+      "responsibilities": "",
+      "salary": "",
+      "expire_date": "2026-09-04T00:00:00.000Z",
+      "status": "open",
+      "created_at": "2026-08-03T05:04:59.708Z"
+    }
+  ],
+  "/blog": [
+    {
+      "id": 2,
+      "uuid": "post-002",
+      "title": "Integrating Domain-Specific LLM Agents into Enterprise Workflows",
+      "slug": "integrating-llm-agents-enterprise-workflows",
+      "excerpt": "How software engineering teams can leverage GenAI and structured function calling without sacrificing system predictability.",
+      "content": "## Predictable Generative AI\nGenerative AI has evolved beyond simple text prompts. By enforcing JSON schemas and function signatures, backends can orchestrate real-world operations with complete auditability...",
+      "cover_image": "",
+      "category_id": null,
+      "author_id": 1,
+      "featured": 0,
+      "reading_time": "8 min read",
+      "status": "published",
+      "published_at": "2026-08-02T08:49:38.000Z",
+      "created_at": "2026-08-02T08:49:38.000Z",
+      "category_name": null,
+      "author_name": "Admin NilePixel"
+    },
+    {
+      "id": 1,
+      "uuid": "post-001",
+      "title": "Architecting Resilient Multi-Tenant Relational Databases",
+      "slug": "architecting-resilient-multi-tenant-databases",
+      "excerpt": "A deep dive into indexing strategies, connection pooling, and row-level security isolation in enterprise relational systems.",
+      "content": "## Introduction\nWhen engineering enterprise software platforms, database architecture dictates application reliability. Multi-tenancy introduces unique isolation, scaling, and query optimization challenges.\n\n### Indexing Strategies\nIndexes are critical for query optimization. By creating composite index keys on tenant identifiers and timestamp filters, relational engines drastically reduce full table scans.",
+      "cover_image": null,
+      "category_id": 8,
+      "author_id": 1,
+      "featured": 1,
+      "reading_time": "6 min read",
+      "status": "published",
+      "published_at": "2026-08-02T08:49:38.000Z",
+      "created_at": "2026-08-02T08:49:38.000Z",
+      "category_name": "Engineering",
+      "author_name": "Admin NilePixel"
+    }
+  ]
+}

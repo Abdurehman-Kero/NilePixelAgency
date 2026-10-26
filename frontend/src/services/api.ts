@@ -1,4 +1,5 @@
-const API_BASE_URL = 'https://nilepixel-backend.onrender.com/api/v1';
+export const API_ORIGIN = 'https://nilepixel-backend.onrender.com';
+const API_BASE_URL = `${API_ORIGIN}/api/v1`;
 
 export async function apiRequest(endpoint: string, options: RequestInit = {}) {
   const token = localStorage.getItem('admin_token');
@@ -6,7 +7,9 @@ export async function apiRequest(endpoint: string, options: RequestInit = {}) {
     ...(options.headers as Record<string, string>),
   };
 
-  if (!(options.body instanceof FormData)) {
+  // A Content-Type on a bodyless GET turns it into a "non-simple" CORS request and
+  // forces an extra preflight round trip, which is slow when the server is cold.
+  if (options.body && !(options.body instanceof FormData)) {
     headers['Content-Type'] = 'application/json';
   }
 

@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 interface SkeletonProps {
   className?: string;
   variant?: 'rectangular' | 'circular' | 'text';
@@ -8,33 +7,18 @@ interface SkeletonProps {
   height?: string | number;
 }
 
-export const Skeleton: React.FC<SkeletonProps> = ({ 
-  className = '', 
-  variant = 'rectangular', 
-  width, 
-  height 
-}) => {
-  const baseClasses = 'animate-pulse bg-opacity-20';
-  const colorClasses = 'bg-gray-700';
-  
-  let variantClasses = '';
-  if (variant === 'circular') {
-    variantClasses = 'rounded-full';
-  } else if (variant === 'text') {
-    variantClasses = 'rounded-md';
-  } else {
-    variantClasses = 'rounded-xl';
-  }
-
-  const style: React.CSSProperties = {
-    width: width || (variant === 'text' ? '100%' : undefined),
-    height: height || (variant === 'text' ? '1.2em' : undefined)
-  };
-
-  return (
-    <div 
-      className={`${baseClasses} ${colorClasses} ${variantClasses} ${className}`}
-      style={style}
-    />
-  );
+const SHAPES = {
+  circular: 'rounded-full',
+  text: 'rounded-md',
+  rectangular: 'rounded-xl',
 };
+
+export const Skeleton: React.FC<SkeletonProps> = ({ className = '', variant = 'rectangular', width, height }) => (
+  <div
+    className={`animate-pulse bg-line ${SHAPES[variant]} ${className}`}
+    style={{
+      width: width || (variant === 'text' ? '100%' : undefined),
+      height: height || (variant === 'text' ? '1.2em' : undefined),
+    }}
+  />
+);

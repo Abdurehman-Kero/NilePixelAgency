@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 interface ThemeContextType {
  theme: string;
@@ -8,19 +8,15 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType>({
- theme: 'dark',
+ theme: 'light',
  setTheme: () => {},
- accentColor: '#00A3FF',
+ accentColor: '#F47B20',
  setAccentColor: () => {},
 });
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
- const [theme, setTheme] = useState('dark');
- const [accentColor, setAccentColor] = useState('#00A3FF');
-
- useEffect(() => {
- document.documentElement.classList.add('dark');
- }, []);
+ const [theme, setTheme] = useState('light');
+ const [accentColor, setAccentColor] = useState('#F47B20');
 
  return (
  <ThemeContext.Provider value={{ theme, setTheme, accentColor, setAccentColor }}>

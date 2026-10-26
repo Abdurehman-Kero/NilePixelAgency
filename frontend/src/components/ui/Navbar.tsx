@@ -1,91 +1,100 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Menu, X, ArrowRight } from 'lucide-react';
 import { Logo } from './Logo';
-import { Menu, X, ArrowRight, ShieldCheck } from 'lucide-react';
+import { CONTACT_FORM } from '../../utils/routes';
+
+const NAV_LINKS = [
+  { name: 'Home', path: '/' },
+  { name: 'About', path: '/about' },
+  { name: 'Services', path: '/services' },
+  { name: 'Projects', path: '/projects' },
+  { name: 'Blog', path: '/blog' },
+  { name: 'Careers', path: '/careers' },
+  { name: 'Contact', path: '/contact' },
+];
 
 export const Navbar: React.FC = () => {
- const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
- const location = useLocation();
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { pathname } = useLocation();
 
- const navLinks = [
- { name: 'Home', path: '/' },
- { name: 'About Us', path: '/about' },
- { name: 'Services', path: '/services' },
- { name: 'Projects', path: '/projects' },
- { name: 'Blog', path: '/blog' },
- { name: 'Careers', path: '/careers' },
- { name: 'Contact', path: '/contact' },
- ];
+  useEffect(() => setOpen(false), [pathname]);
 
- return (
- <header className="sticky top-0 z-40 bg-[#08111F]/90 backdrop-blur-md border-b border-[#1B2B44]/60">
- <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
- <div className="flex items-center justify-between h-20">
- <Logo />
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
- <nav className="hidden lg:flex items-center gap-1">
- {navLinks.map((link) => {
- const active = location.pathname === link.path;
- return (
- <Link
- key={link.path}
- to={link.path}
- className={`px-3.5 py-2 rounded-xl text-xs font-medium transition ${
- active
- ? 'text-white bg-[#0F6FFF]/10 border border-[#0F6FFF]/30'
- : 'text-[#A9B4C5] hover:text-white hover:bg-[#101C2F]'
- }`}
- >
- {link.name}
- </Link>
- );
- })}
- </nav>
+  return (
+    <header
+      className={`sticky top-0 z-40 border-b bg-night transition-shadow ${
+        scrolled ? 'border-white/10 shadow-lift' : 'border-transparent'
+      }`}
+    >
+      <div className="container-page flex h-[72px] items-center justify-between">
+        <Logo inverted />
 
- <div className="hidden lg:flex items-center gap-3">
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+          {NAV_LINKS.map((link) => (
+            <NavLink
+              key={link.path}
+              to={link.path}
+              end={link.path === '/'}
+              className={({ isActive }) =>
+                `relative px-3.5 py-2 text-sm font-medium transition-colors ${
+                  isActive
+                    ? 'text-white after:absolute after:inset-x-3.5 after:-bottom-px after:h-0.5 after:rounded-full after:bg-accent'
+                    : 'text-white/70 hover:text-white'
+                }`
+              }
+            >
+              {link.name}
+            </NavLink>
+          ))}
+        </nav>
 
- <Link
- to="/contact"
- className="px-3 py-1.5 sm:px-4 sm:py-2.5 rounded-xl text-xs font-semibold text-white bg-[#0F6FFF] hover:bg-[#005FE0] transition shadow-lg shadow-[#0F6FFF]/25 flex items-center gap-1.5"
- >
- Start Project <ArrowRight className="w-3.5 h-3.5" />
- </Link>
- </div>
+        <div className="hidden lg:block">
+          <Link to={CONTACT_FORM} className="btn !rounded-full bg-white !px-5 !py-2.5 text-ink hover:bg-accent hover:text-white">
+            Start a project <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
 
- <button
- onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
- className="lg:hidden p-2 rounded-xl text-[#A9B4C5] hover:text-white hover:bg-[#101C2F]"
- >
- {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
- </button>
- </div>
- </div>
+        <button
+          onClick={() => setOpen((v) => !v)}
+          className="rounded-lg p-2 text-white hover:bg-white/10 lg:hidden"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+        >
+          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
+      </div>
 
- {mobileMenuOpen && (
- <div className="lg:hidden absolute top-20 left-0 right-0 border-b border-[#1B2B44]/60 bg-[#08111F]/95 backdrop-blur-xl px-4 pt-4 pb-8 shadow-2xl animate-fade-up-smooth origin-top">
- <div className="flex flex-col gap-2">
- {navLinks.map((link) => (
- <Link
- key={link.path}
- to={link.path}
- onClick={() => setMobileMenuOpen(false)}
- className="block px-4 py-3 rounded-xl text-sm font-medium text-[#A9B4C5] hover:text-white hover:bg-[#101C2F] transition-all"
- >
- {link.name}
- </Link>
- ))}
- </div>
- <div className="pt-6 mt-4 border-t border-[#1B2B44]/50">
- <Link
- to="/contact"
- onClick={() => setMobileMenuOpen(false)}
- className="block w-full text-center py-3.5 rounded-xl text-sm font-bold text-white bg-[#0F6FFF] hover:bg-[#005FE0] shadow-lg shadow-[#0F6FFF]/25 transition"
- >
- Start Project
- </Link>
- </div>
- </div>
- )}
- </header>
- );
+      {open && (
+        <div className="absolute inset-x-0 top-[72px] border-b border-white/10 bg-night px-5 pb-6 pt-3 shadow-lift lg:hidden">
+          <nav className="flex flex-col" aria-label="Mobile">
+            {NAV_LINKS.map((link) => (
+              <NavLink
+                key={link.path}
+                to={link.path}
+                end={link.path === '/'}
+                className={({ isActive }) =>
+                  `rounded-lg px-3 py-3 text-[15px] font-medium ${
+                    isActive ? 'bg-white/10 text-accent' : 'text-white hover:bg-white/5'
+                  }`
+                }
+              >
+                {link.name}
+              </NavLink>
+            ))}
+          </nav>
+          <Link to={CONTACT_FORM} className="btn mt-4 w-full !rounded-full bg-white text-ink">
+            Start a project
+          </Link>
+        </div>
+      )}
+    </header>
+  );
 };

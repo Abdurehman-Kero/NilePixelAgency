@@ -14,7 +14,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title }) => 
  const handleCloseSidebar = () => setSidebarOpen(false);
 
  return (
- <div className="flex min-h-screen bg-[#08111F]">
+ <div className="flex min-h-screen bg-[#08111F] text-white">
  <AdminSidebar isOpen={sidebarOpen} onClose={handleCloseSidebar} />
  
  {/* Mobile overlay */}

@@ -36,7 +36,7 @@ export const AdminLogin: React.FC = () => {
  </Link>
  <div className="w-full bg-[#101C2F] border border-[#23344F] rounded-2xl p-8 space-y-6 shadow-2xl">
  <div className="flex flex-col items-center text-center space-y-2">
- <Logo size="lg" />
+ <Logo size="lg" inverted />
  <h2 className="text-xl font-extrabold pt-2">Admin CMS Portal</h2>
  <p className="text-xs text-[#A9B4C5]">Sign in to manage company website content, projects, & team.</p>
  </div>
