@@ -8,18 +8,20 @@ interface LogoProps {
   className?: string;
 }
 
-const SIZES = { sm: 'h-7', md: 'h-9', lg: 'h-12' };
+const SIZES = { sm: 'h-6', md: 'h-8', lg: 'h-10' };
 
-/** The N monogram: orange diagonal and pixels, ink (or white on dark) stems. */
-const Mark: React.FC<{ inverted: boolean; className?: string }> = ({ inverted, className }) => (
-  <svg viewBox="130 90 395 445" className={className} fill="none" aria-hidden="true">
-    <path d="M150 128H232L508 392V468Q508 476 500 476H445L150 205Q143 199 143 190V136Q143 128 150 128Z" fill="var(--color-accent)" />
-    <path d="M147 290C185 305 215 325 233 350V458Q233 467 224 467H155Q147 467 147 458Z" fill={inverted ? '#ffffff' : 'var(--color-ink)'} />
-    <path d="M388 165H470V280Q470 290 460 286C425 270 400 250 388 232Z" fill={inverted ? '#ffffff' : 'var(--color-ink)'} />
-    <rect x="460" y="100" width="53" height="53" rx="7" fill="var(--color-accent)" />
-    <rect x="250" y="464" width="61" height="61" rx="7" fill="var(--color-accent)" />
-  </svg>
-);
+/** The NP monogram: ink (or white on dark) letters with an orange pixel. */
+const Mark: React.FC<{ inverted: boolean; className?: string }> = ({ inverted, className }) => {
+  const letters = inverted ? '#ffffff' : 'var(--color-ink)';
+  return (
+    <svg viewBox="250 380 785 515" className={className} fill="none" aria-hidden="true">
+      <path d="M275 391H458Q474 391 486 404L735 662Q750 678 750 700V880H725Q700 880 683 860L318 465 268 420Q258 408 275 391Z" fill={letters} />
+      <path d="M262 525Q262 515 272 523L432 681Q447 696 447 715V870Q447 881 436 881H325Q262 881 262 822Z" fill={letters} />
+      <path d="M625 391H855C950 391 1025 465 1025 560C1025 660 950 727 860 727H790Q775 727 775 712V630Q775 618 790 618H840C865 618 880 595 880 568C880 545 865 526 840 526H755Q750 526 745 521L630 403Q620 394 625 391Z" fill={letters} />
+      <rect x="775" y="754" width="123" height="127" rx="8" fill="var(--color-accent)" />
+    </svg>
+  );
+};
 
 export const Logo: React.FC<LogoProps> = ({ size = 'md', inverted = false, className = '' }) => (
   <Link to="/" className={`group inline-flex items-center gap-2.5 ${className}`} aria-label="NilePixel Technologies home">
