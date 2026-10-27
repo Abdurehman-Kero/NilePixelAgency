@@ -27,6 +27,11 @@ export function useApiData<T>(key: string): Result<T> {
 }
 
 const COMPANY_EMAIL = 'contact@nilepixel.et';
+/** WhatsApp chat link for the primary company number. */
+export const WHATSAPP_URL = 'https://wa.me/251982310974';
+export const TELEGRAM_URL = 'https://t.me/NilePixelTech';
+export const FACEBOOK_URL = 'https://web.facebook.com/share/p/1CqWyP3rUF/';
+
 const SECOND_PHONE = '+251941811817';
 
 /** Company contact details: the primary phone comes from /settings, the email and second phone are fixed. */

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { api } from '../../services/api';
-import { useCompany } from '../../hooks/useApiData';
+import { useCompany, WHATSAPP_URL } from '../../hooks/useApiData';
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
 import { SEO } from '../../components/ui/SEO';
 import { PageHeader } from '../../components/ui/PageHeader';
+import { WhatsAppIcon } from '../../components/ui/WhatsAppIcon';
 import { Faq } from '../../components/home/Faq';
 
 const NEXT_STEPS = [
@@ -67,7 +68,7 @@ export const ContactPage: React.FC = () => {
 
   const contactRows = [
     { icon: Mail, label: 'Email us', value: siteEmail, href: `mailto:${siteEmail}` },
-    { icon: Phone, label: 'Phone & WhatsApp', value: sitePhones[0], href: `tel:${sitePhones[0].replace(/\s/g, '')}`, extra: { value: sitePhones[1], href: `tel:${sitePhones[1]}` } },
+    { icon: Phone, label: 'Phone & WhatsApp', value: sitePhones[0], href: `tel:${sitePhones[0].replace(/\s/g, '')}`, extra: { value: sitePhones[1], href: `tel:${sitePhones[1]}` }, whatsapp: true },
     { icon: MapPin, label: 'Headquarters', value: 'Bole Sub-City, Next to Millennium Hall, Addis Ababa, Ethiopia' },
   ];
 
@@ -89,7 +90,7 @@ export const ContactPage: React.FC = () => {
         <div className="container-page space-y-14 sm:space-y-20">
           {/* Contact cards with floating icon circles */}
           <ul className="grid gap-x-5 gap-y-12 pt-6 md:grid-cols-3">
-            {contactRows.map(({ icon: Icon, label, value, href, extra }) => (
+            {contactRows.map(({ icon: Icon, label, value, href, extra, whatsapp }) => (
               <li key={label} className="group relative">
                 <span className="absolute left-1/2 top-0 z-10 flex h-[4.5rem] w-[4.5rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-accent shadow-card transition duration-300 group-hover:scale-110 group-hover:bg-accent group-hover:text-white">
                   <Icon className="h-7 w-7" />
@@ -106,6 +107,16 @@ export const ContactPage: React.FC = () => {
                   {extra && (
                     <a href={extra.href} className="link-underline mt-1 text-[15px] text-ink hover:text-accent">
                       {extra.value}
+                    </a>
+                  )}
+                  {whatsapp && (
+                    <a
+                      href={WHATSAPP_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2 text-sm font-semibold text-white transition hover:brightness-95"
+                    >
+                      <WhatsAppIcon className="h-4 w-4" /> Chat on WhatsApp
                     </a>
                   )}
                 </div>

@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Linkedin, Send, ArrowUpRight } from 'lucide-react';
-import { useCompany } from '../../hooks/useApiData';
+import { Mail, Phone, MapPin, Linkedin, Facebook, Send, ArrowUpRight } from 'lucide-react';
+import { useCompany, FACEBOOK_URL, TELEGRAM_URL, WHATSAPP_URL } from '../../hooks/useApiData';
+import { WhatsAppIcon } from './WhatsAppIcon';
 import { Logo } from './Logo';
 
 const COMPANY_LINKS = [
   { name: 'About us', path: '/about' },
   { name: 'Services', path: '/services' },
+  { name: 'Bootcamp', path: '/bootcamp' },
   { name: 'Projects', path: '/projects' },
   { name: 'Blog', path: '/blog' },
   { name: 'Careers', path: '/careers' },
@@ -60,8 +62,14 @@ export const Footer: React.FC = () => {
               >
                 <Linkedin className="h-4 w-4" />
               </a>
-              <a href="https://t.me/NilePixelTech" target="_blank" rel="noreferrer" aria-label="Telegram" className={socialStyle}>
+              <a href={FACEBOOK_URL} target="_blank" rel="noreferrer" aria-label="Facebook" className={socialStyle}>
+                <Facebook className="h-4 w-4" />
+              </a>
+              <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" aria-label="Telegram" className={socialStyle}>
                 <Send className="h-4 w-4" />
+              </a>
+              <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" aria-label="WhatsApp" className={socialStyle}>
+                <WhatsAppIcon className="h-4 w-4" />
               </a>
             </div>
           </div>

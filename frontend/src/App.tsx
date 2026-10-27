@@ -6,6 +6,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Navbar } from './components/ui/Navbar';
 import { Footer } from './components/ui/Footer';
+import { WhatsAppButton } from './components/ui/WhatsAppButton';
 
 // Scroll to the top on route change, or to the "#hash" target when the link has one.
 // The page content mounts after the exit transition, so the target is retried briefly.
@@ -65,6 +66,7 @@ import { Home } from './pages/public/Home';
 import { About } from './pages/public/About';
 import { ServicesPage } from './pages/public/ServicesPage';
 import { ServiceDetails } from './pages/public/ServiceDetails';
+import { BootcampPage } from './pages/public/BootcampPage';
 import { ProjectsPage } from './pages/public/ProjectsPage';
 import { ProjectDetails } from './pages/public/ProjectDetails';
 import { BlogPage } from './pages/public/BlogPage';
@@ -108,6 +110,7 @@ const PublicLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => 
  <PageTransition>{children}</PageTransition>
  </main>
  <Footer />
+ <WhatsAppButton />
  </div>
 );
 
@@ -124,6 +127,7 @@ export function App() {
  <Route path="/about" element={<PublicLayout><About /></PublicLayout>} />
  <Route path="/services" element={<PublicLayout><ServicesPage /></PublicLayout>} />
  <Route path="/services/:slug" element={<PublicLayout><ServiceDetails /></PublicLayout>} />
+ <Route path="/bootcamp" element={<PublicLayout><BootcampPage /></PublicLayout>} />
  <Route path="/projects" element={<PublicLayout><ProjectsPage /></PublicLayout>} />
  <Route path="/projects/:slug" element={<PublicLayout><ProjectDetails /></PublicLayout>} />
  <Route path="/blog" element={<PublicLayout><BlogPage /></PublicLayout>} />
