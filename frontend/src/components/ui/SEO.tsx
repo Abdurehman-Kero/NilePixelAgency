@@ -13,7 +13,7 @@ export const SEO: React.FC<SEOProps> = ({
   title = 'NilePixel Technologies | Software Development & AI Solutions', 
   description = 'NilePixel Technologies is a leading software development agency in Ethiopia specializing in enterprise web applications, AI solutions, Telegram bots, and mobile engineering.', 
   type = 'website', 
-  image = 'https://i.imgur.com/0Oq81dm.jpeg', 
+  image = 'https://nilepixel.et/og-image.png?v=2', 
   url = 'https://nilepixel.et' 
 }) => {
   const structuredData = {
