@@ -167,7 +167,7 @@ export const CareersPage: React.FC = () => {
             <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-white/70">
               We are always glad to hear from talented engineers and designers. Tell us what you do best.
             </p>
-            <a href="mailto:info@nilepixel.com?subject=Open%20application" className="btn-primary mt-6 !rounded-full">
+            <a href="mailto:contact@nilepixel.et?subject=Open%20application" className="btn-primary mt-6 !rounded-full">
               Send an open application <ArrowRight className="h-4 w-4" />
             </a>
           </div>

@@ -27,7 +27,7 @@ const socialStyle =
   'flex h-10 w-10 items-center justify-center rounded-lg border border-white/15 text-white/70 transition hover:border-accent hover:text-accent';
 
 export const Footer: React.FC = () => {
-  const { email, phone } = useCompany();
+  const { email, phones } = useCompany();
 
   return (
     <footer className="relative bg-slate-dark text-white/65">
@@ -99,9 +99,13 @@ export const Footer: React.FC = () => {
                 <Mail className="h-4 w-4 shrink-0 text-accent" />
                 <a href={`mailto:${email}`} className="transition-colors hover:text-white">{email}</a>
               </li>
-              <li className="flex items-center gap-3">
-                <Phone className="h-4 w-4 shrink-0 text-accent" />
-                <a href={`tel:${phone}`} className="transition-colors hover:text-white">{phone}</a>
+              <li className="flex items-start gap-3">
+                <Phone className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                <div className="flex flex-col gap-1">
+                  {phones.map((p) => (
+                    <a key={p} href={`tel:${p.replace(/\s/g, '')}`} className="transition-colors hover:text-white">{p}</a>
+                  ))}
+                </div>
               </li>
             </ul>
           </div>

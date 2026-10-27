@@ -26,11 +26,16 @@ export function useApiData<T>(key: string): Result<T> {
   return { data, loading: data === undefined };
 }
 
-/** Company contact details from /settings, falling back to sensible defaults. */
+const COMPANY_EMAIL = 'contact@nilepixel.et';
+const SECOND_PHONE = '+251941811817';
+
+/** Company contact details: the primary phone comes from /settings, the email and second phone are fixed. */
 export function useCompany() {
-  const { data } = useApiData<{ company?: { email?: string; phone?: string } }>('/settings');
+  const { data } = useApiData<{ company?: { phone?: string } }>('/settings');
+  const phone = data?.company?.phone || '+251982310974';
   return {
-    email: data?.company?.email || 'info@nilepixel.com',
-    phone: data?.company?.phone || '+251982310974',
+    email: COMPANY_EMAIL,
+    phone,
+    phones: [phone, SECOND_PHONE],
   };
 }

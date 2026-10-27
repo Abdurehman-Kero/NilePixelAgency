@@ -25,7 +25,7 @@ export const ContactPage: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const { email: siteEmail, phone: sitePhone } = useCompany();
+  const { email: siteEmail, phones: sitePhones } = useCompany();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,7 +67,7 @@ export const ContactPage: React.FC = () => {
 
   const contactRows = [
     { icon: Mail, label: 'Email us', value: siteEmail, href: `mailto:${siteEmail}` },
-    { icon: Phone, label: 'Phone & WhatsApp', value: sitePhone, href: `tel:${sitePhone}` },
+    { icon: Phone, label: 'Phone & WhatsApp', value: sitePhones[0], href: `tel:${sitePhones[0].replace(/\s/g, '')}`, extra: { value: sitePhones[1], href: `tel:${sitePhones[1]}` } },
     { icon: MapPin, label: 'Headquarters', value: 'Bole Sub-City, Next to Millennium Hall, Addis Ababa, Ethiopia' },
   ];
 
@@ -89,7 +89,7 @@ export const ContactPage: React.FC = () => {
         <div className="container-page space-y-14 sm:space-y-20">
           {/* Contact cards with floating icon circles */}
           <ul className="grid gap-x-5 gap-y-12 pt-6 md:grid-cols-3">
-            {contactRows.map(({ icon: Icon, label, value, href }) => (
+            {contactRows.map(({ icon: Icon, label, value, href, extra }) => (
               <li key={label} className="group relative">
                 <span className="absolute left-1/2 top-0 z-10 flex h-[4.5rem] w-[4.5rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-accent shadow-card transition duration-300 group-hover:scale-110 group-hover:bg-accent group-hover:text-white">
                   <Icon className="h-7 w-7" />
@@ -102,6 +102,11 @@ export const ContactPage: React.FC = () => {
                     </a>
                   ) : (
                     <p className="mt-2 text-[15px] leading-relaxed text-ink">{value}</p>
+                  )}
+                  {extra && (
+                    <a href={extra.href} className="link-underline mt-1 text-[15px] text-ink hover:text-accent">
+                      {extra.value}
+                    </a>
                   )}
                 </div>
               </li>
