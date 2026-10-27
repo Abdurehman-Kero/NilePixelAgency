@@ -82,8 +82,8 @@ export const WhySection: React.FC = () => (
   <>
     <section className="hero-texture relative overflow-hidden">
       <div className="container-page relative z-10 pb-28 pt-16 text-center sm:pb-40 sm:pt-24">
-        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white p-2.5 shadow-lift sm:h-20 sm:w-20">
-          <img src="/image.png" alt="" className="h-full w-full object-contain" />
+        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-[22%] overflow-hidden shadow-lift sm:h-20 sm:w-20">
+          <img src="/logo.png" alt="" className="h-full w-full object-contain" />
         </span>
         <h2 className="mt-6 text-3xl font-semibold tracking-tight text-white sm:text-5xl">
           NilePixel <span className="text-accent">Engineering</span>

@@ -17,8 +17,8 @@ const Phone: React.FC = () => (
   >
     <span className="absolute left-1/2 top-2.5 h-4 w-16 -translate-x-1/2 rounded-full bg-black" />
     <div className="mt-8 flex flex-col items-center text-center">
-      <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white p-1.5">
-        <img src="/image.png" alt="" className="h-full w-full object-contain" />
+      <span className="flex h-12 w-12 items-center justify-center rounded-[22%] overflow-hidden">
+        <img src="/logo.png" alt="" className="h-full w-full object-contain" />
       </span>
       <p className="mt-3 text-[13px] font-semibold text-white">Your project, on track</p>
       <p className="mt-1 text-[9px] leading-snug text-white/60">Follow every milestone from kickoff to launch.</p>

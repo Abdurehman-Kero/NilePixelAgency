@@ -30,6 +30,7 @@ const COMPANY_EMAIL = 'contact@nilepixel.et';
 /** WhatsApp chat link for the primary company number. */
 export const WHATSAPP_URL = 'https://wa.me/251982310974';
 export const TELEGRAM_URL = 'https://t.me/NilePixelTech';
+export const REGISTER_URL = 'https://register.nilepixel.et/';
 export const FACEBOOK_URL = 'https://web.facebook.com/share/p/1CqWyP3rUF/';
 
 const SECOND_PHONE = '+251941811817';

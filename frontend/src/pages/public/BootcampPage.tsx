@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Megaphone, CalendarDays, Video, Users, Layers, Sparkles, Rocket, CheckCircle2, Mail, Send, ArrowRight,
   GraduationCap, Clock, Gift, MessageCircle,
 } from 'lucide-react';
-import { api } from '../../services/api';
-import { TELEGRAM_URL, WHATSAPP_URL, useCompany } from '../../hooks/useApiData';
+import { TELEGRAM_URL, WHATSAPP_URL, REGISTER_URL, useCompany } from '../../hooks/useApiData';
 import { SEO } from '../../components/ui/SEO';
 import { PageHeader } from '../../components/ui/PageHeader';
 import { SectionTitle } from '../../components/ui/SectionTitle';
@@ -19,9 +18,9 @@ const STATS = [
 ];
 
 const ANNOUNCEMENTS = [
-  { tag: 'Open', date: 'Now', title: 'Registration is open', body: 'Cohort A is limited to 250 seats. Register early so your seat is held before the list is capped.' },
-  { tag: 'Deadline', date: 'Oct 31', title: 'Sign-ups close and cohorts are formed', body: 'We cap registration, split everyone into four cohorts of 250 and email each person their cohort, dates and Telegram group link.' },
-  { tag: 'Live', date: 'Nov 1 - 3', title: 'Cohort A goes live on Google Meet', body: 'Three consecutive daily sessions. Your Meet link is sent by email and posted on Telegram one hour before each session.' },
+  { tag: 'Open', date: 'Today, Wed Oct 28', title: 'Registration is open', body: 'Cohort A is limited to 250 seats. Register today so your seat is held before the list is capped.' },
+  { tag: 'Deadline', date: 'Nov 4', title: 'Sign-ups close and cohorts are formed', body: 'We cap registration, split everyone into four cohorts of 250 and email each person their cohort, dates and Telegram group link.' },
+  { tag: 'Live', date: 'Nov 7 - 9', title: 'Cohort A goes live on Google Meet', body: 'Three consecutive daily sessions starting Saturday, November 7. Your Meet link is sent by email and posted on Telegram one hour before each session.' },
   { tag: 'Next', date: 'After Cohort A', title: 'Cohorts B, C and D', body: 'Dates for the remaining cohorts are announced by email and on our Telegram channel.' },
 ];
 
@@ -50,7 +49,7 @@ const DAYS = [
 ];
 
 const STEPS = [
-  { icon: Mail, title: 'Register', body: 'Leave your name and email below. It takes less than a minute.' },
+  { icon: Mail, title: 'Register', body: 'Sign up on our registration dashboard. It takes less than a minute.' },
   { icon: Users, title: 'Get your cohort', body: 'After sign-ups close, you receive a welcome email with your cohort, dates and the Telegram group link.' },
   { icon: Video, title: 'Join live', body: 'Your Google Meet link arrives by email and on Telegram one hour before you start.' },
   { icon: GraduationCap, title: 'Keep learning', body: 'After each session you get the recording and a homework assignment by email.' },
@@ -64,6 +63,7 @@ const AUDIENCE = [
 ];
 
 const FAQS = [
+  { q: 'When does it start?', a: 'Cohort A starts on Saturday, November 7 and runs for three consecutive days. Registration opens on Wednesday, October 28.' },
   { q: 'Is the bootcamp really free?', a: 'Yes. There is no registration fee and no hidden cost.' },
   { q: 'Do I need to know how to code?', a: 'No. Day 1 is conceptual and the AI tools do most of the heavy lifting. Curiosity and a laptop are enough.' },
   { q: 'What do I need to join?', a: 'A laptop or computer, a stable internet connection, a Gmail account for Google Meet and a Telegram account for our community group.' },
@@ -71,47 +71,8 @@ const FAQS = [
   { q: 'What if my cohort is full?', a: 'Seats are limited to 250 per cohort. Once a cohort is full you are placed in the next one, and we confirm your dates by email.' },
 ];
 
-const EMPTY = { name: '', email: '', phone: '' };
-
 export const BootcampPage: React.FC = () => {
   const { email: siteEmail } = useCompany();
-  const [form, setForm] = useState(EMPTY);
-  const [sending, setSending] = useState(false);
-  const [done, setDone] = useState(false);
-
-  const setField = (key: keyof typeof EMPTY) => (e: React.ChangeEvent<HTMLInputElement>) =>
-    setForm({ ...form, [key]: e.target.value });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSending(true);
-
-    fetch('https://formsubmit.co/ajax/keroabdurehman@gmail.com', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({
-        ...form,
-        message: 'AI Web Development Bootcamp registration',
-        _subject: `Bootcamp registration: ${form.name}`,
-        _template: 'box',
-      }),
-    }).catch(console.error);
-
-    api
-      .post('/contact', {
-        ...form,
-        company: '',
-        budget: '',
-        service: 'AI Web Development Bootcamp',
-        message: 'AI Web Development Bootcamp registration',
-      })
-      .catch((err) => console.error('Failed to save bootcamp registration:', err));
-
-    setTimeout(() => {
-      setSending(false);
-      setDone(true);
-    }, 500);
-  };
 
   return (
     <>
@@ -124,7 +85,7 @@ export const BootcampPage: React.FC = () => {
       <PageHeader
         eyebrow="Free 3-day bootcamp"
         title="AI Web Development Bootcamp"
-        description="Learn to build and launch a real website with AI tools. Live on Google Meet, three days, 1,000 learners, completely free."
+        description="Learn to build and launch a real website with AI tools. Live on Google Meet, three days from November 7, 1,000 learners, completely free."
       />
 
       <section className="section pt-2 sm:pt-6">
@@ -252,7 +213,7 @@ export const BootcampPage: React.FC = () => {
                   <p className="eyebrow mb-3">Reserve your seat</p>
                   <h2 className="text-3xl font-semibold leading-tight sm:text-4xl">Register for the free bootcamp</h2>
                   <p className="mt-4 text-white/70">
-                    Seats are limited to 250 per cohort. Sign up now and we'll email your cohort, dates and Telegram group link.
+                    Seats are limited to 250 per cohort. Register on our dashboard and we'll email your cohort, dates and Telegram group link.
                   </p>
                   <div className="mt-8 flex flex-wrap gap-3">
                     <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="btn !rounded-full bg-white !px-5 !py-2.5 text-ink hover:bg-accent hover:text-white">
@@ -267,34 +228,16 @@ export const BootcampPage: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="rounded-2xl bg-white p-6 text-body sm:p-8">
-                  {done ? (
-                    <div className="space-y-3 py-10 text-center">
-                      <CheckCircle2 className="mx-auto h-12 w-12 text-accent" />
-                      <h3 className="text-xl font-semibold text-ink">You're registered!</h3>
-                      <p className="mx-auto max-w-xs text-sm leading-relaxed">
-                        Watch your inbox for your cohort details, and join our Telegram channel for live updates.
-                      </p>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                      <div>
-                        <label className="field-label" htmlFor="bc-name">Full name *</label>
-                        <input id="bc-name" required value={form.name} onChange={setField('name')} className="field" />
-                      </div>
-                      <div>
-                        <label className="field-label" htmlFor="bc-email">Email address *</label>
-                        <input id="bc-email" type="email" required value={form.email} onChange={setField('email')} className="field" />
-                      </div>
-                      <div>
-                        <label className="field-label" htmlFor="bc-phone">Phone / Telegram (optional)</label>
-                        <input id="bc-phone" value={form.phone} onChange={setField('phone')} className="field" />
-                      </div>
-                      <button type="submit" disabled={sending} className="btn-primary w-full !rounded-full disabled:opacity-60">
-                        {sending ? 'Registering...' : 'Reserve my seat'} <ArrowRight className="h-4 w-4" />
-                      </button>
-                    </form>
-                  )}
+                <div className="rounded-2xl bg-white p-6 text-center text-body sm:p-8">
+                  <span className="icon-badge mx-auto"><CalendarDays className="h-5 w-5" /></span>
+                  <h3 className="mt-4 text-xl font-semibold text-ink">Registration opens Wed, Oct 28</h3>
+                  <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed">
+                    Cohort A starts Saturday, November 7. Create your free account on our registration dashboard to reserve a seat.
+                  </p>
+                  <a href={REGISTER_URL} target="_blank" rel="noreferrer" className="btn-primary mt-6 w-full !rounded-full">
+                    Register now <ArrowRight className="h-4 w-4" />
+                  </a>
+                  <p className="mt-3 text-xs text-muted">register.nilepixel.et</p>
                 </div>
               </div>
             </div>
