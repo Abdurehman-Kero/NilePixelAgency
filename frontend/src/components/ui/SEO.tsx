@@ -21,7 +21,7 @@ export const SEO: React.FC<SEOProps> = ({
     "@type": "Organization",
     "name": "NilePixel Technologies",
     "url": "https://nilepixel.et",
-    "logo": "https://nilepixel.et/image.png",
+    "logo": "https://nilepixel.et/logo.png",
     "sameAs": [
       "https://www.linkedin.com/company/nilepixel-technologies",
       "https://t.me/NilePixelTech",
