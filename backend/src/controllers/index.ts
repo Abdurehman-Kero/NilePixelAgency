@@ -192,7 +192,7 @@ export const getProjects = async (req: Request, res: Response) => {
     SELECT p.*, c.name as category_name
     FROM projects p
     LEFT JOIN categories c ON p.category_id = c.id
-    ORDER BY p.id DESC
+    ORDER BY p.display_order ASC NULLS LAST, p.id DESC
   `);
 
   for (const project of projects) {

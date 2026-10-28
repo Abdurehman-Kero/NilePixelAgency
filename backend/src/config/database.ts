@@ -284,6 +284,9 @@ export const initDatabase = async () => {
     if (!careersCols.includes('expire_date')) await run("ALTER TABLE careers ADD COLUMN expire_date TIMESTAMP");
     if (!careersCols.includes('status')) await run("ALTER TABLE careers ADD COLUMN status TEXT DEFAULT 'open'");
 
+    const projectsInfo = await query("SELECT column_name FROM information_schema.columns WHERE table_name='projects'");
+    if (!projectsInfo.some(c => c.column_name === 'display_order')) await run("ALTER TABLE projects ADD COLUMN display_order INTEGER");
+
     await run(`
       CREATE TABLE IF NOT EXISTS job_applications (
         id SERIAL PRIMARY KEY,
