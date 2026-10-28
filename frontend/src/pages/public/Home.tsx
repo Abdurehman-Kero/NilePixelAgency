@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight, Quote } from 'lucide-react';
 import { useApiData } from '../../hooks/useApiData';
+import { useProjects } from '../../hooks/useProjects';
 import { projectSummary } from '../../utils/content';
 import { SERVICES } from '../../data/services';
 import { SEO } from '../../components/ui/SEO';
@@ -20,7 +21,7 @@ const FALLBACK_COVER = 'https://images.unsplash.com/photo-1551288049-bebda4e38f7
 
 export const Home: React.FC = () => {
   // Each section reads from the cache independently, so nothing waits on the others.
-  const { data: projects = [], loading: projectsLoading } = useApiData<any[]>('/projects');
+  const { projects, loading: projectsLoading } = useProjects();
   const { data: testimonials = [], loading: testimonialsLoading } = useApiData<any[]>('/testimonials');
   const { data: careers = [] } = useApiData<any[]>('/careers');
 

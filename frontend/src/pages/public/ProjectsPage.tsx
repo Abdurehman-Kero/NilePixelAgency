@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight, Building2 } from 'lucide-react';
-import { useApiData } from '../../hooks/useApiData';
+import { useProjects } from '../../hooks/useProjects';
 import { projectSummary, techNames } from '../../utils/content';
 import { Skeleton } from '../../components/ui/Skeleton';
 import { SEO } from '../../components/ui/SEO';
@@ -104,7 +104,7 @@ const CaseStudy: React.FC<{ project: any; index: number }> = ({ project: p, inde
 };
 
 export const ProjectsPage: React.FC = () => {
-  const { data: projects = [], loading } = useApiData<any[]>('/projects');
+  const { projects, loading } = useProjects();
   const [filter, setFilter] = useState('All');
 
   const categories = useMemo(
