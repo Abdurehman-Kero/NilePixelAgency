@@ -19,7 +19,7 @@ const STATS = [
 
 const ANNOUNCEMENTS = [
   { tag: 'Open', date: 'Today, Wed Oct 28', title: 'Registration is open', body: 'Cohort A is limited to 250 seats. Register today so your seat is held before the list is capped.' },
-  { tag: 'Deadline', date: 'Nov 4', title: 'Sign-ups close and cohorts are formed', body: 'We cap registration, split everyone into four cohorts of 250 and email each person their cohort, dates and Telegram group link.' },
+  { tag: 'Deadline', date: 'Nov 2', title: 'Sign-ups close and cohorts are formed', body: 'We cap registration, split everyone into four cohorts of 250 and email each person their cohort, dates and Telegram group link.' },
   { tag: 'Live', date: 'Nov 7 - 9', title: 'Cohort A goes live on Google Meet', body: 'Three consecutive daily sessions starting Saturday, November 7. Your Meet link is sent by email and posted on Telegram one hour before each session.' },
   { tag: 'Next', date: 'After Cohort A', title: 'Cohorts B, C and D', body: 'Dates for the remaining cohorts are announced by email and on our Telegram channel.' },
 ];
