@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight, Quote } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { useApiData } from '../../hooks/useApiData';
 import { useProjects } from '../../hooks/useProjects';
 import { projectSummary } from '../../utils/content';
@@ -16,13 +16,16 @@ import { Process } from '../../components/home/Process';
 import { TechStack } from '../../components/home/TechStack';
 import { Faq } from '../../components/home/Faq';
 import { CtaBanner } from '../../components/home/CtaBanner';
+import { TestimonialSlider } from '../../components/home/TestimonialSlider';
+import { buildTestimonials } from '../../data/testimonials';
 
 const FALLBACK_COVER = 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80';
 
 export const Home: React.FC = () => {
   // Each section reads from the cache independently, so nothing waits on the others.
   const { projects, loading: projectsLoading } = useProjects();
-  const { data: testimonials = [], loading: testimonialsLoading } = useApiData<any[]>('/testimonials');
+  const { data: cmsTestimonials = [] } = useApiData<any[]>('/testimonials');
+  const slides = useMemo(() => buildTestimonials(cmsTestimonials), [cmsTestimonials]);
   const { data: careers = [] } = useApiData<any[]>('/careers');
 
   const activeJobs = useMemo(() => {
@@ -129,53 +132,18 @@ export const Home: React.FC = () => {
       </section>
 
       {/* TESTIMONIALS */}
-      {(testimonialsLoading || testimonials.length > 0) && (
-        <section className="section">
-          <ScrollReveal className="container-page space-y-12 sm:space-y-14">
-            <SectionTitle eyebrow="Testimonials" title="Trusted by teams we've built with" />
-            <div className="grid gap-5 md:grid-cols-2 md:gap-6">
-              {testimonialsLoading
-                ? [1, 2].map((i) => (
-                    <div key={i} className="card space-y-6 p-8">
-                      <Skeleton variant="text" height="72px" />
-                      <div className="flex items-center gap-4">
-                        <Skeleton variant="circular" width="48px" height="48px" />
-                        <div className="flex-1 space-y-2">
-                          <Skeleton variant="text" width="120px" height="14px" />
-                          <Skeleton variant="text" width="80px" height="12px" />
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                : testimonials.slice(0, 4).map((t: any, idx: number) => (
-                    <figure key={t.id ?? idx} className="card card-hover flex flex-col justify-between gap-8 p-6 sm:p-8">
-                      <div>
-                        <Quote className="h-8 w-8 text-accent/50" aria-hidden />
-                        <blockquote className="mt-4 text-[15px] leading-relaxed text-ink">
-                          {t.message || t.text || t.content}
-                        </blockquote>
-                      </div>
-                      <figcaption className="flex items-center gap-4">
-                        {t.photo && (
-                          <img
-                            src={t.photo}
-                            alt={t.client_name || t.name}
-                            className="h-12 w-12 rounded-full border border-line object-cover"
-                          />
-                        )}
-                        <div>
-                          <p className="text-sm font-semibold text-ink">{t.client_name || t.name}</p>
-                          <p className="text-xs text-muted">{t.position}</p>
-                        </div>
-                      </figcaption>
-                    </figure>
-                  ))}
-            </div>
-          </ScrollReveal>
-        </section>
-      )}
+      <section className="section">
+        <ScrollReveal className="container-page space-y-10 sm:space-y-12">
+          <SectionTitle
+            eyebrow="Testimonials"
+            title="Trusted by the teams we've built with"
+            description="Words from the clients we've delivered platforms for."
+          />
+          <TestimonialSlider items={slides} />
+        </ScrollReveal>
+      </section>
 
-      <Faq className={testimonials.length > 0 ? 'bg-surface' : 'bg-white'} />
+      <Faq className="bg-surface" />
       <CtaBanner />
       <div className="h-16 sm:h-24" />
     </>
