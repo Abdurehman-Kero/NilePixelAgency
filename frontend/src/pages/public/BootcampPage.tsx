@@ -3,7 +3,7 @@ import {
   Megaphone, CalendarDays, Video, Users, Layers, Sparkles, Rocket, CheckCircle2, Mail, Send, ArrowRight,
   GraduationCap, Clock, Gift, MessageCircle,
 } from 'lucide-react';
-import { TELEGRAM_URL, WHATSAPP_URL, REGISTER_URL, useCompany } from '../../hooks/useApiData';
+import { TELEGRAM_URL, WHATSAPP_URL, useCompany } from '../../hooks/useApiData';
 import { SEO } from '../../components/ui/SEO';
 import { PageHeader } from '../../components/ui/PageHeader';
 import { SectionTitle } from '../../components/ui/SectionTitle';
@@ -18,10 +18,9 @@ const STATS = [
 ];
 
 const ANNOUNCEMENTS = [
-  { tag: 'Open', date: 'Today, Wed Oct 28', title: 'Registration is open', body: 'Cohort A is limited to 250 seats. Register today so your seat is held before the list is capped.' },
-  { tag: 'Deadline', date: 'Nov 2', title: 'Sign-ups close and cohorts are formed', body: 'We cap registration, split everyone into four cohorts of 250 and email each person their cohort, dates and Telegram group link.' },
+  { tag: 'Closed', date: 'Nov 4, 11:59 PM', title: 'Cohort A registration is closed', body: 'Registration for Cohort A officially closed on Wednesday, November 4 at 11:59 PM. Everyone who registered will receive their cohort details, dates and Telegram group link by email.' },
   { tag: 'Live', date: 'Nov 7 - 9', title: 'Cohort A goes live on Google Meet', body: 'Three consecutive daily sessions starting Saturday, November 7. Your Meet link is sent by email and posted on Telegram one hour before each session.' },
-  { tag: 'Next', date: 'After Cohort A', title: 'Cohorts B, C and D', body: 'Dates for the remaining cohorts are announced by email and on our Telegram channel.' },
+  { tag: 'Soon', date: 'To be announced', title: 'Cohort 2 registration is coming', body: 'Official registration for Cohort 2 will be announced soon on this website and on our Telegram channel. Follow the channel so you hear first.' },
 ];
 
 const DAYS = [
@@ -49,7 +48,7 @@ const DAYS = [
 ];
 
 const STEPS = [
-  { icon: Mail, title: 'Register', body: 'Sign up on our registration dashboard. It takes less than a minute.' },
+  { icon: Mail, title: 'Register', body: 'Sign up when a cohort opens. Cohort A is closed; Cohort 2 registration will be announced soon on Telegram.' },
   { icon: Users, title: 'Get your cohort', body: 'After sign-ups close, you receive a welcome email with your cohort, dates and the Telegram group link.' },
   { icon: Video, title: 'Join live', body: 'Your Google Meet link arrives by email and on Telegram one hour before you start.' },
   { icon: GraduationCap, title: 'Keep learning', body: 'After each session you get the recording and a homework assignment by email.' },
@@ -63,12 +62,13 @@ const AUDIENCE = [
 ];
 
 const FAQS = [
-  { q: 'When does it start?', a: 'Cohort A starts on Saturday, November 7 and runs for three consecutive days. Registration opens on Wednesday, October 28.' },
+  { q: 'When does it start?', a: 'Cohort A starts on Saturday, November 7 and runs for three consecutive days. Registration for Cohort A closed on Wednesday, November 4 at 11:59 PM.' },
+  { q: 'Can I still register?', a: 'Cohort A registration is closed. Official registration for Cohort 2 will be announced soon on this website and on our Telegram channel, so please follow the channel to be the first to know.' },
   { q: 'Is the bootcamp really free?', a: 'Yes. There is no registration fee and no hidden cost.' },
   { q: 'Do I need to know how to code?', a: 'No. Day 1 is conceptual and the AI tools do most of the heavy lifting. Curiosity and a laptop are enough.' },
   { q: 'What do I need to join?', a: 'A laptop or computer, a stable internet connection, a Gmail account for Google Meet and a Telegram account for our community group.' },
   { q: 'Will I get the recordings?', a: 'Yes. Every registered participant receives the session recording and homework by email after each live day.' },
-  { q: 'What if my cohort is full?', a: 'Seats are limited to 250 per cohort. Once a cohort is full you are placed in the next one, and we confirm your dates by email.' },
+  { q: 'What if I missed Cohort A?', a: 'You will not miss out. Cohort 2 is coming and its official registration will be announced here and on our Telegram channel. Join the channel now so you are notified the moment it opens.' },
 ];
 
 export const BootcampPage: React.FC = () => {
@@ -85,11 +85,30 @@ export const BootcampPage: React.FC = () => {
       <PageHeader
         eyebrow="Free 3-day bootcamp"
         title="AI Web Development Bootcamp"
-        description="Learn to build and launch a real website with AI tools. Live on Google Meet, three days from November 7, 1,000 learners, completely free."
+        description="Learn to build and launch a real website with AI tools. Live on Google Meet, three days from November 7, completely free. Cohort A registration is closed; Cohort 2 is coming soon."
       />
 
       <section className="section pt-2 sm:pt-6">
         <div className="container-page space-y-16 sm:space-y-24">
+          {/* Telegram call-out */}
+          <div className="relative overflow-hidden rounded-3xl bg-night p-6 text-white sm:p-8">
+            <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-accent/25 blur-3xl" aria-hidden />
+            <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-start gap-4">
+                <span className="icon-badge shrink-0"><Send className="h-5 w-5" /></span>
+                <div>
+                  <p className="text-lg font-semibold leading-snug">Cohort A registration is closed. Cohort 2 is coming soon.</p>
+                  <p className="mt-1.5 text-sm leading-relaxed text-white/70">
+                    We strongly recommend joining our Telegram channel. Every announcement, including the official Cohort 2 registration, goes out there first.
+                  </p>
+                </div>
+              </div>
+              <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="btn-primary shrink-0 !rounded-full">
+                <Send className="h-4 w-4" /> Join the Telegram channel
+              </a>
+            </div>
+          </div>
+
           {/* Headline numbers */}
           <ul className="grid grid-cols-2 gap-4 lg:grid-cols-4">
             {STATS.map((s) => (
@@ -107,7 +126,7 @@ export const BootcampPage: React.FC = () => {
               title="What's happening"
               description="The latest news about the campaign. Follow our Telegram channel to get updates the moment they land."
             />
-            <ul className="mx-auto mt-10 grid max-w-5xl gap-4 sm:grid-cols-2">
+            <ul className="mx-auto mt-10 grid max-w-6xl gap-4 lg:grid-cols-3">
               {ANNOUNCEMENTS.map((a) => (
                 <li key={a.title} className="card flex gap-4 p-5 sm:p-6">
                   <span className="icon-badge shrink-0"><Megaphone className="h-5 w-5" /></span>
@@ -210,10 +229,13 @@ export const BootcampPage: React.FC = () => {
             <div id="register" className="scroll-mt-24 overflow-hidden rounded-3xl bg-night p-6 text-white sm:p-10 lg:p-14">
               <div className="grid items-start gap-10 lg:grid-cols-2">
                 <div>
-                  <p className="eyebrow mb-3">Reserve your seat</p>
-                  <h2 className="text-3xl font-semibold leading-tight sm:text-4xl">Register for the free bootcamp</h2>
+                  <p className="eyebrow mb-3">Stay in the loop</p>
+                  <h2 className="text-3xl font-semibold leading-tight sm:text-4xl">Cohort A registration is closed</h2>
                   <p className="mt-4 text-white/70">
-                    Seats are limited to 250 per cohort. Register on our dashboard and we'll email your cohort, dates and Telegram group link.
+                    Registration for Cohort A officially closed on Wednesday, November 4 at 11:59 PM. Official registration for Cohort 2 will be announced soon on this website and on our Telegram channel.
+                  </p>
+                  <p className="mt-3 text-white/90">
+                    <strong className="font-semibold text-accent">We strongly recommend following our Telegram channel</strong> so you get every update the moment it is posted.
                   </p>
                   <div className="mt-8 flex flex-wrap gap-3">
                     <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="btn !rounded-full bg-white !px-5 !py-2.5 text-ink hover:bg-accent hover:text-white">
@@ -230,14 +252,14 @@ export const BootcampPage: React.FC = () => {
 
                 <div className="rounded-2xl bg-white p-6 text-center text-body sm:p-8">
                   <span className="icon-badge mx-auto"><CalendarDays className="h-5 w-5" /></span>
-                  <h3 className="mt-4 text-xl font-semibold text-ink">Registration opens Wed, Oct 28</h3>
+                  <h3 className="mt-4 text-xl font-semibold text-ink">Cohort 2 registration: coming soon</h3>
                   <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed">
-                    Cohort A starts Saturday, November 7. Create your free account on our registration dashboard to reserve a seat.
+                    The official announcement will be posted here and on our Telegram channel. Join the channel now so you do not miss it.
                   </p>
-                  <a href={REGISTER_URL} target="_blank" rel="noreferrer" className="btn-primary mt-6 w-full !rounded-full">
-                    Register now <ArrowRight className="h-4 w-4" />
+                  <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="btn-primary mt-6 w-full !rounded-full">
+                    <Send className="h-4 w-4" /> Follow on Telegram
                   </a>
-                  <p className="mt-3 text-xs text-muted">register.nilepixel.et</p>
+                  <p className="mt-3 text-xs text-muted">t.me/NilePixelTech</p>
                 </div>
               </div>
             </div>
